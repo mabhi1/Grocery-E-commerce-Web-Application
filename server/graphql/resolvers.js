@@ -1,36 +1,39 @@
-const mongoCollections = require('../config/mongoCollection');
-const uuid = require('uuid');
-
-const productCollection = mongoCollections.products;
+const productData = require('../data/products');
 
 const resolvers = {
     Query: {
         product: async (_, args) => {
-            const products = await productCollection();
-            const product = await products.findOne({_id: args._id});
-            return product;
+            const products = await productData.getProductById(args);
+            return products;
         },
         products: async () => {
-            const products = await productCollection();
-            const allProducts = await products.find({}).toArray();
-            return allProducts;
+            const products = await productData.getAllProducts();
+            return products;
+        },
+        category: async (_, args) => {
+            const products = await productData.findByCategory(args);
+            return products;
+        },
+        ascCategory: async (_, args) => {
+            const products = await productData.sortAscByCategory(args);
+            return products;
+        },
+        desCategory: async (_, args) => {
+            const products = await productData.sortDesByCategory(args);
+            return products;
         }
     },
 
     Mutation: {
         addProduct: async (_, args) => {
-            const products = await productCollection();
-            const newProduct = {
-                _id: uuid.v4(), 
-                name : args.name,
-                description: args.description,
-                price : args.price,
-                category : args.category,
-                quantity : args.quantity,
-            };
-            await products.insertOne(newProduct);
+            const newProduct = await productData.createProduct(args);
             return newProduct;
         },
+
+        editProduct: async (_, args) => {
+            const newProduct = await productData.editProduct(args);
+            return newProduct;
+        }
     }
 }
 
