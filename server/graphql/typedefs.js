@@ -4,10 +4,13 @@ const typeDefs = gql`
     type Query {
         products: [Product]
         product(_id: String): Product
+        category(category: String): [Product]
+        ascCategory(category: String): [Product]
+        desCategory(category: String): [Product]
     }
 
     type Product{
-        id : String
+        _id : String
         name : String
         description: String
         price : Int
@@ -24,6 +27,15 @@ const typeDefs = gql`
             category : String!
             quantity : Int! 
         ):  Product
+
+        editProduct(
+            _id: String!
+            name: String
+            price: Int
+            quantity: Int
+            description: String
+            category: String
+        ): Product
     }
 `;
 

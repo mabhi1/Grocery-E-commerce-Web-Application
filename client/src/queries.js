@@ -11,7 +11,7 @@ const GET_PRODUCTS_NAME_PRICE = gql`
 `
 const GET_PRODUCTS_BY_ID = gql`
     query{
-        product(id: $id){
+        product(_id: $_id){
             _id
             name
             description
