@@ -1,17 +1,17 @@
-import {gql} from '@apollo/client';
+import { gql } from "@apollo/client";
 
 const GET_PRODUCTS_NAME_PRICE = gql`
-    query{
-        products{
+    query {
+        products {
             _id
             name
             price
         }
     }
-`
+`;
 const GET_PRODUCTS_BY_ID = gql`
-    query{
-        product(_id: $_id){
+    query {
+        product(_id: $_id) {
             _id
             name
             description
@@ -19,35 +19,23 @@ const GET_PRODUCTS_BY_ID = gql`
             quantity
         }
     }
-`
+`;
 
 const ADD_PRODUCT = gql`
-    mutation createProduct(
-        $name: String!
-        $description: String
-        $price: Int!
-        $quantity: Int!
-        ){
-        addProdcut(
-            name: $name!
-            description: $description
-            price: $price
-            quantity: $quantity
-            ){
-                _id
-                name
-                description
-                price
-                quantity
-            }
+    mutation createProduct($name: String!, $description: String, $price: Int!, $quantity: Int!) {
+        addProdcut(name: $name, description: $description, price: $price, quantity: $quantity) {
+            name
+            description
+            price
+            quantity
         }
     }
-`
+`;
 
 let exported = {
     GET_PRODUCTS_BY_ID,
     GET_PRODUCTS_NAME_PRICE,
-    ADD_PRODUCT
-}
+    ADD_PRODUCT,
+};
 
 export default exported;
