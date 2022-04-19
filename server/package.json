@@ -1,19 +1,20 @@
 {
-    "name": "asian-market",
-    "version": "1.0.0",
-    "description": "server side code for asian market project",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "nodemon index.js"
-    },
-    "author": "Shah & Co.",
-    "license": "ISC",
-    "dependencies": {
-        "apollo-server": "^3.6.7",
-        "graphql": "^16.3.0",
-        "mongodb": "^4.4.1",
-        "nodemon": "^2.0.15",
-        "uuid": "^8.3.2"
-    }
+  "name": "express-server",
+  "version": "1.0.0",
+  "description": "Asian Market Web Server",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "Shah & Co",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "express": "^4.17.3",
+    "express-session": "^1.17.2",
+    "mongodb": "^4.5.0",
+    "nodemon": "^2.0.15",
+    "uuid": "^8.3.2"
+  }
 }

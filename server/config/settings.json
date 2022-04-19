@@ -1,6 +1,6 @@
 {
     "mongoConfig": {
-      "url": "mongodb://localhost:27017/",
-      "db": "asian_market"
+      "serverUrl": "mongodb://localhost:27017/",
+      "database": "AsianMarket"
     }
-  }
+}
