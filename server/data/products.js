@@ -2,30 +2,31 @@ const mongoCollections = require("../config/mongoCollection");
 const productCollection = mongoCollections.products;
 const uuid = require('uuid');
 
-const createProduct = async (args) => {
+const createProduct = async (product) => {
+    console.log(product);
     const products = await productCollection();
     const newProduct = {};
     newProduct._id = uuid.v4();
-    newProduct.name = args.name;
-    newProduct.description = args.description;
-    args.category = args.category.toLowerCase();
-    newProduct.category = args.category;
-    newProduct.price = args.price;
-    newProduct.quantity = args.quantity;
+    newProduct.name = product.name;
+    newProduct.description = product.description;
+    product.category = product.category.toLowerCase();
+    newProduct.category = product.category;
+    newProduct.price = product.price;
+    newProduct.quantity = product.quantity;
     await products.insertOne(newProduct);
     return newProduct;
 }
 
-const editProduct = async (args) => {
+const editProduct = async (editProduct) => {
     const products = await productCollection();
-    const product = await products.findOne({_id: args._id});
+    const product = await products.findOne({_id: editProduct._id});
     if(product){
-        if(args.name) product.name = args.name;
-        if(args.description) product.description = args.description;
-        if(args.price) product.price = args.price;
-        if(args.category) product.category = args.category;
-        if(args.quantity) product.quantity = args.quantity;
-        await products.updateOne({_id: args._id}, {$set: product});
+        if(editProduct.name) product.name = editProduct.name;
+        if(editProduct.description) product.description = editProduct.description;
+        if(editProduct.price) product.price = editProduct.price;
+        if(editProduct.category) product.category = editProduct.category;
+        if(editProduct.quantity) product.quantity = editProduct.quantity;
+        await products.updateOne({_id: editProduct._id}, {$set: product});
     }
     return product;
 }
@@ -36,30 +37,30 @@ const getAllProducts = async () => {
     return allProducts;
 }
 
-const getProductById = async (args) => {
+const getProductById = async (id) => {
     const products = await productCollection();
-    const product = await products.findOne({_id: args._id});
+    const product = await products.findOne({_id: id});
     return product;
 }
 
-const findByCategory = async (args) => {
+const findByCategory = async (category) => {
     const products = await productCollection();
-    args.category = args.category.toLowerCase();
-    const allProducts = await products.find({category: args.category}).toArray();
+    category = category.toLowerCase();
+    const allProducts = await products.find({category: category}).toArray();
     return allProducts;
 }
 
-const sortAscByCategory = async (args) => {
+const sortAscByCategory = async (category) => {
     const products = await productCollection();
-    args.category = args.category.toLowerCase();
-    const allProducts = await products.find({category: args.category}).sort({price: 1}).toArray();
+    category = category.toLowerCase();
+    const allProducts = await products.find({category: category}).sort({price: 1}).toArray();
     return allProducts;
 }
 
-const sortDesByCategory = async (args) => {
+const sortDesByCategory = async (category) => {
     const products = await productCollection();
-    args.category = args.category.toLowerCase();
-    const allProducts = await products.find({category: args.category}).sort({price: -1}).toArray();
+    category = category.toLowerCase();
+    const allProducts = await products.find({category: category}).sort({price: -1}).toArray();
     return allProducts;
 }
 
