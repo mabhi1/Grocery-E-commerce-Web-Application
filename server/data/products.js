@@ -3,7 +3,7 @@ const productCollection = mongoCollections.products;
 const uuid = require('uuid');
 
 const createProduct = async (product) => {
-    console.log(product);
+    //console.log(product);
     const products = await productCollection();
     const newProduct = {};
     newProduct._id = uuid.v4();
