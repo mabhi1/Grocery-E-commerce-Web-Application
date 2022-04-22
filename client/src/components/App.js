@@ -26,12 +26,12 @@ function App() {
                     <div className="App">
                         <Navigation />
                         <Routes>
-                            <Route path="/" element={<Landing />} />
+                            <Route path="/" element={<Products />} />
                             <Route path="/signin" element={<SignIn />} />
                             <Route path="/signup" element={<SignUp />} />
                             <Route path="/products" element={<Products />} />
                             <Route element={<PrivateRoute />}>
-                                <Route path="/home" element={<Home />} />
+                                {/* <Route path="/home" element={<Home />} /> */}
                                 <Route path="/account" element={<Account />} />
                             </Route>
                         </Routes>
