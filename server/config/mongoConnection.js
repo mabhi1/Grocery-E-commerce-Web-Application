@@ -1,20 +1,19 @@
-const MongoClient = require('mongodb').MongoClient;
-const settings = require('./settings.json');
-const mongoConfig = settings.mongoConfig;
+const mongodb = require("mongodb").MongoClient;
+const settings = require("./settings").mongoConfig;
 
 let _connection = undefined;
 let _db = undefined;
 
-module.exports = {
-  dbConnection: async () => {
+module.exports = async () => {
     if (!_connection) {
-      _connection = await MongoClient.connect(mongoConfig.serverUrl);
-      _db = await _connection.db(mongoConfig.database);
+        try {
+            _connection = await mongodb.connect(settings.url, {
+                useNewUrlParser: true,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+        _db = await _connection.db(settings.db);
     }
-
     return _db;
-  },
-  closeConnection: () => {
-    _connection.close();
-  }
 };
