@@ -1,10 +1,11 @@
 import { dosignOut } from "../Firebase/FirebaseFunctions";
+import { Button } from "react-bootstrap";
 
 const SignOutButton = () => {
     return (
-        <button type="button" onClick={dosignOut}>
+        <Button variant="danger" type="button" onClick={dosignOut}>
             Sign Out
-        </button>
+        </Button>
     );
 };
 
