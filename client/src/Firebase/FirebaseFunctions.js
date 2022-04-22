@@ -39,7 +39,12 @@ async function socialSignIn(provider) {
     } else if (provider === "facebook") {
         socialProvider = new FacebookAuthProvider();
     }
-    await signInWithPopup(auth, socialProvider);
+    try{
+        await signInWithPopup(auth, socialProvider);
+    }catch(error){
+        console.log(error);
+    }
+    
 }
 
 async function passwordReset(email) {
