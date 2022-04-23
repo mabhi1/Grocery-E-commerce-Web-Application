@@ -14,7 +14,10 @@ import {
 } from "firebase/auth";
 import "./Firebase";
 
-const auth = getAuth();
+//import { auth } from "./Firebase";
+
+
+ const auth = getAuth();
 
 async function createUser(email, password, displayName) {
     await createUserWithEmailAndPassword(auth, email, password);
@@ -54,4 +57,9 @@ async function passwordReset(email) {
 async function dosignOut() {
     await signOut(auth);
 }
+
+//new code block for reset password
+
+
+
 export { createUser, dosignOut, passwordReset, signIn, changePassword, socialSignIn };

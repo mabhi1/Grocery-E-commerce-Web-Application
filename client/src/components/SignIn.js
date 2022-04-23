@@ -2,7 +2,8 @@ import React, { useContext } from "react";
 import SocialSignIn from "./SocialSignIn";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../Firebase/Auth";
-import { signIn, passwordReset } from "../Firebase/FirebaseFunctions";
+import { signIn } from "../Firebase/FirebaseFunctions";
+import { Link } from "react-router-dom";
 
 function SignIn() {
     const { currentUser } = useContext(AuthContext);
@@ -14,20 +15,21 @@ function SignIn() {
             await signIn(email.value, password.value);
             console.log(currentUser);
         } catch (error) {
-            alert(error);
+            console.log(error);
         }
     };
 
-    const handlePasswordReset = (event) => {
-        event.preventDefault();
-        let email = document.getElementById("email").value;
-        if (email) {
-            passwordReset(email);
-            alert("Password reset email was sent");
-        } else {
-            alert("Please enter an email address below before you click the forgot password link");
-        }
-    };
+    // const handlePasswordReset = (event) => {
+    //     event.preventDefault();
+    //     let email = document.getElementById("email").value;
+    //     if (email) {
+    //         passwordReset(email);
+    //         alert("Password reset email was sent");
+    //     } else {
+    //         alert("Please enter an email address below before you click the forgot password link");
+    //     }
+    // };
+
     if (currentUser) {
         return <Navigate to="/home" />;
     }
@@ -49,9 +51,12 @@ function SignIn() {
                 </div>
                 <button type="submit">Log in</button>
 
-                <button className="forgotPassword" onClick={handlePasswordReset}>
+                {/* <button className="forgotPassword" onClick={handlePasswordReset}>
                     Forgot Password
-                </button>
+                </button> */}
+                 <div className="w-100 text-center mt-3">
+          Forgot Password? <Link to="/forgot-password">Click Here</Link>
+      </div>
             </form>
 
             <br />
