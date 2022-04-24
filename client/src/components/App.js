@@ -3,14 +3,14 @@ import Navigation from "./Navigation";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import Landing from "./Landing";
 //import Home from "./Home";
-import ForgotPassword from "./ForgotPassword";
+// import ForgotPassword from "./ForgotPassword";
 import Account from "./Account";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import { AuthProvider } from "../Firebase/Auth";
 import PrivateRoute from "./PrivateRoute";
 import Products from "./Products";
-import Admin from "./Admin";
+import Admin from "./Admin/Admin";
 import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const client = new ApolloClient({

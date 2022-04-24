@@ -2,6 +2,7 @@
   text-align: center;
 }
 
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -13,8 +14,16 @@
   }
 }
 
-.card{
-  margin: 20px;
+.page-header{
+  margin: 15px;
+  font-size: larger;
+  background: aliceblue;
+  padding: 10px;
+  color: #004887;
+}
+
+.tab-content{
+  margin: 25px;
 }
 
 .btn{
@@ -36,11 +45,3 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
