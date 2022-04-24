@@ -1,8 +1,9 @@
 import "../App.css";
 import Navigation from "./Navigation";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Landing from "./Landing";
+// import Landing from "./Landing";
 //import Home from "./Home";
+import ForgotPassword from "./ForgotPassword";
 import Account from "./Account";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
