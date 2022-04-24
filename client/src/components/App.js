@@ -9,6 +9,7 @@ import SignUp from "./SignUp";
 import { AuthProvider } from "../Firebase/Auth";
 import PrivateRoute from "./PrivateRoute";
 import Products from "./Products";
+import Admin from "./Admin";
 import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const client = new ApolloClient({
@@ -33,6 +34,7 @@ function App() {
                             <Route element={<PrivateRoute />}>
                                 {/* <Route path="/home" element={<Home />} /> */}
                                 <Route path="/account" element={<Account />} />
+                                <Route path="/admin" element={<Admin />} />
                             </Route>
                         </Routes>
                     </div>
