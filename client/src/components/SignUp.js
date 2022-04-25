@@ -27,14 +27,13 @@ function SignUp() {
 
     return (
         <div>
-            <h1>Sign up</h1>
+            <h1 className="page-header">Sign up</h1>
             {pwMatch && <h4 className="error">{pwMatch}</h4>}
-            <form onSubmit={handleSignUp}>
+            <form onSubmit={handleSignUp} className="signup-form">
                 <div className="form-group">
-                    <label>
-                        Name:
-                        <input className="form-control" required name="displayName" type="text" placeholder="Name" />
-                    </label>
+                    <label></label>
+                    Name:
+                    <input className="form-control" required name="displayName" type="text" placeholder="Name" />
                 </div>
                 <div className="form-group">
                     <label>
@@ -69,7 +68,7 @@ function SignUp() {
                         />
                     </label>
                 </div>
-                <button id="submitButton" name="submitButton" type="submit">
+                <button id="submitButton" name="submitButton" type="submit" className="btn btn-light">
                     Sign Up
                 </button>
             </form>

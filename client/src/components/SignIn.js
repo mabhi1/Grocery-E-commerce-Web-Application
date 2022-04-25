@@ -35,8 +35,8 @@ function SignIn() {
     }
     return (
         <div>
-            <h1>Log in</h1>
-            <form onSubmit={handleLogin}>
+            <h1 className="page-header">Log in</h1>
+            <form onSubmit={handleLogin} className="login-form">
                 <div className="form-group">
                     <label>
                         Email:
@@ -49,14 +49,16 @@ function SignIn() {
                         <input className="form-control" name="password" type="password" placeholder="Password" autoComplete="off" required />
                     </label>
                 </div>
-                <button type="submit">Log in</button>
+                <button type="submit" className="btn btn-light">
+                    Log in
+                </button>
 
                 {/* <button className="forgotPassword" onClick={handlePasswordReset}>
                     Forgot Password
                 </button> */}
-                 <div className="w-100 text-center mt-3">
-          Forgot Password? <Link to="/forgot-password">Click Here</Link>
-      </div>
+                <div className="w-100 text-center mt-3">
+                    Forgot Password? <Link to="/forgot-password">Click Here</Link>
+                </div>
             </form>
 
             <br />

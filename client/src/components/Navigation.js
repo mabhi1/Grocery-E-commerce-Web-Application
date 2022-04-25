@@ -27,7 +27,7 @@ const NavigationAuth = () => {
         //     <SignOutButton />
         //   </div>
         // </div>
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top" style={{ boxShadow: "0px 5px 10px 0px black" }}>
             <Container>
                 <Navbar.Brand href="/">Asian Mart</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -38,7 +38,10 @@ const NavigationAuth = () => {
                     </Nav>
                     <Nav>
                         {/* <Nav.Link href="/home">Home</Nav.Link> */}
-                        <Link className="btn btn-primary" to="/account" role="button">
+                        <Link className="btn btn-dark" to="/products" role="button">
+                            Products
+                        </Link>
+                        <Link className="btn btn-dark" to="/account" role="button">
                             Account
                         </Link>
                         <SignOutButton />
@@ -63,7 +66,7 @@ const NavigationNonAuth = () => {
         //     </div>
         // </div>
 
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top" style={{ boxShadow: "0px 5px 10px 0px black" }}>
             <Container>
                 <Navbar.Brand href="/">Asian Mart</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -73,8 +76,15 @@ const NavigationNonAuth = () => {
                         <Nav.Link href="#pricing">Pricing</Nav.Link>
                     </Nav>
                     <Nav>
-                        <Nav.Link href="/signin">Login</Nav.Link>
-                        <Nav.Link href="/signup">Sign Up</Nav.Link>
+                        <Link className="btn btn-dark" to="/products" role="button">
+                            Products
+                        </Link>
+                        <Link className="btn btn-dark" to="/signin" role="button">
+                            Login
+                        </Link>
+                        <Link className="btn btn-dark" to="/signup" role="button">
+                            Sign Up
+                        </Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

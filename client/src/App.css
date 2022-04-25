@@ -1,25 +1,31 @@
 .App {
   text-align: center;
+  margin-top: 100px;
 }
 
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.banner-text{
+  margin-top: -400px;
+  font-family: auto;
+  font-size: x-large;
+  color: #575a5d;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+@media (max-width: 1024px) {
+  .banner-text{
+    margin-top: -250px;
+    font-family: auto;
+    font-size: x-large;
+    color: #575a5d;
+  } 
 }
 
 .page-header{
   margin: 15px;
-  font-size: larger;
+  font-size: 18px;
   background: aliceblue;
   padding: 10px;
   color: #004887;
+  font-family: sans-serif;
 }
 
 .tab-content{
@@ -45,3 +51,24 @@
   color: #61dafb;
 }
 
+.login-form, .signup-form{
+  text-align: left;
+  width: fit-content;
+  margin: auto;
+  padding: 20px;
+}
+
+.form-group{
+  margin: 15px;
+}
+
+.login-form>button, .signup-form>button{
+  margin-left: 15px;
+  width: 88%;
+  box-shadow: 1px 1px 2px -1px black;
+  transition: all 0.1s;
+}
+
+.login-form>button:hover, .signup-form>button:hover{
+  box-shadow: 2px 2px 6px -2px black;
+}
