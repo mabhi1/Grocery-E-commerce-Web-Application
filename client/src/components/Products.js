@@ -30,7 +30,11 @@ function Products() {
         const cards = products.map((product) => {
             return createCard(product);
         });
-        return <div style={{ display: "flex" }}>{cards}</div>;
+        return (
+            <div>
+                <div style={{ display: "flex" }}>{cards}</div>
+            </div>
+        );
     } else if (loading) {
         return <div>Loading...</div>;
     } else if (error) {

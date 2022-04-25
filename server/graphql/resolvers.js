@@ -1,4 +1,4 @@
-const productData = require('../data/products');
+const productData = require("../data/products");
 
 const resolvers = {
     Query: {
@@ -21,7 +21,7 @@ const resolvers = {
         desCategory: async (_, args) => {
             const products = await productData.sortDesByCategory(args);
             return products;
-        }
+        },
     },
 
     Mutation: {
@@ -33,8 +33,13 @@ const resolvers = {
         editProduct: async (_, args) => {
             const newProduct = await productData.editProduct(args);
             return newProduct;
-        }
-    }
-}
+        },
+
+        deleteProduct: async (_, args) => {
+            const product = await productData.deleteProduct(args);
+            return product;
+        },
+    },
+};
 
 module.exports = resolvers;

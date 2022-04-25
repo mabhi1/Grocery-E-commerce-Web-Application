@@ -45,11 +45,39 @@ const ADD_PRODUCT = gql`
     }
 `;
 
+const DELETE_PRODUCT = gql`
+    mutation Mutation($id: String!) {
+        deleteProduct(_id: $id) {
+            _id
+            name
+            description
+            price
+            category
+            quantity
+        }
+    }
+`;
+
+const EDIT_PRODUCT = gql`
+    mutation Mutation($id: String!, $name: String, $price: Int, $quantity: Int, $description: String, $category: String) {
+        editProduct(_id: $id, name: $name, price: $price, quantity: $quantity, description: $description, category: $category) {
+            _id
+            name
+            description
+            price
+            category
+            quantity
+        }
+    }
+`;
+
 let exported = {
     GET_PRODUCTS_BY_ID,
     GET_PRODUCTS_NAME_PRICE,
     ADD_PRODUCT,
     GET_ALL_PRODUCTS,
+    DELETE_PRODUCT,
+    EDIT_PRODUCT,
 };
 
 export default exported;
