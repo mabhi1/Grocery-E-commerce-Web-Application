@@ -10,16 +10,18 @@ const GET_PRODUCTS_NAME_PRICE = gql`
     }
 `;
 const GET_PRODUCTS_BY_ID = gql`
-    query {
-        product(_id: $_id) {
+    query ($id: String) {
+        product(_id: $id) {
             _id
             name
             description
             price
+            category
             quantity
         }
     }
 `;
+
 const GET_ALL_PRODUCTS = gql`
     query {
         products {

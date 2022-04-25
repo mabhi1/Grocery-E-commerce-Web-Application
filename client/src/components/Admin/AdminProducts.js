@@ -69,7 +69,7 @@ function AdminProducts() {
         console.log(products);
         const createCard = (product) => {
             return (
-                <Col key={product.name}>
+                <Col key={product.name} style={{ width: "12.5%", marginBottom: "20px" }}>
                     <Card style={{ textAlign: "center" }} className="product-card">
                         <Card.Img
                             src="https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Z3JvY2VyeXxlbnwwfHwwfHw%3D&w=1000&q=80"
@@ -83,7 +83,7 @@ function AdminProducts() {
                             <Card.Text>
                                 {product.category}
                                 <br />
-                                Price : {product.price}
+                                Price : ${product.price}
                                 <br />
                                 Quantity : {product.quantity}
                             </Card.Text>

@@ -9,10 +9,11 @@ import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import { AuthProvider } from "../Firebase/Auth";
 import PrivateRoute from "./PrivateRoute";
-import Products from "./Products";
+import Products from "./Product/Products";
 import Admin from "./Admin/Admin";
 import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider } from "@apollo/client";
 import Landing from "./Landing";
+import IndividualProduct from "./Product/IndividualProduct";
 
 const client = new ApolloClient({
     cache: new InMemoryCache(),
@@ -33,6 +34,7 @@ function App() {
                             <Route path="/signin" element={<SignIn />} />
                             <Route path="/signup" element={<SignUp />} />
                             <Route path="/products" element={<Products />} />
+                            <Route path="/product/:id" element={<IndividualProduct />} />
                             <Route element={<PrivateRoute />}>
                                 {/* <Route path="/home" element={<Home />} /> */}
                                 <Route path="/account" element={<Account />} />
