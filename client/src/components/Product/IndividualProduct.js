@@ -6,10 +6,13 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import { useDispatch } from "react-redux";
+import actions from "../../actions";
 
 function IndividualProduct() {
     const [quantity, setQuantity] = useState(0);
     const { id } = useParams();
+    const dispatch = useDispatch();
     let { loading, error, data } = useQuery(queries.GET_PRODUCTS_BY_ID, { variables: { id: id } });
     if (loading) {
         return <div>Loading...</div>;
@@ -50,7 +53,18 @@ function IndividualProduct() {
                                     +
                                 </Button>
                             </Card.Text>
-                            <Button className="btn btn-primary">Add to Cart</Button>
+                            {quantity > 0 ? (
+                                <Button
+                                    className="btn btn-primary"
+                                    onClick={() => dispatch(actions.addProduct(product.name, product.price, quantity))}
+                                >
+                                    Add to Cart
+                                </Button>
+                            ) : (
+                                <Button className="btn btn-primary" disabled>
+                                    Add to Cart
+                                </Button>
+                            )}
                         </Card>
                     </Col>
                 </Row>

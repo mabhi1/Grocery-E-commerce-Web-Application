@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import actions from "../../actions";
 
 function ProductCard(props) {
     let [quantity, setQuantity] = useState(0);
+    const dispatch = useDispatch();
     const product = props.product;
     return (
         <Col style={{ width: "12.5%", marginBottom: "20px" }}>
@@ -28,7 +31,15 @@ function ProductCard(props) {
                     <Button className="btn btn-light" onClick={() => setQuantity(quantity + 1)}>
                         +
                     </Button>
-                    <Button className="btn btn-primary">Add to Cart</Button>
+                    {quantity > 0 ? (
+                        <Button className="btn btn-primary" onClick={() => dispatch(actions.addProduct(product.name, product.price, quantity))}>
+                            Add to Cart
+                        </Button>
+                    ) : (
+                        <Button className="btn btn-primary" disabled>
+                            Add to Cart
+                        </Button>
+                    )}
                 </Card.Body>
             </Card>
         </Col>

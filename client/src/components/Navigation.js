@@ -45,6 +45,9 @@ const NavigationAuth = () => {
                             Account
                         </Link>
                         <SignOutButton />
+                        <Link className="btn btn-dark" to="/cart" role="button">
+                            Account
+                        </Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
@@ -84,6 +87,9 @@ const NavigationNonAuth = () => {
                         </Link>
                         <Link className="btn btn-dark" to="/signup" role="button">
                             Sign Up
+                        </Link>
+                        <Link className="btn btn-dark" to="/cart" role="button">
+                            Cart
                         </Link>
                     </Nav>
                 </Navbar.Collapse>
