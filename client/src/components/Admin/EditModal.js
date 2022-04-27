@@ -11,7 +11,7 @@ const styles = {
         width: "40%",
         marginLeft: "auto",
         marginRight: "auto",
-        height: "500px",
+        marginTop: "90px",
     },
 };
 function EditModal(props) {

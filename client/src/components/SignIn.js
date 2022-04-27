@@ -1,12 +1,28 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import SocialSignIn from "./SocialSignIn";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../Firebase/Auth";
 import { signIn } from "../Firebase/FirebaseFunctions";
 import { Link } from "react-router-dom";
+import Toast from "react-bootstrap/Toast";
 
+const styles = {
+    toast: {
+        marginLeft: "auto",
+        marginRight: "auto",
+        border: "0",
+    },
+    toastBody: {
+        background: "#ff7575",
+        color: "white",
+        fontSize: "medium",
+        fontFamily: "auto",
+        borderRadius: "5px",
+    },
+};
 function SignIn() {
     const { currentUser } = useContext(AuthContext);
+    const [error, setError] = useState(false);
     const handleLogin = async (event) => {
         event.preventDefault();
         let { email, password } = event.target.elements;
@@ -15,7 +31,8 @@ function SignIn() {
             await signIn(email.value, password.value);
             console.log(currentUser);
         } catch (error) {
-            console.log(error);
+            setError(true);
+            console.log(error.message.split(":")[1]);
         }
     };
 
@@ -31,7 +48,7 @@ function SignIn() {
     // };
 
     if (currentUser) {
-        return <Navigate to="/home" />;
+        return <Navigate to="/account" />;
     }
     return (
         <div>
@@ -60,7 +77,9 @@ function SignIn() {
                     Forgot Password? <Link to="/forgot-password">Click Here</Link>
                 </div>
             </form>
-
+            <Toast onClose={() => setError(false)} show={error} style={styles.toast} position={"top-end"} autohide delay={3000}>
+                <Toast.Body style={styles.toastBody}>Username or Password Incorrect</Toast.Body>
+            </Toast>
             <br />
             <SocialSignIn />
         </div>
