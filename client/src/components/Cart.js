@@ -23,10 +23,10 @@ const styles = {
         width: "80%",
         textAlign: "right",
         lineHeight: "2.5em",
-        borderTop: "1px solid blueviolet",
+        borderTop: "1px solid #0d6efd24",
         paddingRight: "28px",
         marginLeft: "60px",
-        borderBottom: "1px solid blueviolet",
+        borderBottom: "1px solid #0d6efd24",
         fontFamily: "auto",
         fontSize: "large",
     },
@@ -47,7 +47,9 @@ function Cart() {
                         <br />
                         Quantity : {product.quantity}
                     </Card.Text>
-                    <Button onClick={() => dispatch(actions.removeProduct(product.id))}>Remove</Button>
+                    <Button size="sm" onClick={() => dispatch(actions.removeProduct(product.id))}>
+                        Remove
+                    </Button>
                 </Card.Body>
             </Card>
         );

@@ -44,10 +44,10 @@ const NavigationAuth = () => {
                         <Link className="btn btn-dark" to="/account" role="button">
                             Account
                         </Link>
-                        <SignOutButton />
                         <Link className="btn btn-dark" to="/cart" role="button">
-                            Account
+                            Cart
                         </Link>
+                        <SignOutButton />
                     </Nav>
                 </Navbar.Collapse>
             </Container>
