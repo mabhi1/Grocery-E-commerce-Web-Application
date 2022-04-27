@@ -20,6 +20,7 @@ function ProductCard(props) {
                     </Link>
                     <Card.Text>Price : ${product.price}</Card.Text>
                     <Button
+                        size="sm"
                         className="btn btn-light"
                         onClick={() => {
                             quantity === 0 ? setQuantity(0) : setQuantity(quantity - 1);
@@ -28,15 +29,19 @@ function ProductCard(props) {
                         -
                     </Button>
                     <span>{quantity}</span>
-                    <Button className="btn btn-light" onClick={() => setQuantity(quantity + 1)}>
+                    <Button size="sm" className="btn btn-light" onClick={() => setQuantity(quantity + 1)}>
                         +
                     </Button>
                     {quantity > 0 ? (
-                        <Button className="btn btn-primary" onClick={() => dispatch(actions.addProduct(product.name, product.price, quantity))}>
+                        <Button
+                            className="btn btn-primary"
+                            size="sm"
+                            onClick={() => dispatch(actions.addProduct(product.name, product.price, quantity))}
+                        >
                             Add to Cart
                         </Button>
                     ) : (
-                        <Button className="btn btn-primary" disabled>
+                        <Button className="btn btn-primary" size="sm" disabled>
                             Add to Cart
                         </Button>
                     )}
