@@ -22,6 +22,11 @@ const resolvers = {
             const products = await productData.sortDesByCategory(args);
             return products;
         },
+        searchProducts: async (_, args) => {
+            if (args.name === "null") return;
+            const products = await productData.searchProducts(args);
+            return products;
+        },
     },
 
     Mutation: {

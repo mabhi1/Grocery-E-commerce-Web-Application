@@ -72,3 +72,28 @@
 .login-form>button:hover, .signup-form>button:hover{
   box-shadow: 2px 2px 6px -2px black;
 }
+
+.search-div{
+  display: flex;
+  padding-left: 20px;
+  width: 80%;
+}
+
+.search-div input{
+  margin: 5px;
+  width: 200px;
+  font-family: initial;
+  border: 1px solid #212529;
+  padding-left: 10px;
+}
+
+.product-header {
+  display: flex;
+}
+
+.sort-product{
+  line-height: 2.5em;
+  font-family: auto;
+  width: 20%;
+  
+}

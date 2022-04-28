@@ -35,6 +35,19 @@ const GET_ALL_PRODUCTS = gql`
     }
 `;
 
+const SEARCH_PRODUCTS = gql`
+    query ($name: String!) {
+        searchProducts(name: $name) {
+            _id
+            name
+            description
+            price
+            category
+            quantity
+        }
+    }
+`;
+
 const ADD_PRODUCT = gql`
     mutation createProduct($name: String!, $description: String, $price: Int!, $category: String!, $quantity: Int!) {
         addProduct(name: $name, description: $description, price: $price, category: $category, quantity: $quantity) {
@@ -80,6 +93,7 @@ let exported = {
     GET_ALL_PRODUCTS,
     DELETE_PRODUCT,
     EDIT_PRODUCT,
+    SEARCH_PRODUCTS,
 };
 
 export default exported;
