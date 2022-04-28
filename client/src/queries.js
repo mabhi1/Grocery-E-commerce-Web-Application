@@ -6,6 +6,7 @@ const GET_PRODUCTS_NAME_PRICE = gql`
             _id
             name
             price
+            category
         }
     }
 `;
@@ -40,10 +41,8 @@ const SEARCH_PRODUCTS = gql`
         searchProducts(name: $name) {
             _id
             name
-            description
             price
             category
-            quantity
         }
     }
 `;
