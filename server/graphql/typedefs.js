@@ -7,6 +7,7 @@ const typeDefs = gql`
         category(category: String): [Product]
         ascCategory(category: String): [Product]
         desCategory(category: String): [Product]
+        searchProducts(name: String!): [Product]
     }
 
     type Product {

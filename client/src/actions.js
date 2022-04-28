@@ -14,7 +14,15 @@ const removeProduct = (id) => ({
     },
 });
 
+const showProducts = (products) => ({
+    type: "ADD_PRODUCTS",
+    payload: {
+        products: products,
+    },
+});
+
 module.exports = {
     addProduct,
     removeProduct,
+    showProducts,
 };
