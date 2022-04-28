@@ -5,12 +5,15 @@ import Button from "react-bootstrap/Button";
 import ProductList from "./ProductList";
 import { useDispatch } from "react-redux";
 import actions from "../../actions";
+import Form from "react-bootstrap/Form";
 
 function Products() {
     let name;
+    let filter;
     const dispatch = useDispatch();
     const [searchTerm, setSearchTerm] = useState("null");
     const [sortProducts, setSortProducts] = useState(false);
+    const [filterValue, setFilterValue] = useState(null);
     const { loading, error, data } = useQuery(queries.GET_PRODUCTS_NAME_PRICE, { fetchPolicy: "cache-and-network" });
     const searchData = useQuery(queries.SEARCH_PRODUCTS, { variables: { name: searchTerm } });
     let searchResults = searchData.data && searchData.data.searchProducts;
@@ -40,11 +43,27 @@ function Products() {
                             Clear
                         </Button>
                     </div>
+                    <div className="filter-value">
+                        <Form.Label>Filter by Category : </Form.Label>
+                        <Form.Select
+                            type="text"
+                            ref={(node) => (filter = node)}
+                            onChange={() => {
+                                setFilterValue(filter.value.toString());
+                            }}
+                            style={{ width: "50%" }}
+                        >
+                            <option value="all">Show All</option>
+                            <option value="value1">value 1</option>
+                            <option value="value2">value 2</option>
+                            <option value="value3">value 3</option>
+                        </Form.Select>
+                    </div>
                     <div className="sort-product">
                         <input type="checkbox" name="sortByPrice" id="sortByPrice" onChange={handleChange} /> Sort by Price
                     </div>
                 </div>
-                <ProductList sort={sortProducts} />
+                <ProductList sort={sortProducts} filterValue={filterValue && filterValue} />
             </div>
         );
     }
@@ -61,11 +80,27 @@ function Products() {
                             Search
                         </Button>
                     </div>
+                    <div className="filter-value">
+                        <Form.Label>Filter by Category : </Form.Label>
+                        <Form.Select
+                            type="text"
+                            ref={(node) => (filter = node)}
+                            onChange={() => {
+                                setFilterValue(filter.value.toString());
+                            }}
+                            style={{ width: "50%" }}
+                        >
+                            <option value="all">Show All</option>
+                            <option value="value1">value 1</option>
+                            <option value="value2">value 2</option>
+                            <option value="value3">value 3</option>
+                        </Form.Select>
+                    </div>
                     <div className="sort-product">
                         <input type="checkbox" name="sortByPrice" id="sortByPrice" onChange={handleChange} /> Sort by Price
                     </div>
                 </div>
-                <ProductList sort={sortProducts} />
+                <ProductList sort={sortProducts} filterValue={filterValue && filterValue} />
             </div>
         );
     } else if (loading) {
