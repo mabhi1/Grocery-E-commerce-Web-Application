@@ -10,6 +10,25 @@ const typeDefs = gql`
         getUser(_id: String): User
         getAllUsers: [User]
         searchProducts(name: String!): [Product]
+        orders: [Order]
+        order(_id: String): Order
+    }
+
+    type Order{
+        _id: String
+        userId: String
+        products: [Product]
+        status: String
+        createdAt: String
+    }
+
+    input Pro {
+        _id: String
+        name: String
+        description: String
+        price: Int
+        category: String
+        quantity: Int
     }
 
     type Product {
@@ -38,6 +57,10 @@ const typeDefs = gql`
         deleteProduct(_id: String!): Product
 
         addUser(_id: String, name: String!, email: String!, address: String!, phoneNumber: String!, createdAt: String): User
+
+        addOrder(userId: String!, products: Pro, status: String, createdAt: String ): Order
+
+        deleteOrder(_id: String!): Order
     }
 `;
 
