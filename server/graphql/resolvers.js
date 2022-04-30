@@ -1,4 +1,5 @@
 const productData = require("../data/products");
+const userData = require("../data/users");
 
 const resolvers = {
     Query: {
@@ -22,6 +23,16 @@ const resolvers = {
             const products = await productData.sortDesByCategory(args);
             return products;
         },
+        //User queries
+        getUser: async (_, args) => {
+            const user = await userData.getUser(args);
+            return user;
+        },
+        getAllUsers : async () => {
+            const users = await userData.getAllUsers();
+            return users;
+        },
+            
         searchProducts: async (_, args) => {
             if (args.name === "null") return;
             const products = await productData.searchProducts(args);
@@ -44,6 +55,11 @@ const resolvers = {
             const product = await productData.deleteProduct(args);
             return product;
         },
+        //User Collection
+        addUser: async (_, args) => {
+            const newUser = await userData.createUser(args);
+            return newUser;
+        }
     },
 };
 

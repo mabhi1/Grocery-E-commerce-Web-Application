@@ -3,7 +3,8 @@ import Navigation from "./Navigation";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import Landing from "./Landing";
 //import Home from "./Home";
-// import ForgotPassword from "./ForgotPassword";
+import UserDetailPage from "./UserDetailPage";
+import ForgotPassword from "./ForgotPassword";
 import Account from "./Account";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
@@ -37,6 +38,8 @@ function App() {
                             <Route path="/products" element={<Products />} />
                             <Route path="/product/:id" element={<IndividualProduct />} />
                             <Route path="/cart" element={<Cart />} />
+                            <Route path="/forgot-password" element={<ForgotPassword />} />
+                            <Route path="/userDetail" element={<UserDetailPage />} />
                             <Route element={<PrivateRoute />}>
                                 {/* <Route path="/home" element={<Home />} /> */}
                                 <Route path="/account" element={<Account />} />

@@ -24,6 +24,8 @@ function Account(props) {
         }
     }
 
+    console.log(currentUser);
+
     return (
         <div>
             <>
@@ -47,6 +49,9 @@ function Account(props) {
                             <Button variant="btn btn-danger" onClick={handleLogout}>
                                 Log Out
                             </Button>
+                            <div className="w-100 text-center mt-3">
+          UserDetailPage <Link to="/userDetail">Click Here</Link>
+        </div>
                             {/* <SignOutButton /> */}
                         </div>
                     </div>

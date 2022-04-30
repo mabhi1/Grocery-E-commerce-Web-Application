@@ -12,6 +12,7 @@ const Navigation = () => {
 };
 
 const NavigationAuth = () => {
+    const { currentUser } = useContext(AuthContext);
     return (
         // <div>
         //   <div>
@@ -38,6 +39,7 @@ const NavigationAuth = () => {
                     </Nav>
                     <Nav>
                         {/* <Nav.Link href="/home">Home</Nav.Link> */}
+                        <p style={{color:"white", paddingTop:"13px",fontWeight: "bold" }}> Hi, {currentUser.displayName}</p>
                         <Link className="btn btn-dark" to="/products" role="button">
                             Products
                         </Link>

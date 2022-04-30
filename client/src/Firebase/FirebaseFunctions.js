@@ -20,9 +20,11 @@ import "./Firebase";
  const auth = getAuth();
 
 async function createUser(email, password, displayName) {
-    await createUserWithEmailAndPassword(auth, email, password);
-    updateProfile(auth.currentUser, { displayName: displayName });
+    await createUserWithEmailAndPassword(auth, email, password)
+    await updateProfile(auth.currentUser, { displayName: displayName });
 }
+
+
 
 async function changePassword(email, oldPassword, newPassword) {
     let credential = EmailAuthProvider.credential(auth.currentUser, email, oldPassword);
