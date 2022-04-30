@@ -6,6 +6,7 @@ const GET_PRODUCTS_NAME_PRICE = gql`
             _id
             name
             price
+            category
         }
     }
 `;
@@ -31,6 +32,17 @@ const GET_ALL_PRODUCTS = gql`
             price
             category
             quantity
+        }
+    }
+`;
+
+const SEARCH_PRODUCTS = gql`
+    query ($name: String!) {
+        searchProducts(name: $name) {
+            _id
+            name
+            price
+            category
         }
     }
 `;
@@ -123,7 +135,8 @@ let exported = {
     EDIT_PRODUCT,
     CREATE_USER,
     GET_USER_BY_ID,
-    GET_ALL_USERS
+    GET_ALL_USERS,
+    SEARCH_PRODUCTS,
 };
 
 export default exported;

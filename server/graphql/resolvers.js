@@ -31,8 +31,13 @@ const resolvers = {
         getAllUsers : async () => {
             const users = await userData.getAllUsers();
             return users;
-        }
+        },
             
+        searchProducts: async (_, args) => {
+            if (args.name === "null") return;
+            const products = await productData.searchProducts(args);
+            return products;
+        },
     },
 
     Mutation: {
