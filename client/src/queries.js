@@ -73,6 +73,47 @@ const EDIT_PRODUCT = gql`
     }
 `;
 
+// GraphQL query to get all users
+
+const CREATE_USER = gql`
+    mutation Mutation($_id:String!,$name: String!, $email: String!, $address: String!, $phoneNumber: String!) {
+        addUser(_id:$_id ,name: $name, email: $email, address: $address, phoneNumber: $phoneNumber) {
+            _id
+            name
+            email
+            address
+            phoneNumber
+        }
+    }
+`;
+
+
+const GET_USER_BY_ID = gql`
+    query ($id: String) {
+        getUser(_id: $id) {
+            _id
+            name
+            email
+            address
+            phoneNumber
+            createdAt
+        }
+    }
+`;
+
+const GET_ALL_USERS = gql`
+    query {
+        getAllUsers {
+            _id
+            name
+            email
+            address
+            phoneNumber
+            createdAt
+        }
+    }
+`;
+
 let exported = {
     GET_PRODUCTS_BY_ID,
     GET_PRODUCTS_NAME_PRICE,
@@ -80,6 +121,9 @@ let exported = {
     GET_ALL_PRODUCTS,
     DELETE_PRODUCT,
     EDIT_PRODUCT,
+    CREATE_USER,
+    GET_USER_BY_ID,
+    GET_ALL_USERS
 };
 
 export default exported;
