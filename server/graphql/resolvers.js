@@ -1,4 +1,5 @@
 const productData = require("../data/products");
+const reviewData = require("../data/reviews");
 
 const resolvers = {
     Query: {
@@ -22,6 +23,14 @@ const resolvers = {
             const products = await productData.sortDesByCategory(args);
             return products;
         },
+        getReview : async (_, args) => {
+            const reviewInfo = await reviewData.getReviewById(args);
+            return reviewInfo;
+        },
+        product_Reviews : async (_, args) => {
+            const all_reviews = await reviewData.getAllReviews_Product(args);
+            return all_reviews;
+        }
     },
 
     Mutation: {
@@ -39,6 +48,11 @@ const resolvers = {
             const product = await productData.deleteProduct(args);
             return product;
         },
+        
+        addReview: async (_, args) => {
+            const new_review = await reviewData.createReview(args);
+            return new_review;
+        }
     },
 };
 

@@ -73,6 +73,30 @@ const EDIT_PRODUCT = gql`
     }
 `;
 
+const ADD_REVIEW = gql`
+    mutation Mutation(productId: String!, review: String!) {
+        addReview(productId: $productId, review: $review){
+            productId
+            review
+        }
+    }
+`;
+
+const REVIEW_BY_ID = gql`
+    query ($id: String){
+        getReview(_id: String){
+            review
+        }
+    }
+`;
+
+const ALL_REVIEWS_PRODUCT = gql`
+    query ($id: String){
+        product_Reviews(_id: String){
+            review
+        }
+    }
+`;
 let exported = {
     GET_PRODUCTS_BY_ID,
     GET_PRODUCTS_NAME_PRICE,
@@ -80,6 +104,9 @@ let exported = {
     GET_ALL_PRODUCTS,
     DELETE_PRODUCT,
     EDIT_PRODUCT,
+    ADD_REVIEW,
+    REVIEW_BY_ID,
+    ALL_REVIEWS_PRODUCT
 };
 
 export default exported;
