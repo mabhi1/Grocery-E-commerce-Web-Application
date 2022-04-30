@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
 import { AuthContext } from "../Firebase/Auth";
@@ -12,7 +12,16 @@ const Navigation = () => {
 };
 
 const NavigationAuth = () => {
-    const { currentUser } = useContext(AuthContext);
+   const { currentUser } = useContext(AuthContext);
+   console.log(currentUser);
+    const [user, setUser] = useState(currentUser.displayName);
+
+    useEffect(() => {   
+        setUser(currentUser.displayName);
+    }, [currentUser]);
+
+
+    console.log(user);
     return (
         // <div>
         //   <div>
@@ -39,7 +48,7 @@ const NavigationAuth = () => {
                     </Nav>
                     <Nav>
                         {/* <Nav.Link href="/home">Home</Nav.Link> */}
-                        <p style={{color:"white", paddingTop:"13px",fontWeight: "bold" }}> Hi, {currentUser.displayName}</p>
+                        <p style={{color:"white", paddingTop:"13px",fontWeight: "bold" }}> Hi, {user}</p>
                         <Link className="btn btn-dark" to="/products" role="button">
                             Products
                         </Link>

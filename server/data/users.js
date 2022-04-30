@@ -31,9 +31,23 @@ const getUser = async (args) => {
     return user;
 }
 
+const editUser = async (args) => {
+    const users = await userCollection();
+    const user = await users.findOne({ _id: args._id });
+    if (user) {
+        if (args.name) user.name = args.name;
+        if (args.email) user.email = args.email;
+        if (args.phoneNumber) user.phoneNumber = args.phoneNumber;
+        if (args.address) user.address = args.address;
+        await users.updateOne({ _id: args._id }, { $set: user });
+    }
+    return user;
+}
+
 
 module.exports = {
     createUser,
     getAllUsers,
-    getUser
+    getUser,
+    editUser
 }

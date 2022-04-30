@@ -126,6 +126,18 @@ const GET_ALL_USERS = gql`
     }
 `;
 
+const EDIT_USER = gql`
+    mutation Mutation($_id:String!,$name: String, $email: String, $address: String, $phoneNumber: String) {
+        editUser(_id:$_id ,name: $name, email: $email, address: $address, phoneNumber: $phoneNumber) {
+            _id
+            name
+            email
+            address
+            phoneNumber
+        }
+    }
+`;
+
 let exported = {
     GET_PRODUCTS_BY_ID,
     GET_PRODUCTS_NAME_PRICE,
@@ -137,6 +149,7 @@ let exported = {
     GET_USER_BY_ID,
     GET_ALL_USERS,
     SEARCH_PRODUCTS,
+    EDIT_USER
 };
 
 export default exported;
