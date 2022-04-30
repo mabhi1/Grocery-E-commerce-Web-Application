@@ -276,9 +276,6 @@ function SignUp() {
               Sign Up
             </button>
           </form>
-          <div className="w-100 text-center mt-3">
-            UserDetailPage <Link to="/userDetail">Click Here</Link>
-          </div>
           <br />
           <SocialSignIn />
         </div>
