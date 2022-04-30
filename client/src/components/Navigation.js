@@ -7,7 +7,6 @@ import { Container, Navbar, Nav } from "react-bootstrap";
 
 const Navigation = () => {
     const { currentUser } = useContext(AuthContext);
-
     return <div>{currentUser ? <NavigationAuth /> : <NavigationNonAuth />}</div>;
 };
 
@@ -39,7 +38,7 @@ const NavigationAuth = () => {
                     </Nav>
                     <Nav>
                         {/* <Nav.Link href="/home">Home</Nav.Link> */}
-                        <p style={{color:"white", paddingTop:"13px",fontWeight: "bold" }}> Hi, {currentUser.displayName}</p>
+                        <p style={{ color: "white", paddingTop: "13px", fontWeight: "bold" }}>Hi, {currentUser.email.split("@")[0]}</p>
                         <Link className="btn btn-dark" to="/products" role="button">
                             Products
                         </Link>

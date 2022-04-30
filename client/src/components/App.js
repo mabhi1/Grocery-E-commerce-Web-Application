@@ -39,9 +39,9 @@ function App() {
                             <Route path="/product/:id" element={<IndividualProduct />} />
                             <Route path="/cart" element={<Cart />} />
                             <Route path="/forgot-password" element={<ForgotPassword />} />
-                            <Route path="/userDetail" element={<UserDetailPage />} />
                             <Route element={<PrivateRoute />}>
                                 {/* <Route path="/home" element={<Home />} /> */}
+                                <Route path="/userDetail" element={<UserDetailPage />} />
                                 <Route path="/account" element={<Account />} />
                                 <Route path="/admin" element={<Admin />} />
                             </Route>
