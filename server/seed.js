@@ -22,6 +22,11 @@ async function main() {
 //   const getuser = await users.getUser({ _id: "gaQir7iPWFcNMQibWnBja7BZavJ2" });
 //     console.log(getuser);
 
+const edituser = await users.editUser({
+    _id: "TRbubFmdZXcHPix88cDavna3tRn2",
+    name: "Aditya Doe",
+});
+console.log(edituser);
 
 
   const db = await connection.connectToDb();

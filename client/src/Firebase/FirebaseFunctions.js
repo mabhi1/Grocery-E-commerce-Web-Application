@@ -6,8 +6,8 @@ import {
     updatePassword,
     sendPasswordResetEmail,
     signInWithEmailAndPassword,
-    EmailAuthProvider,
-    reauthenticateWithCredential,
+    //EmailAuthProvider,
+    //reauthenticateWithCredential,
     GoogleAuthProvider,
     FacebookAuthProvider,
     signInWithPopup,
@@ -26,12 +26,12 @@ async function createUser(email, password, displayName) {
 
 
 
-async function changePassword(email, oldPassword, newPassword) {
-    let credential = EmailAuthProvider.credential(auth.currentUser, email, oldPassword);
-    await reauthenticateWithCredential(auth.currentUser, credential);
-    await updatePassword(auth.currentUser, newPassword);
-    await signOut();
-}
+// async function changePassword(email, oldPassword, newPassword) {
+//     let credential = EmailAuthProvider.credential(auth.currentUser, email, oldPassword);
+//     await reauthenticateWithCredential(auth.currentUser, credential);
+//     await updatePassword(auth.currentUser, newPassword);
+//     await signOut();
+// }
 
 async function signIn(email, password) {
     await signInWithEmailAndPassword(auth, email, password);
@@ -60,8 +60,17 @@ async function dosignOut() {
     await signOut(auth);
 }
 
+async function changePassword(password) {
+    await updatePassword(auth, password);
+}
+
+async function updateName(name) {
+    await updateProfile(auth.currentUser, { displayName: name });
+}
+
+
 //new code block for reset password
 
 
 
-export { createUser, dosignOut, passwordReset, signIn, changePassword, socialSignIn };
+export { createUser, dosignOut, passwordReset, signIn, changePassword, socialSignIn, updateName };

@@ -1,6 +1,7 @@
 const { gql } = require("apollo-server");
 
 const typeDefs = gql`
+
     type Query {
         products: [Product]
         product(_id: String): Product
@@ -61,7 +62,10 @@ const typeDefs = gql`
         addOrder(userId: String!, products: Pro, status: String, createdAt: String ): Order
 
         deleteOrder(_id: String!): Order
+        
+        editUser(_id: String!, name: String, email: String, address: String, phoneNumber: String): User
     }
+
 `;
 
 module.exports = typeDefs;
