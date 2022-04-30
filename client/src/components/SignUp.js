@@ -2,134 +2,149 @@ import React, { useContext, useRef, useState } from "react";
 import { Navigate, useNavigate, Link } from "react-router-dom";
 import { createUser } from "../Firebase/FirebaseFunctions";
 import { AuthContext } from "../Firebase/Auth";
-import SocialSignIn from "./SocialSignIn";
 import { Alert, Container } from "react-bootstrap";
 //import { useMutation } from "@apollo/client";
 //import queries from "../queries";
+import Toast from "react-bootstrap/Toast";
 
+const styles = {
+    toast: {
+        marginLeft: "auto",
+        marginRight: "auto",
+        border: "0",
+    },
+    toastBody: {
+        background: "#ff7575",
+        color: "white",
+        fontSize: "medium",
+        fontFamily: "auto",
+        borderRadius: "5px",
+    },
+};
 function SignUp() {
-  // const [addUser] = useMutation(queries.CREATE_USER, {
-  //   refetchQueries: [{ query: queries.GET_USERS }],
-  // });
-  let navigate = useNavigate();
+    // const [addUser] = useMutation(queries.CREATE_USER, {
+    //   refetchQueries: [{ query: queries.GET_USERS }],
+    // });
+    const [error, setError] = useState(false);
+    let navigate = useNavigate();
 
-  let name = useRef();
-  // let phoneNumber;
-  let email = useRef();
-  let passRef = useRef();
-  let confPassRef = useRef();
-  // let address1Ref;
-  //let address2Ref;
-  //let cityRef;
-  //let address;
-  //const stateRef = useRef();
-  //let zipRef;
-  //let _id;
+    let name = useRef();
+    // let phoneNumber;
+    let email = useRef();
+    let passRef = useRef();
+    let confPassRef = useRef();
+    // let address1Ref;
+    //let address2Ref;
+    //let cityRef;
+    //let address;
+    //const stateRef = useRef();
+    //let zipRef;
+    //let _id;
 
-  //console.log(JSON.stringify(nameRef));
-  // console.log(phoneNumber);
-  // console.log(email);
-  // console.log(passRef);
-  // console.log(confPassRef);
-  // console.log(address1Ref);
-  // console.log(address2Ref);
-  // console.log(cityRef);
-  // console.log(zipRef);
+    //console.log(JSON.stringify(nameRef));
+    // console.log(phoneNumber);
+    // console.log(email);
+    // console.log(passRef);
+    // console.log(confPassRef);
+    // console.log(address1Ref);
+    // console.log(address2Ref);
+    // console.log(cityRef);
+    // console.log(zipRef);
 
-  // get current user
-  //console.log(stateRef);
-  const { currentUser } = useContext(AuthContext);
-  const [pwMatch, setPwMatch] = useState("");
-  //this is for toggling state of usa
-  //const [state, setState] = useState("");
-  const handleSignUp = async (e) => {
-    e.preventDefault();
-    //const displayName = e.target.elements.displayName.value;
-    let displayName = name.current.value;
-    console.log(displayName);
-    //const { email, passwordOne, passwordTwo } = e.target.elements;
-    if (passRef.current.value !== confPassRef.current.value) {
-      setPwMatch("Passwords do not match");
-      return false;
+    // get current user
+    //console.log(stateRef);
+    const { currentUser } = useContext(AuthContext);
+    const [pwMatch, setPwMatch] = useState("");
+    //this is for toggling state of usa
+    //const [state, setState] = useState("");
+    const handleSignUp = async (e) => {
+        e.preventDefault();
+        //const displayName = e.target.elements.displayName.value;
+        let displayName = name.current.value;
+        console.log(displayName);
+        //const { email, passwordOne, passwordTwo } = e.target.elements;
+        if (passRef.current.value !== confPassRef.current.value) {
+            setPwMatch("Passwords do not match");
+            return false;
+        }
+
+        try {
+            await createUser(email.current.value, passRef.current.value, displayName);
+            navigate("/userDetail");
+        } catch (error) {
+            setError(true);
+        }
+    };
+
+    console.log(currentUser);
+
+    if (currentUser) {
+        return <Navigate to="/" />;
     }
 
-    try {
-      await createUser(email.current.value, passRef.current.value, displayName);
-      navigate("/userDetail");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  console.log(currentUser);
-
-  if (currentUser) {
-    return <Navigate to="/" />;
-  }
-
-  return (
-    <>
-      <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
-        <div className="w-100" style={{ maxWidth: "600px" }}>
-          <h1 className="page-header">Sign up</h1>
-          {pwMatch && (
-            <Alert variant="danger" className="error">
-              {pwMatch}
-            </Alert>
-          )}
-          <form onSubmit={handleSignUp} className="signup-form">
-            <div className="form-row">
-              <div className="form-group">
-                <label> Name:</label>
-                <input className="form-control" required name="displayName" type="text" placeholder="Name" ref={name} />
-              </div>
-            </div>
-            <div className="form-group">
-              <label>Email:</label>
-              <input
-                className="form-control"
-                required
-                name="email"
-                type="email"
-                placeholder="Email"
-                // ref={(node) => {
-                //   email = node;
-                // }}
-                ref={email}
-              />
-            </div>
-            <div className="form-group">
-              <label>Password:</label>
-              <input
-                // ref={(node) => {
-                //   passRef = node;
-                // }}
-                ref={passRef}
-                className="form-control"
-                id="passwordOne"
-                name="passwordOne"
-                type="password"
-                placeholder="Password"
-                autoComplete="off"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Confirm Password:</label>
-              <input
-                // ref={(node) => {
-                //   confPassRef = node;
-                // }}
-                ref={confPassRef}
-                className="form-control"
-                name="passwordTwo"
-                type="password"
-                placeholder="Confirm Password"
-                autoComplete="off"
-                required
-              />
-            </div>
-            {/* <div className="form-group">
+    return (
+        <>
+            <h1 className="page-header">Sign up</h1>
+            <Container className="d-flex align-items-center justify-content-center">
+                <div className="w-100" style={{ maxWidth: "600px" }}>
+                    {pwMatch && (
+                        <Alert variant="danger" className="error">
+                            {pwMatch}
+                        </Alert>
+                    )}
+                    <form onSubmit={handleSignUp} className="signup-form">
+                        <div className="form-row">
+                            <div className="form-group">
+                                <label> Name:</label>
+                                <input className="form-control" required name="displayName" type="text" placeholder="Name" ref={name} />
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <label>Email:</label>
+                            <input
+                                className="form-control"
+                                required
+                                name="email"
+                                type="email"
+                                placeholder="Email"
+                                // ref={(node) => {
+                                //   email = node;
+                                // }}
+                                ref={email}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Password:</label>
+                            <input
+                                // ref={(node) => {
+                                //   passRef = node;
+                                // }}
+                                ref={passRef}
+                                className="form-control"
+                                id="passwordOne"
+                                name="passwordOne"
+                                type="password"
+                                placeholder="Password"
+                                autoComplete="off"
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Confirm Password:</label>
+                            <input
+                                // ref={(node) => {
+                                //   confPassRef = node;
+                                // }}
+                                ref={confPassRef}
+                                className="form-control"
+                                name="passwordTwo"
+                                type="password"
+                                placeholder="Confirm Password"
+                                autoComplete="off"
+                                required
+                            />
+                        </div>
+                        {/* <div className="form-group">
               <label htmlFor="inputAddress">Phone Number</label>
               <input
                 type="tel"
@@ -143,7 +158,7 @@ function SignUp() {
                 }}
               />
             </div> */}
-            {/* <div className="form-group">
+                        {/* <div className="form-group">
               <label htmlFor="inputAddress">Address</label>
               <input
                 type="text"
@@ -156,7 +171,7 @@ function SignUp() {
                 }}
               />
             </div> */}
-            {/* <div className="form-group">
+                        {/* <div className="form-group">
               <label htmlFor="inputAddress2">Address Line 2</label>
               <input
                 type="text"
@@ -170,7 +185,7 @@ function SignUp() {
               />
             </div> */}
 
-            {/* <div className="form-group ">
+                        {/* <div className="form-group ">
               <label htmlFor="inputCity">City</label>
               <input
                 type="text"
@@ -183,7 +198,7 @@ function SignUp() {
                 }}
               />
             </div> */}
-            {/* <div className="form-group ">
+                        {/* <div className="form-group ">
               <label htmlFor="inputState">State</label>
               <select id="inputState" className="form-control" value={state} onChange={(e) => setState(e.target.value)}>
                 <option defaultValue>Choose...</option>
@@ -241,7 +256,7 @@ function SignUp() {
               </select>
               <h1>{state}</h1>
             </div> */}
-            {/* <div className="form-group">
+                        {/* <div className="form-group">
               <label htmlFor="inputZip">Zip</label>
               <input
                 type="text"
@@ -254,37 +269,40 @@ function SignUp() {
                 }}
               />
             </div> */}
-            {/* </div> */}
+                        {/* </div> */}
 
-            {/* //TODO Sumbit Button */}
-            <button
-              id="submitButton"
-              type="submit"
-              // onClick={(e) => {
-              //   e.preventDefault();
-              //   addUser(
-              //    // (_id = currentUser.uid),
-              //     (name = name.value),
-              //     (email = email.value),
-              //     (phoneNumber = phoneNumber.value),
-              //     (address = address1Ref.value + " " + address2Ref.value + " " + cityRef.value + " " + state + " " + zipRef.value)
-              //   );
-              // }}
-              name="submitButton"
-              className="btn btn-warning"
-            >
-              Sign Up
-            </button>
-          </form>
-          <div className="w-100 text-center mt-3">
-            UserDetailPage <Link to="/userDetail">Click Here</Link>
-          </div>
-          <br />
-          <SocialSignIn />
-        </div>
-      </Container>
-    </>
-  );
+                        {/* //TODO Sumbit Button */}
+                        <button
+                            id="submitButton"
+                            type="submit"
+                            // onClick={(e) => {
+                            //   e.preventDefault();
+                            //   addUser(
+                            //    // (_id = currentUser.uid),
+                            //     (name = name.value),
+                            //     (email = email.value),
+                            //     (phoneNumber = phoneNumber.value),
+                            //     (address = address1Ref.value + " " + address2Ref.value + " " + cityRef.value + " " + state + " " + zipRef.value)
+                            //   );
+                            // }}
+                            name="submitButton"
+                            className="btn btn-warning"
+                        >
+                            Sign Up
+                        </button>
+                    </form>
+                    <div className="w-100 text-center mt-3">
+                        UserDetailPage <Link to="/userDetail">Click Here</Link>
+                    </div>
+                    <br />
+                    <Toast onClose={() => setError(false)} show={error} style={styles.toast} position={"top-end"} autohide delay={3000}>
+                        <Toast.Body style={styles.toastBody}>User already registered</Toast.Body>
+                    </Toast>
+                    <br />
+                </div>
+            </Container>
+        </>
+    );
 }
 
 export default SignUp;
