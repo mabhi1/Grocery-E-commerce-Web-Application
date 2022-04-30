@@ -16,6 +16,7 @@ import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider } from "@apollo/c
 import Landing from "./Landing";
 import IndividualProduct from "./Product/IndividualProduct";
 import Cart from "./Cart";
+import UpdateProfile from "./UpdateProfile";
 
 const client = new ApolloClient({
     cache: new InMemoryCache(),
@@ -39,6 +40,7 @@ function App() {
                             <Route path="/product/:id" element={<IndividualProduct />} />
                             <Route path="/cart" element={<Cart />} />
                             <Route path="/forgot-password" element={<ForgotPassword />} />
+                            <Route path="/update-profile" element={<UpdateProfile />} />
                             <Route element={<PrivateRoute />}>
                                 {/* <Route path="/home" element={<Home />} /> */}
                                 <Route path="/userDetail" element={<UserDetailPage />} />

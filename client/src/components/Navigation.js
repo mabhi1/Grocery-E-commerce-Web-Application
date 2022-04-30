@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
 import { AuthContext } from "../Firebase/Auth";
@@ -12,6 +12,14 @@ const Navigation = () => {
 
 const NavigationAuth = () => {
     const { currentUser } = useContext(AuthContext);
+    console.log(currentUser);
+    const [user, setUser] = useState(currentUser.displayName);
+
+    useEffect(() => {
+        setUser(currentUser.displayName);
+    }, [currentUser]);
+
+    console.log(user);
     return (
         // <div>
         //   <div>

@@ -59,6 +59,11 @@ const resolvers = {
         addUser: async (_, args) => {
             const newUser = await userData.createUser(args);
             return newUser;
+        },
+
+        editUser: async (_, args) => {
+            const newUser = await userData.editUser(args);
+            return newUser;
         }
     },
 };
