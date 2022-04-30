@@ -1,55 +1,71 @@
 const { gql } = require("apollo-server");
 
 const typeDefs = gql`
-  type Query {
-    products: [Product]
-    product(_id: String): Product
-    category(category: String): [Product]
-    ascCategory(category: String): [Product]
-    desCategory(category: String): [Product]
-    searchProducts(name: String!): [Product]
-    getUser(_id: String): User
-    getAllUsers: [User]
-  }
 
-  type Product {
-    _id: String
-    name: String
-    description: String
-    price: Int
-    category: String
-    quantity: Int
-  }
+    type Query {
+        products: [Product]
+        product(_id: String): Product
+        category(category: String): [Product]
+        ascCategory(category: String): [Product]
+        desCategory(category: String): [Product]
+        getUser(_id: String): User
+        getAllUsers: [User]
+        searchProducts(name: String!): [Product]
+        orders: [Order]
+        order(_id: String): Order
+    }
 
-  type User {
-    _id: String
-    name: String
-    email: String
-    address: String
-    phoneNumber: String
-    createdAt: String
-  }
+    type Order{
+        _id: String
+        userId: String
+        products: [Product]
+        status: String
+        createdAt: String
+    }
 
+    input Pro {
+        _id: String
+        name: String
+        description: String
+        price: Int
+        category: String
+        quantity: Int
+    }
 
-  type Mutation {
-    addProduct(name: String!, description: String, price: Int!, category: String!, quantity: Int!): Product
+    type Product {
+        _id: String
+        name: String
+        description: String
+        price: Int
+        category: String
+        quantity: Int
+    }
 
-    editProduct(_id: String!, name: String, price: Int, quantity: Int, description: String, category: String): Product
+    type User {
+        _id: String
+        name: String
+        email: String
+        address: String
+        phoneNumber: String
+        createdAt: String
+    }
 
-    deleteProduct(_id: String!): Product
+    type Mutation {
+        addProduct(name: String!, description: String, price: Int!, category: String!, quantity: Int!): Product
 
+        editProduct(_id: String!, name: String, price: Int, quantity: Int, description: String, category: String): Product
 
-    addUser(
-      _id: String
-      name: String!
-      email: String!
-      address: String!
-      phoneNumber: String!
-      createdAt: String
-    ): User
+        deleteProduct(_id: String!): Product
 
-    editUser(_id: String!, name: String, email: String, address: String, phoneNumber: String): User
-  }
+        addUser(_id: String, name: String!, email: String!, address: String!, phoneNumber: String!, createdAt: String): User
+
+        addOrder(userId: String!, products: Pro, status: String, createdAt: String ): Order
+
+        deleteOrder(_id: String!): Order
+        
+        editUser(_id: String!, name: String, email: String, address: String, phoneNumber: String): User
+    }
+
 `;
 
 module.exports = typeDefs;
