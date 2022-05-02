@@ -17,19 +17,19 @@ const createUser = async (args) => {
     newUser.createdAt = new Date();
     await users.insertOne(newUser);
     return newUser;
-}
+};
 
 const getAllUsers = async () => {
     const users = await userCollection();
     const allUsers = await users.find({}).toArray();
     return allUsers;
-}
+};
 
 const getUser = async (args) => {
     const users = await userCollection();
     const user = await users.findOne({ _id: args._id });
     return user;
-}
+};
 
 const editUser = async (args) => {
     const users = await userCollection();
@@ -39,15 +39,15 @@ const editUser = async (args) => {
         if (args.email) user.email = args.email;
         if (args.phoneNumber) user.phoneNumber = args.phoneNumber;
         if (args.address) user.address = args.address;
+        if (args.cart) user.cart = args.cart;
         await users.updateOne({ _id: args._id }, { $set: user });
     }
     return user;
-}
-
+};
 
 module.exports = {
     createUser,
     getAllUsers,
     getUser,
-    editUser
-}
+    editUser,
+};

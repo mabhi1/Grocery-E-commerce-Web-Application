@@ -1,7 +1,10 @@
-import React from "react";
+import { useQuery, useMutation } from "@apollo/client";
+import React, { useContext } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import actions from "../actions";
+import { AuthContext } from "../Firebase/Auth";
+import queries from "../queries";
 
 const styles = {
     card: {
@@ -33,12 +36,43 @@ const styles = {
 };
 function Cart() {
     let totalPrice = 0;
+    const { currentUser } = useContext(AuthContext);
+    const { data } = useQuery(queries.GET_USER_BY_ID, {
+        fetchPolicy: "cache-and-network",
+        variables: {
+            id: currentUser ? currentUser.uid : "none",
+        },
+    });
+    const [editUser] = useMutation(queries.EDIT_USER_CART);
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
+    const handleClick = (id) => {
+        console.log(id);
+        if (currentUser) {
+            const { getUser } = data;
+            let newCart = [];
+            if (getUser.cart.length > 0) {
+                for (let item of getUser.cart) {
+                    if (item._id !== id) {
+                        newCart.push({ _id: item._id, name: item.name, price: item.price, quantity: item.quantity });
+                    }
+                }
+            }
+            editUser({
+                variables: {
+                    id: getUser._id,
+                    cart: newCart,
+                },
+            });
+        } else {
+            dispatch(actions.removeProduct(id));
+        }
+    };
     const buildCard = (product) => {
         totalPrice += product.price;
+        console.log(product);
         return (
-            <Card style={styles.card} key={product.id}>
+            <Card style={styles.card} key={product._id}>
                 <Card.Img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930" style={styles.cardImg} />
                 <Card.Body style={styles.cardBody}>
                     <Card.Title>{product.name}</Card.Title>
@@ -47,7 +81,7 @@ function Cart() {
                         <br />
                         Quantity : {product.quantity}
                     </Card.Text>
-                    <Button size="sm" onClick={() => dispatch(actions.removeProduct(product.id))}>
+                    <Button size="sm" onClick={() => handleClick(product._id)}>
                         Remove
                     </Button>
                 </Card.Body>
@@ -57,9 +91,11 @@ function Cart() {
     return (
         <div>
             <div className="page-header">Cart</div>
-            {cart.length > 0 ? (
+            {cart.length > 0 || (data?.getUser && data.getUser.cart.length > 0) ? (
                 <div>
-                    <div style={{ display: "flex", flexWrap: "wrap", marginBottom: "25px" }}>{cart.map((product) => buildCard(product))}</div>
+                    <div style={{ display: "flex", flexWrap: "wrap", marginBottom: "25px" }}>
+                        {data?.getUser ? data.getUser.cart.map((product) => buildCard(product)) : cart.map((product) => buildCard(product))}
+                    </div>
                     <div style={styles.totalPrice}>Total Price : {totalPrice}</div>
                     <Button>Checkout</Button>
                 </div>

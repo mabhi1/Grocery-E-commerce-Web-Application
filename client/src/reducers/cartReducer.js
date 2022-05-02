@@ -1,5 +1,3 @@
-import { v4 as uuid } from "uuid";
-
 const cartReducer = (state = [], action) => {
     const { type, payload } = action;
     switch (type) {
@@ -12,13 +10,13 @@ const cartReducer = (state = [], action) => {
                     break;
                 }
             }
-            if (!found) state.push({ id: uuid(), name: payload.name, price: payload.price, quantity: payload.quantity });
+            if (!found) state.push({ _id: payload.id, name: payload.name, price: payload.price, quantity: payload.quantity });
             return [...state];
 
         case "REMOVE_PRODUCT_FROM_CART":
             let newCart = [];
             for (let product of state) {
-                if (product.id !== payload.id) newCart.push(product);
+                if (product._id !== payload.id) newCart.push(product);
             }
             return [...newCart];
 

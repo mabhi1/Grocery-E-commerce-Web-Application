@@ -1,7 +1,6 @@
 const { gql } = require("apollo-server");
 
 const typeDefs = gql`
-
     type Query {
         products: [Product]
         product(_id: String): Product
@@ -15,7 +14,7 @@ const typeDefs = gql`
         order(_id: String): Order
     }
 
-    type Order{
+    type Order {
         _id: String
         userId: String
         products: [Product]
@@ -47,7 +46,22 @@ const typeDefs = gql`
         email: String
         address: String
         phoneNumber: String
+        cart: [CartProduct]
         createdAt: String
+    }
+
+    type CartProduct {
+        _id: String
+        name: String
+        price: Int
+        quantity: Int
+    }
+
+    input Cart {
+        _id: String
+        name: String
+        price: Int
+        quantity: Int
     }
 
     type Mutation {
@@ -59,13 +73,12 @@ const typeDefs = gql`
 
         addUser(_id: String, name: String!, email: String!, address: String!, phoneNumber: String!, createdAt: String): User
 
-        addOrder(userId: String!, products: Pro, status: String, createdAt: String ): Order
+        addOrder(userId: String!, products: Pro, status: String, createdAt: String): Order
 
         deleteOrder(_id: String!): Order
-        
-        editUser(_id: String!, name: String, email: String, address: String, phoneNumber: String): User
-    }
 
+        editUser(_id: String!, name: String, email: String, address: String, phoneNumber: String, cart: [Cart]): User
+    }
 `;
 
 module.exports = typeDefs;
