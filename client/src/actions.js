@@ -1,6 +1,7 @@
-const addProduct = (name, price, quantity) => ({
+const addProduct = (id, name, price, quantity) => ({
     type: "ADD_PRODUCT_TO_CART",
     payload: {
+        id: id,
         name: name,
         price: price,
         quantity: quantity,
@@ -21,8 +22,16 @@ const showProducts = (products) => ({
     },
 });
 
+const setUser = (user) => ({
+    type: "SET_USER",
+    payload: {
+        user: user,
+    },
+});
+
 module.exports = {
     addProduct,
     removeProduct,
     showProducts,
+    setUser,
 };

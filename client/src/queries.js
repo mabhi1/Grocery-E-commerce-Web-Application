@@ -88,8 +88,8 @@ const EDIT_PRODUCT = gql`
 // GraphQL query to get all users
 
 const CREATE_USER = gql`
-    mutation Mutation($_id:String!,$name: String!, $email: String!, $address: String!, $phoneNumber: String!) {
-        addUser(_id:$_id ,name: $name, email: $email, address: $address, phoneNumber: $phoneNumber) {
+    mutation Mutation($_id: String!, $name: String!, $email: String!, $address: String!, $phoneNumber: String!) {
+        addUser(_id: $_id, name: $name, email: $email, address: $address, phoneNumber: $phoneNumber) {
             _id
             name
             email
@@ -99,7 +99,6 @@ const CREATE_USER = gql`
     }
 `;
 
-
 const GET_USER_BY_ID = gql`
     query ($id: String) {
         getUser(_id: $id) {
@@ -108,6 +107,12 @@ const GET_USER_BY_ID = gql`
             email
             address
             phoneNumber
+            cart {
+                _id
+                name
+                price
+                quantity
+            }
             createdAt
         }
     }
@@ -127,13 +132,31 @@ const GET_ALL_USERS = gql`
 `;
 
 const EDIT_USER = gql`
-    mutation Mutation($_id:String!,$name: String, $email: String, $address: String, $phoneNumber: String) {
-        editUser(_id:$_id ,name: $name, email: $email, address: $address, phoneNumber: $phoneNumber) {
+    mutation Mutation($_id: String!, $name: String, $email: String, $address: String, $phoneNumber: String) {
+        editUser(_id: $_id, name: $name, email: $email, address: $address, phoneNumber: $phoneNumber) {
             _id
             name
             email
             address
             phoneNumber
+        }
+    }
+`;
+
+const EDIT_USER_CART = gql`
+    mutation Mutation($id: String!, $cart: [Cart]) {
+        editUser(_id: $id, cart: $cart) {
+            _id
+            name
+            email
+            address
+            phoneNumber
+            cart {
+                _id
+                name
+                price
+                quantity
+            }
         }
     }
 `;
@@ -149,7 +172,8 @@ let exported = {
     GET_USER_BY_ID,
     GET_ALL_USERS,
     SEARCH_PRODUCTS,
-    EDIT_USER
+    EDIT_USER,
+    EDIT_USER_CART,
 };
 
 export default exported;
