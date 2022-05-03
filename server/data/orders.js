@@ -1,11 +1,39 @@
 const mongoCollections = require("../config/mongoCollection");
-const orderCollection = mongoCollections.order;
-const uuid = require('uuid');
+const ordersCollection = mongoCollections.orders;
+const uuid = require("uuid");
 
-const getAllOrders = async () => {
-    const orders = await orderCollection();
-    const allOrders = await orders.find({}).toArray();
-    return allOrders;
-}
+const createOrder = async (args) => {
+    const orders = await ordersCollection();
+    const newOrder = {};
+    newOrder._id = uuid.v4();
+    newOrder.status = args.status;
+    newOrder.userId = args.userId;
+    newOrder.createdAt = args.createdAt
+    newOrder.products = args.products
+    await orders.insertOne(newOrder);
+    return newOrder;
+};
 
-module.exports = {getAllOrders};
+const deleteOrder = async (args) => {
+    const orders = await ordersCollection();
+    const order = await orders.findOne({ _id: args._id });
+    await orders.deleteOne({ _id: args._id });
+    return order;
+};
+
+const getOrderById = async (args) => {
+    const orders = await ordersCollection();
+    const order = await orders.findOne({ _id: args._id });
+    return order;
+};
+
+const getOrdersByUserId = async (args) => {
+    const orders = await ordersCollection();
+    const order = await orders.find({ userId: args.userId }).toArray();
+    return order;
+};
+
+
+
+
+module.exports = { createOrder, getOrderById, deleteOrder, getOrdersByUserId };

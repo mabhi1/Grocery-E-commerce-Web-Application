@@ -1,6 +1,6 @@
 {
     "mongoConfig": {
-      "serverUrl": "mongodb://localhost:27017/",
-      "database": "AsianMarket"
+      "url": "mongodb+srv://stevenscs554:stevenscs554@cluster0.lgwed.mongodb.net/AsianMarket?retryWrites=true&w=majority",
+      "db": "asian_market"
     }
-}
+  }
