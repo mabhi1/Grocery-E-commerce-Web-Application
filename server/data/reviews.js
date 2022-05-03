@@ -8,7 +8,8 @@ const createReview = async (args) => {
     newReview._id = uuid.v4();
     newReview.userId = args.userId;
     newReview.productId = args.productId;
-    newReview.review = args.review
+    newReview.review = args.review;
+    newReview.rating = args.rating;
     await reviews.insertOne(newReview);
     return newReview;
 };
@@ -21,13 +22,13 @@ const getAllReviews = async () => {
 
 const getReviewByUserId = async (args) => {
     const reviews = await reviewCollection();
-    const userReviews = await reviews.find({ userId: args.userId }).toArray();
+    const userReviews = await reviews.find({ userId: args.userId }).sort({rating: 1}).toArray();
     return userReviews;
 };
 
 const getReviewByProductId = async (args) => {
     const reviews = await reviewCollection();
-    const productReviews = await reviews.find({ productId: args.productId }).toArray();
+    const productReviews = await reviews.find({ productId: args.productId }).sort({rating: -1}).toArray();
     return productReviews;
 };
 

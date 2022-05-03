@@ -23,6 +23,7 @@ const typeDefs = gql`
         userId: String
         productId: String
         review: String
+        rating: Int
     }
 
     type Order {
@@ -87,7 +88,8 @@ const typeDefs = gql`
         addReview(
             userId: String!,
             productId: String!,
-            review: String!
+            review: String!,
+            rating: Int!
         ): Review
 
         editProduct(_id: String!, name: String, price: Int, quantity: Int, description: String, category: String): Product
