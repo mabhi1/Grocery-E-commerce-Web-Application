@@ -10,7 +10,7 @@ import SignUp from "./SignUp";
 import { AuthProvider } from "../Firebase/Auth";
 import PrivateRoute from "./PrivateRoute";
 import Products from "./Product/Products";
-// import CreateRating from "./Ratings";
+import CreateRating from "./Ratings";
 import Admin from "./Admin/Admin";
 import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider } from "@apollo/client";
 import Landing from "./Landing";
@@ -39,7 +39,7 @@ function App() {
                             <Route path="/product/:id" element={<IndividualProduct />} />
                             <Route path="/cart" element={<Cart />} />
                             <Route element={<PrivateRoute />}>
-                            {/* <Route path="/postRating" element={<CreateRating />} /> */}
+                            <Route path="/postRating" element={<CreateRating />} />
                                 {/* <Route path="/home" element={<Home />} /> */}
                                 <Route path="/account" element={<Account />} />
                                 <Route path="/admin" element={<Admin />} />

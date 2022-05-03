@@ -74,7 +74,7 @@ const EDIT_PRODUCT = gql`
 `;
 
 const ADD_REVIEW = gql`
-    mutation Mutation(productId: String!, review: String!) {
+    mutation Mutation($productId: String!, $review: String!) {
         addReview(productId: $productId, review: $review){
             productId
             review
@@ -84,7 +84,7 @@ const ADD_REVIEW = gql`
 
 const REVIEW_BY_ID = gql`
     query ($id: String){
-        getReview(_id: String){
+        getReview(_id: $id){
             review
         }
     }
@@ -92,7 +92,7 @@ const REVIEW_BY_ID = gql`
 
 const ALL_REVIEWS_PRODUCT = gql`
     query ($id: String){
-        product_Reviews(_id: String){
+        product_Reviews(_id: $id){
             review
         }
     }

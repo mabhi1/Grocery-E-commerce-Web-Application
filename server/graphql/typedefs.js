@@ -23,12 +23,13 @@ const typeDefs = gql`
 
     type productReview{
         review : String
+        rating: Int
     }
 
     type Review{
-        _id : String
         productId : String
         review : String
+        rating: Int
     }
 
     type Mutation {
@@ -38,7 +39,7 @@ const typeDefs = gql`
 
         deleteProduct(_id: String!): Product
 
-        addReview( productId: String!, review: String!): Review
+        addReview( productId: String!, review: String!, rating: Int!): Review
     }
 `;
 

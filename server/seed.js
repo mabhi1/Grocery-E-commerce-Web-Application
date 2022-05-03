@@ -7,7 +7,7 @@ const main = async () => {
  //----------------------CREATE A REVIEW FOR A PRODUCT-----------------//
 
     // try{
-    //     const review1 = await reviews.createReview("f8ad348a-a7f6-40b5-abda-582671680657","Good product");
+    //     const review1 = await reviews.createReview("f8ad348a-a7f6-40b5-abda-582671680657","djhgjg",0);
     //     console.log(review1);
     // }catch(e){
     //     console.log (e);
@@ -24,12 +24,12 @@ const main = async () => {
 
     //-------------------------GET ALL REVIEWS FOR A PARTICULAR PRODUCT----------------------//
 
-    try{
-        const review = await reviews.getAllReviews_Product("f8ad348a-a7f6-40b5-abda-582671680657");
-        console.log(review);
-    }catch(e){
-        console.log (e);
-    }    
+    // try{
+    //     const review = await reviews.getAllReviews_Product("f8ad348a-a7f6-40b5-abda-582671680657");
+    //     console.log(review);
+    // }catch(e){
+    //     console.log (e);
+    // }    
    
     const db = await connection.connectToDb();
     await connection.closeConnection();

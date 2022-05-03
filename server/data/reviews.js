@@ -11,7 +11,8 @@ module.exports = {
 
         let productId = args.productId;
         let review = args.review;
-
+        let rating = args.rating;
+        
         // if(!userid){
         //     throw "ERROR! The userid field should have valid value";
         // }
@@ -20,9 +21,13 @@ module.exports = {
             throw "ERROR! The productId field should have valid value";
         }
 
-        // if(){
-        //     throw "ERROR! The review field should have valid value";
-        // }
+        if(!review){
+            throw "ERROR! The review field should have valid value";
+        }
+
+        if(!rating){
+            throw "ERROR! The rating field should have valid value";
+        }
 
         // if(typeof(userid) !== "string"){
         //     throw "ERROR! The userid parameter should be a string";
@@ -34,6 +39,10 @@ module.exports = {
 
         if(typeof(review) !== "string"){
             throw "ERROR! The review parameter should be a string";
+        }
+
+        if(typeof(rating) !== "number"){
+            throw "ERROR! The rating parameter should be an integer";
         }
 
         // if(userid.length == 0 || userid.trim().length == 0)
@@ -49,6 +58,10 @@ module.exports = {
         if(review.length == 0 || review.trim().length == 0)
         {
             throw "ERROR! The productId parameter cannot be empty";
+        }
+
+        if(rating<1 || rating>5){
+            throw "ERROR! Please enter a valid rating";
         }
 
         const d = new Date();
@@ -71,6 +84,7 @@ module.exports = {
         newReview._id = uuid.v4();
         // newReview.userid = userid;
         newReview.productId = productId;
+        newReview.rating = rating;
         newReview.review = review;
         newReview.createdAt = date;
 
@@ -167,14 +181,22 @@ module.exports = {
 
         let review_ids = product_info.reviews;
 
+        let product_review_info = {};
+
         let all_reviews = [];
+
+        let total_rating_product = 0;
 
         for(let i=0; i<review_ids.length; i++)
         {
             let a = await this.getReviewById(review_ids[i]);
-            all_reviews.push(a);
+            total_rating_product += a.rating;
+            all_reviews.push(a.review);
         }
 
-        return all_reviews;
+        product_review_info.overall_rating = total_rating_product;
+        product_review_info.reviews = all_reviews;
+        
+        return product_review_info;
     }
 }

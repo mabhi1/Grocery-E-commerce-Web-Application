@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import './App.css';
+import '../App.css';
 import { FaStar } from "react-icons/fa";
 import '../queries';
 
@@ -19,7 +19,8 @@ const styles = {
       padding: 10,
       margin: "20px 0",
       minHeight: 100,
-      width: 300
+      width: 300,
+      resize: "none",
     },
     button: {
       border: "1px solid #a9a9a9",
@@ -27,22 +28,23 @@ const styles = {
       width: 300,
       padding: 10,
     }
-  
+    
 };
 
 const colors = {
-    yellow: "#FFFF00",
+    yellow: "#fcba03",
     grey: "#a9a9a9"
     
 };
 
 function App() {
-  const [currentValue, setCurrentValue] = useState(0);
+  const [rating, setRating] = useState(undefined);
   const [hoverValue, setHoverValue] = useState(undefined);
-  const stars = Array(5).fill(0)
+  
+  const stars = Array(5).fill(0);
 
   const handleClick = value => {
-    setCurrentValue(value)
+    setRating(value)
   }
 
   const handleMouseOver = newHoverValue => {
@@ -50,28 +52,36 @@ function App() {
   };
 
   const handleMouseLeave = () => {
-    setHoverValue(undefined)
+    setHoverValue(null)
   }
 
 
   return (
     <div style={styles.container}>
-      <h2> React Ratings </h2>
+      <h2> Product Review </h2>
       <div style={styles.stars}>
         {stars.map((_, index) => {
           return (
+            <label>
+            <input 
+            type="radio" 
+            name="rating" 
+            value={rating} 
+            onClick={ () => setRating(rating)}/>
+
             <FaStar
               key={index}
               size={24}
               onClick={() => handleClick(index + 1)}
               onMouseOver={() => handleMouseOver(index + 1)}
               onMouseLeave={handleMouseLeave}
-              color={(hoverValue || currentValue) > index ? colors.orange : colors.grey}
+              color={(hoverValue || rating) > index ? colors.yellow : colors.grey}
               style={{
                 marginRight: 10,
                 cursor: "pointer"
               }}
             />
+        </label>
           )
         })}
       </div>
@@ -84,3 +94,4 @@ function App() {
 };
 
 export default App;
+
