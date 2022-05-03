@@ -12,6 +12,17 @@ const typeDefs = gql`
         searchProducts(name: String!): [Product]
         orders: [Order]
         order(_id: String): Order
+        reviews: [Review]
+        userReview(userId: String): [Review]
+        productReview(productId: String): [Review]
+        review(_id: String!): Review
+    }
+
+    type Review {
+        _id: String
+        userId: String
+        productId: String
+        review: String
     }
 
     type Order {
@@ -65,7 +76,19 @@ const typeDefs = gql`
     }
 
     type Mutation {
-        addProduct(name: String!, description: String, price: Int!, category: String!, quantity: Int!): Product
+        addProduct(
+            name: String!, 
+            description: String, 
+            price: Int!, 
+            category: String!, 
+            quantity: Int!
+        ): Product
+
+        addReview(
+            userId: String!,
+            productId: String!,
+            review: String!
+        ): Review
 
         editProduct(_id: String!, name: String, price: Int, quantity: Int, description: String, category: String): Product
 
