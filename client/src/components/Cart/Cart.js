@@ -2,9 +2,9 @@ import { useQuery, useMutation } from "@apollo/client";
 import React, { useContext } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import actions from "../actions";
-import { AuthContext } from "../Firebase/Auth";
-import queries from "../queries";
+import actions from "../../actions";
+import { AuthContext } from "../../Firebase/Auth";
+import queries from "../../queries";
 
 const styles = {
     card: {
@@ -88,6 +88,29 @@ function Cart() {
             </Card>
         );
     };
+    const handleCheckout = () => {
+        fetch("http://localhost:5000/create-checkout-session", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                items: data?.getUser ? data.getUser.cart : cart,
+                email: currentUser ? currentUser.email : undefined,
+            }),
+        })
+            .then(async (res) => {
+                if (res.ok) return res.json();
+                const json = await res.json();
+                return await Promise.reject(json);
+            })
+            .then(({ url }) => {
+                window.location = url;
+            })
+            .catch((e) => {
+                console.error(e.error);
+            });
+    };
     return (
         <div>
             <div className="page-header">Cart</div>
@@ -97,7 +120,7 @@ function Cart() {
                         {data?.getUser ? data.getUser.cart.map((product) => buildCard(product)) : cart.map((product) => buildCard(product))}
                     </div>
                     <div style={styles.totalPrice}>Total Price : {totalPrice}</div>
-                    <Button>Checkout</Button>
+                    <Button onClick={handleCheckout}>Checkout</Button>
                 </div>
             ) : (
                 <div style={{ margin: "50px", fontSize: "x-large", fontFamily: "initial" }}>Your cart is empty</div>
