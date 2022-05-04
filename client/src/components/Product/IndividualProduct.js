@@ -105,7 +105,6 @@ function IndividualProduct() {
             </div>
         );
     }
-    return <div>IndividualProduct</div>;
 }
 
 export default IndividualProduct;

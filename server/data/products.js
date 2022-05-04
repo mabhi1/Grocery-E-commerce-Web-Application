@@ -37,7 +37,21 @@ const deleteProduct = async (args) => {
     return product;
 };
 
-const getAllProducts = async () => {
+const getAllProducts = async (args) => {
+    const limit = 2;
+    const skip = (args.page - 1) * limit;
+    const products = await productCollection();
+    const allProducts = await products.find({}).limit(limit).skip(skip).toArray();
+    return allProducts;
+};
+
+const totalNumberOfProducts = async () => {
+    const products = await productCollection();
+    const totalProducts = await products.find({}).toArray();
+    return totalProducts.length;
+};
+
+const getAdminProducts = async () => {
     const products = await productCollection();
     const allProducts = await products.find({}).toArray();
     return allProducts;
@@ -87,4 +101,6 @@ module.exports = {
     sortDesByCategory,
     deleteProduct,
     searchProducts,
+    getAdminProducts,
+    totalNumberOfProducts,
 };

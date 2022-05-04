@@ -6,17 +6,30 @@ import ProductList from "./ProductList";
 import { useDispatch } from "react-redux";
 import actions from "../../actions";
 import Form from "react-bootstrap/Form";
+import { useNavigate, useParams } from "react-router-dom";
+import ReactPaginate from "react-paginate";
 
 function Products() {
     let name;
     let filter;
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { pageNum } = useParams();
     const [searchTerm, setSearchTerm] = useState("null");
     const [sortProducts, setSortProducts] = useState(false);
     const [filterValue, setFilterValue] = useState(null);
-    const { loading, error, data } = useQuery(queries.GET_PRODUCTS_NAME_PRICE, { fetchPolicy: "cache-and-network" });
+    const numberOfProductsData = useQuery(queries.NUMBER_OF_PRODUCTS).data;
+    const numberOfProducts = numberOfProductsData?.numberOfProducts;
+    const { loading, error, data } = useQuery(queries.GET_ALL_PRODUCTS, { variables: { page: parseInt(pageNum) } });
     const searchData = useQuery(queries.SEARCH_PRODUCTS, { variables: { name: searchTerm } });
     let searchResults = searchData.data && searchData.data.searchProducts;
+    const productByCategoryData = useQuery(queries.GET_PRODUCT_BY_CATEGORY, {
+        variables: { category: filterValue },
+    });
+    let productByCategory = productByCategoryData.data && productByCategoryData.data.category;
+    const handlePageChange = (data) => {
+        navigate(`/products/${data.selected + 1}`, { replace: true });
+    };
     const handleChange = () => {
         let check = document.getElementById("sortByPrice");
         setSortProducts(check.checked);
@@ -63,13 +76,14 @@ function Products() {
                         <input type="checkbox" name="sortByPrice" id="sortByPrice" onChange={handleChange} /> Sort by Price
                     </div>
                 </div>
-                <ProductList sort={sortProducts} filterValue={filterValue && filterValue} />
+
+                <ProductList sort={sortProducts} />
             </div>
         );
     }
     if (data) {
         let { products } = data;
-        dispatch(actions.showProducts(products));
+        dispatch(actions.showProducts(productByCategory?.length > 0 ? productByCategory : products));
         return (
             <div>
                 <div className="page-header">Products</div>
@@ -100,7 +114,26 @@ function Products() {
                         <input type="checkbox" name="sortByPrice" id="sortByPrice" onChange={handleChange} /> Sort by Price
                     </div>
                 </div>
-                <ProductList sort={sortProducts} filterValue={filterValue && filterValue} />
+                <ProductList sort={sortProducts} />
+                {productByCategory?.length > 0 ? null : (
+                    <ReactPaginate
+                        previousLabel={"Previous"}
+                        nextLabel={"Next"}
+                        pageCount={numberOfProducts / 2}
+                        onPageChange={handlePageChange}
+                        forcePage={parseInt(pageNum) - 1}
+                        containerClassName={"pagination justify-content-center"}
+                        pageClassName={"page-item"}
+                        pageLinkClassName={"page-link"}
+                        previousClassName={"page-item"}
+                        previousLinkClassName={"page-link"}
+                        nextClassName={"page-item"}
+                        nextLinkClassName={"page-link"}
+                        breakClassName={"page-item"}
+                        breakLinkClassName={"page-link"}
+                        activeClassName={"active"}
+                    />
+                )}
             </div>
         );
     } else if (loading) {

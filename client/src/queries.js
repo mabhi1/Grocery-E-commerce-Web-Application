@@ -1,15 +1,37 @@
 import { gql } from "@apollo/client";
 
-const GET_PRODUCTS_NAME_PRICE = gql`
-    query {
-        products {
+const NUMBER_OF_PRODUCTS = gql`
+    query Query {
+        numberOfProducts
+    }
+`;
+
+const GET_PRODUCTS_FOR_ADMIN = gql`
+    query Query {
+        adminProducts {
             _id
             name
+            description
             price
             category
+            quantity
         }
     }
 `;
+
+const GET_PRODUCT_BY_CATEGORY = gql`
+    query Query($category: String) {
+        category(category: $category) {
+            _id
+            name
+            description
+            price
+            category
+            quantity
+        }
+    }
+`;
+
 const GET_PRODUCTS_BY_ID = gql`
     query ($id: String) {
         product(_id: $id) {
@@ -24,8 +46,8 @@ const GET_PRODUCTS_BY_ID = gql`
 `;
 
 const GET_ALL_PRODUCTS = gql`
-    query {
-        products {
+    query Query($page: Int) {
+        products(page: $page) {
             _id
             name
             description
@@ -163,7 +185,7 @@ const EDIT_USER_CART = gql`
 
 let exported = {
     GET_PRODUCTS_BY_ID,
-    GET_PRODUCTS_NAME_PRICE,
+    GET_PRODUCTS_FOR_ADMIN,
     ADD_PRODUCT,
     GET_ALL_PRODUCTS,
     DELETE_PRODUCT,
@@ -174,6 +196,8 @@ let exported = {
     SEARCH_PRODUCTS,
     EDIT_USER,
     EDIT_USER_CART,
+    GET_PRODUCT_BY_CATEGORY,
+    NUMBER_OF_PRODUCTS,
 };
 
 export default exported;

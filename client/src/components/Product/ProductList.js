@@ -4,14 +4,6 @@ import { useSelector } from "react-redux";
 
 function ProductList(props) {
     let products = useSelector((state) => state.products);
-    console.log(products);
-    if (props.filterValue) {
-        if (props.filterValue !== "all") {
-            products = products.filter((product) => {
-                return product.category === props.filterValue;
-            });
-        }
-    }
     let sortedProducts = [];
     for (let product of products) {
         sortedProducts.push(product);
