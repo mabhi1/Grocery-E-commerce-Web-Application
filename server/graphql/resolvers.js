@@ -59,7 +59,7 @@ const resolvers = {
     Mutation: {
         addProduct: async (_, args) => {
             const newProduct = await productData.addProduct(args);
-            return newReview;
+            return newProduct;
         },
 
         addReview: async (_, args) => {
