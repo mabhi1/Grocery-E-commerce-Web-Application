@@ -10,6 +10,7 @@ const createProduct = async (args) => {
     newProduct.description = args.description;
     args.category = args.category.toLowerCase();
     newProduct.category = args.category;
+    newProduct.image = args.image;
     newProduct.price = args.price;
     newProduct.quantity = args.quantity;
     await products.insertOne(newProduct);
