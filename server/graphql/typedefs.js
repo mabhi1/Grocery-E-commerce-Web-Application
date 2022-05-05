@@ -74,7 +74,7 @@ const typeDefs = gql`
 
         addUser(_id: String, name: String!, email: String!, address: String!, phoneNumber: String!, createdAt: String): User
 
-        addOrder(userId: String!, products: Pro, status: String, createdAt: String): Order
+        addOrder(userId: String!, products: [Pro], status: String, createdAt: String): Order
 
         deleteOrder(_id: String!): Order
 

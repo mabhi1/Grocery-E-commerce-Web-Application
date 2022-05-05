@@ -189,16 +189,22 @@ query ($userId: String) {
 `;
 
 const ADD_ORDER= gql`
-    mutation Mutation($status: String!, $userId: String!, $createdAt: String, $products: pro) {
-        addOrder(status: $status, userId: $userId, createdAt: $createdAt, products: $products) {
-            
-            status
-            userId
-            createdAt
-            products
-            
-        }
+mutation Mutation($userId: String!, $products: [Pro], $status: String, $createdAt: String) {
+    addOrder(userId: $userId, products: $products, status: $status, createdAt: $createdAt) {
+      _id
+      userId
+      products {
+        _id
+        name
+        description
+        price
+        category
+        quantity
+      }
+      status
+      createdAt
     }
+  }
 `;
 
 let exported = {
