@@ -10,7 +10,8 @@ const typeDefs = gql`
         getUser(_id: String): User
         getAllUsers: [User]
         searchProducts(name: String!): [Product]
-        orders: [Order]
+        userOrders(userId: String): [Order]
+        getAllOrders(_id: String): [Order]
         order(_id: String): Order
         adminProducts: [Product]
         numberOfProducts: Int

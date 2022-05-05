@@ -166,6 +166,17 @@ const EDIT_USER = gql`
         }
     }
 `;
+const GET_ALL_ORDERS = gql`
+    query {
+        getAllOrders {
+            _id
+            userId
+            products
+            status
+            createdAt
+        }
+    }
+`;
 
 const EDIT_USER_CART = gql`
     mutation Mutation($id: String!, $cart: [Cart]) {
@@ -185,6 +196,32 @@ const EDIT_USER_CART = gql`
     }
 `;
 
+const GET_ORDERS_BY_USERID = gql`
+    query ($userId: String) {
+        userOrders(userId: $userId) {
+            _id
+            userId
+            products {
+                _id
+                quantity
+            }
+            status
+            createdAt
+        }
+    }
+`;
+
+const ADD_ORDER = gql`
+    mutation Mutation($status: String!, $userId: String!, $createdAt: String, $products: pro) {
+        addOrder(status: $status, userId: $userId, createdAt: $createdAt, products: $products) {
+            status
+            userId
+            createdAt
+            products
+        }
+    }
+`;
+
 let exported = {
     GET_PRODUCTS_BY_ID,
     GET_PRODUCTS_FOR_ADMIN,
@@ -200,6 +237,9 @@ let exported = {
     EDIT_USER_CART,
     GET_PRODUCT_BY_CATEGORY,
     NUMBER_OF_PRODUCTS,
+    GET_ALL_ORDERS,
+    GET_ORDERS_BY_USERID,
+    ADD_ORDER,
 };
 
 export default exported;

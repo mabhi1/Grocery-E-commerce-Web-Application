@@ -2,6 +2,7 @@ const productData = require("../data/products");
 const userData = require("../data/users");
 const reviewData = require("../data/reviews");
 
+const ordersData = require("../data/orders");
 const resolvers = {
     Query: {
         product: async (_, args) => {
@@ -17,6 +18,21 @@ const resolvers = {
         adminProducts: async () => {
             const products = await productData.getAdminProducts();
             return products;
+        },
+
+        order: async (_, args) => {
+            const orders = await ordersData.getOrderById(args);
+            return orders;
+        },
+
+        userOrders: async (_, args) => {
+            const orders = await ordersData.getOrdersByUserId(args);
+            return orders;
+        },
+
+        getAllOrders: async (_, args) => {
+            const orders = await ordersData.getAllOrders(args);
+            return orders;
         },
         category: async (_, args) => {
             const products = await productData.findByCategory(args);
@@ -100,6 +116,15 @@ const resolvers = {
         editUser: async (_, args) => {
             const newUser = await userData.editUser(args);
             return newUser;
+        },
+        addOrder: async (_, args) => {
+            const newOrder = await ordersData.createOrder(args);
+            return newOrder;
+        },
+
+        deleteOrder: async (_, args) => {
+            const order = await ordersData.deleteOrder(args);
+            return order;
         },
     },
 };
