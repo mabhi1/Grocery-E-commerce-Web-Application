@@ -10,6 +10,7 @@ const createProduct = async (args) => {
     newProduct.description = args.description;
     args.category = args.category.toLowerCase();
     newProduct.category = args.category;
+    newProduct.image = args.image;
     newProduct.price = args.price;
     newProduct.quantity = args.quantity;
     await products.insertOne(newProduct);
@@ -38,7 +39,7 @@ const deleteProduct = async (args) => {
 };
 
 const getAllProducts = async (args) => {
-    const limit = 2;
+    const limit = 18;
     const skip = (args.page - 1) * limit;
     const products = await productCollection();
     const allProducts = await products.find({}).limit(limit).skip(skip).toArray();

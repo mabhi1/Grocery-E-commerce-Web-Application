@@ -14,15 +14,12 @@ const createOrder = async (args) => {
     return newOrder;
 };
 
-
-
 const deleteOrder = async (args) => {
     const orders = await ordersCollection();
     const order = await orders.findOne({ _id: args._id });
     await orders.deleteOne({ _id: args._id });
     return order;
 };
-
 
 const getOrderById = async (args) => {
     const orders = await ordersCollection();

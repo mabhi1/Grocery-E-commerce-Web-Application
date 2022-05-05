@@ -1,5 +1,6 @@
 const productData = require("../data/products");
 const userData = require("../data/users");
+const reviewData = require("../data/reviews");
 
 const resolvers = {
     Query: {
@@ -9,7 +10,7 @@ const resolvers = {
         },
         products: async (_, args) => {
             const numberOfProducts = await productData.totalNumberOfProducts();
-            if (args.page > numberOfProducts / 2 || args.page < 1) return new Error("Not Found");
+            if (args.page > Math.ceil(numberOfProducts / 2) || args.page < 1) return new Error("Not Found");
             const products = await productData.getAllProducts(args);
             return products;
         },
@@ -47,12 +48,38 @@ const resolvers = {
             const users = await userData.getAllUsers();
             return users;
         },
+        searchProducts: async (_, args) => {
+            if (args.name === "null") return;
+            const products = await productData.searchProducts(args);
+            return products;
+        },
+        reviews: async () => {
+            const reviews = await reviewData.getAllReviews();
+            return reviews;
+        },
+        review: async (_, args) => {
+            const review = await reviewData.getReviewById(args);
+            return review;
+        },
+        userReview: async (_, args) => {
+            const review = await reviewData.getReviewByUserId(args);
+            return review;
+        },
+        productReview: async (_, args) => {
+            const review = await reviewData.getReviewByProductId(args);
+            return review;
+        },
     },
 
     Mutation: {
         addProduct: async (_, args) => {
             const newProduct = await productData.createProduct(args);
             return newProduct;
+        },
+
+        addReview: async (_, args) => {
+            const newReview = await reviewData.createReview(args);
+            return newReview;
         },
 
         editProduct: async (_, args) => {

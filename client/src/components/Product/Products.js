@@ -21,6 +21,7 @@ function Products() {
     const numberOfProductsData = useQuery(queries.NUMBER_OF_PRODUCTS).data;
     const numberOfProducts = numberOfProductsData?.numberOfProducts;
     const { loading, error, data } = useQuery(queries.GET_ALL_PRODUCTS, { variables: { page: parseInt(pageNum) } });
+    console.log(data);
     const searchData = useQuery(queries.SEARCH_PRODUCTS, { variables: { name: searchTerm } });
     let searchResults = searchData.data && searchData.data.searchProducts;
     const productByCategoryData = useQuery(queries.GET_PRODUCT_BY_CATEGORY, {
@@ -119,7 +120,7 @@ function Products() {
                     <ReactPaginate
                         previousLabel={"Previous"}
                         nextLabel={"Next"}
-                        pageCount={numberOfProducts / 2}
+                        pageCount={numberOfProducts / 18}
                         onPageChange={handlePageChange}
                         forcePage={parseInt(pageNum) - 1}
                         containerClassName={"pagination justify-content-center"}

@@ -50,6 +50,7 @@ const GET_ALL_PRODUCTS = gql`
         products(page: $page) {
             _id
             name
+            image
             description
             price
             category
@@ -63,6 +64,7 @@ const SEARCH_PRODUCTS = gql`
         searchProducts(name: $name) {
             _id
             name
+            image
             price
             category
         }
