@@ -11,7 +11,7 @@ const typeDefs = gql`
         getAllUsers: [User]
         searchProducts(name: String!): [Product]
         userOrders(userId: String): [Order]
-        getAllOrders(_id: String): [Order]
+        getAllOrders: [Order]
         order(_id: String): Order
     }
 
