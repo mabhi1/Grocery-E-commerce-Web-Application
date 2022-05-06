@@ -7,14 +7,19 @@ const typeDefs = gql`
         category(category: String): [Product]
         ascCategory(category: String): [Product]
         desCategory(category: String): [Product]
+        searchProducts(name: String!): [Product]
+        adminProducts: [Product]
+        numberOfProducts: Int
+        
         getUser(_id: String): User
         getAllUsers: [User]
-        searchProducts(name: String!): [Product]
+        
         userOrders(userId: String): [Order]
         getAllOrders: [Order]
         order(_id: String): Order
-        adminProducts: [Product]
-        numberOfProducts: Int
+        orderStatus(status: String): [Order]
+        changeStatusToCompleted(_id: String): Order
+
         reviews: [Review]
         userReview(userId: String): [Review]
         productReview(productId: String): [Review]

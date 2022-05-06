@@ -85,6 +85,14 @@ const resolvers = {
             const review = await reviewData.getReviewByProductId(args);
             return review;
         },
+        orderStatus: async (_, args) => {
+            const orders = await ordersData.getStatusOrders(args);
+            return orders;
+        },
+        changeStatusToCompleted: async (_,args) => {
+            const order = await ordersData.changeStatusToCompleted(args);
+            return order;
+        } 
     },
 
     Mutation: {
