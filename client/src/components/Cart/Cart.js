@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import actions from "../../actions";
 import { AuthContext } from "../../Firebase/Auth";
 import queries from "../../queries";
+import AddOrder from "../orders/AddOrder";
 
 const styles = {
     card: {
@@ -89,6 +90,7 @@ function Cart() {
         );
     };
     const handleCheckout = () => {
+        
         fetch("http://localhost:5000/create-checkout-session", {
             method: "POST",
             headers: {

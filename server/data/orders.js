@@ -55,8 +55,8 @@ const getOrdersByUserId = async (args) => {
     return order;
 };
 
-const getAllOrders = async (args) => {
-    const orders = ordersCollection();
+const getAllOrders = async () => {
+    const orders = await ordersCollection();
     const order = await orders.find({}).toArray();
     return order;
 };
