@@ -90,7 +90,7 @@ function Cart() {
         );
     };
     const handleCheckout = () => {
-        <AddOrder />
+        
         fetch("http://localhost:5000/create-checkout-session", {
             method: "POST",
             headers: {
