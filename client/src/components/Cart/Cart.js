@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import actions from "../../actions";
 import { AuthContext } from "../../Firebase/Auth";
 import queries from "../../queries";
+import { v4 as uuid } from "uuid";
 import AddOrder from "../orders/AddOrder";
 
 const styles = {
@@ -99,6 +100,7 @@ function Cart() {
             body: JSON.stringify({
                 items: data?.getUser ? data.getUser.cart : cart,
                 email: currentUser ? currentUser.email : undefined,
+                secret: uuid(),
             }),
         })
             .then(async (res) => {
