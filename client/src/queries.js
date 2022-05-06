@@ -196,13 +196,17 @@ const EDIT_USER_CART = gql`
     }
 `;
 
-const GET_ORDERS_BY_USERID = gql`
-    query ($userId: String) {
-        userOrders(userId: $userId) {
+const ADD_ORDER = gql`
+    mutation Mutation($userId: String!, $products: [Pro], $status: String, $createdAt: String, $flag: Int) {
+        addOrder(userId: $userId, products: $products, status: $status, createdAt: $createdAt, flag: $flag) {
             _id
             userId
             products {
                 _id
+                name
+                description
+                price
+                category
                 quantity
             }
             status
@@ -211,14 +215,29 @@ const GET_ORDERS_BY_USERID = gql`
     }
 `;
 
-const ADD_ORDER = gql`
-    mutation Mutation($status: String!, $userId: String!, $createdAt: String, $products: pro) {
-        addOrder(status: $status, userId: $userId, createdAt: $createdAt, products: $products) {
-            status
+const GET_USER_ORDERS = gql`
+    query Query($userId: String) {
+        userOrders(userId: $userId) {
+            _id
             userId
+            products {
+                _id
+                name
+                image
+                description
+                price
+                category
+                quantity
+            }
+            status
             createdAt
-            products
         }
+    }
+`;
+
+const FILTER_ORDER = gql`
+    mutation Mutation($userId: String!) {
+        filterOrder(userId: $userId)
     }
 `;
 
@@ -238,8 +257,9 @@ let exported = {
     GET_PRODUCT_BY_CATEGORY,
     NUMBER_OF_PRODUCTS,
     GET_ALL_ORDERS,
-    GET_ORDERS_BY_USERID,
     ADD_ORDER,
+    GET_USER_ORDERS,
+    FILTER_ORDER,
 };
 
 export default exported;

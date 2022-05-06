@@ -119,9 +119,9 @@ const resolvers = {
         },
         addOrder: async (_, args) => {
             const newOrder = await ordersData.createOrder(args);
+            await ordersData.filterOrders(args);
             return newOrder;
         },
-
         deleteOrder: async (_, args) => {
             const order = await ordersData.deleteOrder(args);
             return order;
