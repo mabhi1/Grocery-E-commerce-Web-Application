@@ -43,9 +43,27 @@ const deleteOrder = async (args) => {
     return order;
 };
 
+const getStatusOrders = async(args) => {
+    const orders = await ordersCollection();
+    const recievedOrders = await orders.find({status: args.status}).toArray();
+    return recievedOrders;
+}
+
 const getOrderById = async (args) => {
     const orders = await ordersCollection();
     const order = await orders.findOne({ _id: args._id });
+    return order;
+};
+
+const changeStatusToCompleted = async(args) => {
+    const orders = await ordersCollection();
+    const order = await orders.updateOne({ _id: args._id }, {$set:{status: "completed"}});
+    return order;
+};
+
+const changeStatusToDispatched = async(args) => {
+    const orders = await ordersCollection();
+    const order = await orders.updateOne({ _id: args._id }, {$set:{status: "dispatched"}});
     return order;
 };
 
@@ -61,4 +79,4 @@ const getAllOrders = async () => {
     return order;
 };
 
-module.exports = { createOrder, getOrderById, deleteOrder, getOrdersByUserId, getAllOrders, filterOrders };
+module.exports = { createOrder, getOrderById, deleteOrder, getOrdersByUserId, getAllOrders, filterOrders, getStatusOrders, changeStatusToCompleted, changeStatusToDispatched};
