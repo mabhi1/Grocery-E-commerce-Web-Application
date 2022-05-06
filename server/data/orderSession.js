@@ -20,7 +20,7 @@ const deleteSession = async (args) => {
 
 const getSessionById = async (args) => {
     const sessions = await sessionCollection();
-    const session = await sessions.findOne({ _id: args.id });
+    const session = await sessions.findOne({ _id: args._id });
     return session;
 };
 
