@@ -6,6 +6,7 @@ import actions from "../../actions";
 import { AuthContext } from "../../Firebase/Auth";
 import queries from "../../queries";
 import { v4 as uuid } from "uuid";
+import AddOrder from "../orders/AddOrder";
 
 const styles = {
     card: {
@@ -90,6 +91,7 @@ function Cart() {
         );
     };
     const handleCheckout = () => {
+        
         fetch("http://localhost:5000/create-checkout-session", {
             method: "POST",
             headers: {
