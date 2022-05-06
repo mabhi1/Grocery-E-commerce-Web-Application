@@ -49,10 +49,10 @@ function ProductCard(props) {
         alert(`${product.name} added to your cart`);
     };
     return (
-        <Col style={{ width: "12.5%", marginBottom: "20px" }}>
+        <Col style={{ width: "16%", marginBottom: "20px" }}>
             <Card style={{ textAlign: "center" }}>
                 <Link to={`/product/${product._id}`}>
-                    <Card.Img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930" alt={product.name} />
+                    <Card.Img src={product.image} alt={product.name} style={{ width: "100%", height: "185px" }} />
                 </Link>
                 <Card.Body>
                     <Link className="btn btn-light" to={`/product/${product._id}`} role="button">

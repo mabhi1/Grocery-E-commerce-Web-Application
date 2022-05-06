@@ -24,13 +24,13 @@ function EditModal(props) {
     const product = props.product;
     const [editProduct] = useMutation(queries.EDIT_PRODUCT, {
         update(cache, { data: { editProduct } }) {
-            let products = cache.readQuery({ query: queries.GET_ALL_PRODUCTS }).products;
-            products = products?.filter((product) => {
+            let adminProducts = cache.readQuery({ query: queries.GET_PRODUCTS_FOR_ADMIN }).adminProducts;
+            adminProducts = adminProducts?.filter((product) => {
                 return product._id !== editProduct._id;
             });
             cache.writeQuery({
-                query: queries.GET_ALL_PRODUCTS,
-                data: { products: products.concat([editProduct]) },
+                query: queries.GET_PRODUCTS_FOR_ADMIN,
+                data: { adminProducts: adminProducts.concat([editProduct]) },
             });
         },
     });
