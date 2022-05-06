@@ -20,7 +20,13 @@ function ProductCard(props) {
     const [editUser] = useMutation(queries.EDIT_USER_CART);
     const dispatch = useDispatch();
     const product = props.product;
+    console.log(product);
     const handleClick = () => {
+        if (quantity > product.quantity) {
+            alert(`Only ${product.quantity} quantity of ${product.name} is left in stock. Please choose a lesser value.`);
+            setQuantity(0);
+            return;
+        }
         if (currentUser) {
             const { getUser } = data;
             let newCart = [];

@@ -17,4 +17,5 @@ module.exports = {
     categories: dbCol("categories"),
     products: dbCol("products"),
     reviews: dbCol("reviews"),
+    orderSession: dbCol("orderSession"),
 };
