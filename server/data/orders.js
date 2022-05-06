@@ -57,13 +57,15 @@ const getOrderById = async (args) => {
 
 const changeStatusToCompleted = async(args) => {
     const orders = await ordersCollection();
-    const order = await orders.updateOne({ _id: args._id }, {$set:{status: "completed"}});
+    await orders.updateOne({ _id: args._id }, {$set:{status: "completed"}});
+    const order = await orders.findOne({ _id: args._id });
     return order;
 };
 
 const changeStatusToDispatched = async(args) => {
     const orders = await ordersCollection();
-    const order = await orders.updateOne({ _id: args._id }, {$set:{status: "dispatched"}});
+    await orders.updateOne({ _id: args._id }, {$set:{status: "dispatched"}});
+    const order = await orders.findOne({ _id: args._id });
     return order;
 };
 

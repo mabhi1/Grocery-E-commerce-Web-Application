@@ -3,32 +3,25 @@ const sessionCollection = mongoCollections.orderSession;
 
 const createSession = async (args) => {
     const sessions = await sessionCollection();
-    try {
-        await sessions.insertOne({ sessionId: args.id });
-        return true;
-    } catch (error) {
-        return false;
+    const newSession = {
+        _id: args._id
     }
+    await sessions.insertOne(newSession);
+    return newSession;
 };
 
 const deleteSession = async (args) => {
     const sessions = await sessionCollection();
-    try {
-        await sessions.deleteOne({ sessionId: args.id });
-        return true;
-    } catch (error) {
-        return false;
-    }
+    await sessions.deleteOne({ _id: args._id });
+    return {
+        deleted: true
+    };
 };
 
 const getSessionById = async (args) => {
     const sessions = await sessionCollection();
-    const session = await sessions.findOne({ sessionId: args.id });
-    if (session) {
-        return true;
-    } else {
-        return false;
-    }
+    const session = await sessions.findOne({ _id: args.id });
+    return session;
 };
 
 module.exports = {

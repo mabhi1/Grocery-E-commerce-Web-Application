@@ -1,7 +1,7 @@
 const productData = require("../data/products");
 const userData = require("../data/users");
 const reviewData = require("../data/reviews");
-
+const sessionData = require("../data/orderSession");
 const ordersData = require("../data/orders");
 const resolvers = {
     Query: {
@@ -31,7 +31,7 @@ const resolvers = {
         },
 
         getAllOrders: async (_, args) => {
-            const orders = await ordersData.getAllOrders(args);
+            const orders = await ordersData.getAllOrders();
             return orders;
         },
         category: async (_, args) => {
@@ -92,7 +92,15 @@ const resolvers = {
         changeStatusToCompleted: async (_,args) => {
             const order = await ordersData.changeStatusToCompleted(args);
             return order;
-        } 
+        },
+        changeStatusToDispatched: async (_,args) => {
+            const order = await ordersData.changeStatusToDispatched(args);
+            return order;
+        },
+        session: async(_,args) => {
+            const session = await sessionData.getSessionById(args);
+            return session;
+        }
     },
 
     Mutation: {
@@ -106,6 +114,16 @@ const resolvers = {
             return newReview;
         },
 
+        addSession: async(_,args) => {
+            const newSession = await sessionData.createSession(args);
+            return newSession;
+        },
+
+        deleteSession: async(_,args) => {
+            const boolean = await sessionData.deleteSession(args);
+            return boolean;
+        },
+
         editProduct: async (_, args) => {
             const newProduct = await productData.editProduct(args);
             return newProduct;
@@ -115,7 +133,7 @@ const resolvers = {
             const product = await productData.deleteProduct(args);
             return product;
         },
-        //User Collection
+
         addUser: async (_, args) => {
             const newUser = await userData.createUser(args);
             return newUser;
@@ -125,11 +143,13 @@ const resolvers = {
             const newUser = await userData.editUser(args);
             return newUser;
         },
+
         addOrder: async (_, args) => {
             const newOrder = await ordersData.createOrder(args);
             await ordersData.filterOrders(args);
             return newOrder;
         },
+
         deleteOrder: async (_, args) => {
             const order = await ordersData.deleteOrder(args);
             return order;
