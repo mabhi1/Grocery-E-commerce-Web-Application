@@ -7,7 +7,6 @@ import { Card, Button, Alert, Container } from "react-bootstrap";
 import { dosignOut } from "../Firebase/FirebaseFunctions";
 import { useQuery } from "@apollo/client";
 import queries from "../queries";
-import UserOrders, {userOrders} from "../components/orders/UserOrders";
 
 function Account(props) {
     const { currentUser } = useContext(AuthContext);

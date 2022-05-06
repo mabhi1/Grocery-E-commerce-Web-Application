@@ -2,7 +2,7 @@ const { gql } = require("apollo-server");
 
 const typeDefs = gql`
     type Query {
-        products: [Product]
+        products(page: Int): [Product]
         product(_id: String): Product
         category(category: String): [Product]
         ascCategory(category: String): [Product]
@@ -13,6 +13,20 @@ const typeDefs = gql`
         userOrders(userId: String): [Order]
         getAllOrders: [Order]
         order(_id: String): Order
+        adminProducts: [Product]
+        numberOfProducts: Int
+        reviews: [Review]
+        userReview(userId: String): [Review]
+        productReview(productId: String): [Review]
+        review(_id: String!): Review
+    }
+
+    type Review {
+        _id: String
+        userId: String
+        productId: String
+        review: String
+        rating: Int
     }
 
     type Order {
@@ -35,6 +49,7 @@ const typeDefs = gql`
     type Product {
         _id: String
         name: String
+        image: String
         description: String
         price: Int
         category: String
@@ -66,7 +81,9 @@ const typeDefs = gql`
     }
 
     type Mutation {
-        addProduct(name: String!, description: String, price: Int!, category: String!, quantity: Int!): Product
+        addProduct(name: String!, image: String, description: String, price: Int!, category: String!, quantity: Int!): Product
+
+        addReview(userId: String!, productId: String!, review: String!, rating: Int!): Review
 
         editProduct(_id: String!, name: String, price: Int, quantity: Int, description: String, category: String): Product
 
@@ -74,7 +91,7 @@ const typeDefs = gql`
 
         addUser(_id: String, name: String!, email: String!, address: String!, phoneNumber: String!, createdAt: String): User
 
-        addOrder(userId: String!, products: [Pro], status: String, createdAt: String): Order
+        addOrder(userId: String!, products: [Pro], status: String, createdAt: String, flag: Int): Order
 
         deleteOrder(_id: String!): Order
 
