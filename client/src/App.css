@@ -128,3 +128,15 @@
 .page-item:not(:first-child) .page-link{
   margin-left: 0;
 }
+
+.ordered{
+  background: beige;
+}
+
+.completed{
+  background: #b8f1b8;
+}
+
+.dispatched{
+  background: #d5ff94;
+}

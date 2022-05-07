@@ -14,7 +14,6 @@ const createOrder = async (args) => {
     newOrder.products = args.products;
     newOrder.flag = args.flag;
     await orders.insertOne(newOrder);
-    console.log(newOrder);
     return newOrder;
 };
 
