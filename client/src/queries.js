@@ -133,6 +133,7 @@ const GET_USER_BY_ID = gql`
             phoneNumber
             cart {
                 _id
+                image
                 name
                 price
                 quantity
@@ -171,10 +172,15 @@ const GET_ALL_ORDERS = gql`
         getAllOrders {
             _id
             userId
+            userEmail
+            total
             products {
                 _id
                 name
+                image
+                description
                 price
+                category
                 orderedQuantity
             }
             status
@@ -202,14 +208,16 @@ const EDIT_USER_CART = gql`
 `;
 
 const ADD_ORDER = gql`
-    mutation Mutation($userId: String!, $products: [Pro], $status: String, $createdAt: String, $flag: Int) {
-        addOrder(userId: $userId, products: $products, status: $status, createdAt: $createdAt, flag: $flag) {
+    mutation Mutation($userId: String!, $userEmail: String!, $total: Int!, $products: [Pro], $status: String, $createdAt: String, $flag: Int) {
+        addOrder(userId: $userId, userEmail: $userEmail, total: $total, products: $products, status: $status, createdAt: $createdAt, flag: $flag) {
             _id
             userId
             products {
                 _id
                 name
+                description
                 price
+                category
                 orderedQuantity
             }
             status

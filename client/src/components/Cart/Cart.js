@@ -72,7 +72,7 @@ function Cart() {
         }
     };
     const buildCard = (product) => {
-        totalPrice += product.price;
+        totalPrice += product.price * product.quantity;
         console.log(product);
         return (
             <Card style={styles.card} key={product._id}>

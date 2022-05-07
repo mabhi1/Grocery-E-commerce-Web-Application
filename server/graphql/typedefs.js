@@ -44,6 +44,8 @@ const typeDefs = gql`
     type Order {
         _id: String
         userId: String
+        userEmail: String
+        total: Int
         products: [Prod]
         status: String
         createdAt: String
@@ -52,6 +54,7 @@ const typeDefs = gql`
     type Prod {
         _id: String
         name: String
+        image: String
         description: String
         price: Int
         category: String
@@ -60,6 +63,7 @@ const typeDefs = gql`
 
     input Pro {
         _id: String
+        image: String
         name: String
         description: String
         price: Int
@@ -89,6 +93,7 @@ const typeDefs = gql`
 
     type CartProduct {
         _id: String
+        image: String
         name: String
         price: Int
         quantity: Int
@@ -100,6 +105,7 @@ const typeDefs = gql`
 
     input Cart {
         _id: String
+        image: String
         name: String
         price: Int
         quantity: Int
@@ -118,7 +124,7 @@ const typeDefs = gql`
 
         addUser(_id: String, name: String!, email: String!, address: String!, phoneNumber: String!, createdAt: String): User
 
-        addOrder(userId: String!, products: [Pro], status: String, createdAt: String, flag: Int): Order
+        addOrder(userId: String!, userEmail: String!, total: Int!, products: [Pro], status: String, createdAt: String, flag: Int): Order
 
         deleteOrder(_id: String!): Order
 

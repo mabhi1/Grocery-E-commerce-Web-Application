@@ -1,6 +1,8 @@
 import { useQuery } from "@apollo/client";
 import React from "react";
+import Container from "react-bootstrap/Container";
 import queries from "../../queries";
+import OrderCard from "./OrderCard";
 
 function AdminOrders() {
     const { data, loading, error } = useQuery(queries.GET_ALL_ORDERS);
@@ -10,26 +12,9 @@ function AdminOrders() {
         return <div>Loading...</div>;
     } else if (data) {
         const createCard = (order) => {
-            return (
-                <div key={order._id}>
-                    <div>{order.status}</div>
-                    {order.products.map((product) => {
-                        console.log(product);
-                        return (
-                            <div key={product._id}>
-                                name : {product.name}
-                                <br />
-                                price : {product.price}
-                                <br />
-                                quantity : {product.orderedQuantity}
-                                <br />
-                            </div>
-                        );
-                    })}
-                </div>
-            );
+            return <OrderCard order={order} />;
         };
-        return <div>{data.getAllOrders.map((order) => createCard(order))}</div>;
+        return <Container style={{ textAlign: "left" }}>{data.getAllOrders.map((order) => createCard(order))}</Container>;
     }
 }
 
