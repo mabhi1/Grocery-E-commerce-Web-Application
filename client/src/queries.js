@@ -133,6 +133,7 @@ const GET_USER_BY_ID = gql`
             phoneNumber
             cart {
                 _id
+                image
                 name
                 price
                 quantity
@@ -167,11 +168,21 @@ const EDIT_USER = gql`
     }
 `;
 const GET_ALL_ORDERS = gql`
-    query {
+    query Query {
         getAllOrders {
             _id
             userId
-            products
+            userEmail
+            total
+            products {
+                _id
+                name
+                image
+                description
+                price
+                category
+                orderedQuantity
+            }
             status
             createdAt
         }
@@ -197,8 +208,8 @@ const EDIT_USER_CART = gql`
 `;
 
 const ADD_ORDER = gql`
-    mutation Mutation($userId: String!, $products: [Pro], $status: String, $createdAt: String, $flag: Int) {
-        addOrder(userId: $userId, products: $products, status: $status, createdAt: $createdAt, flag: $flag) {
+    mutation Mutation($userId: String!, $userEmail: String!, $total: Int!, $products: [Pro], $status: String, $createdAt: String, $flag: Int) {
+        addOrder(userId: $userId, userEmail: $userEmail, total: $total, products: $products, status: $status, createdAt: $createdAt, flag: $flag) {
             _id
             userId
             products {
@@ -207,7 +218,7 @@ const ADD_ORDER = gql`
                 description
                 price
                 category
-                quantity
+                orderedQuantity
             }
             status
             createdAt
@@ -223,11 +234,10 @@ const GET_USER_ORDERS = gql`
             products {
                 _id
                 name
-                image
                 description
                 price
                 category
-                quantity
+                orderedQuantity
             }
             status
             createdAt
@@ -238,6 +248,30 @@ const GET_USER_ORDERS = gql`
 const FILTER_ORDER = gql`
     mutation Mutation($userId: String!) {
         filterOrder(userId: $userId)
+    }
+`;
+
+const ADD_SESSION = gql`
+    mutation Mutation($id: String!) {
+        addSession(_id: $id) {
+            _id
+        }
+    }
+`;
+
+const GET_SESSION = gql`
+    query Query($id: String!) {
+        session(_id: $id) {
+            _id
+        }
+    }
+`;
+
+const DELETE_SESSION = gql`
+    mutation Mutation($id: String!) {
+        deleteSession(_id: $id) {
+            deleted
+        }
     }
 `;
 
@@ -260,6 +294,9 @@ let exported = {
     ADD_ORDER,
     GET_USER_ORDERS,
     FILTER_ORDER,
+    ADD_SESSION,
+    GET_SESSION,
+    DELETE_SESSION,
 };
 
 export default exported;

@@ -34,14 +34,20 @@ function ProductCard(props) {
             if (getUser.cart.length > 0) {
                 for (let item of getUser.cart) {
                     if (item._id !== product._id) {
-                        newCart.push({ _id: item._id, name: item.name, price: item.price, quantity: item.quantity });
+                        newCart.push({ _id: item._id, name: item.name, price: item.price, quantity: item.quantity, image: item.image });
                     } else {
-                        newCart.push({ _id: product._id, name: product.name, price: product.price, quantity: quantity + item.quantity });
+                        newCart.push({
+                            _id: product._id,
+                            name: product.name,
+                            price: product.price,
+                            quantity: quantity + item.quantity,
+                            image: product.image,
+                        });
                         found = true;
                     }
                 }
             }
-            if (!found) newCart.push({ _id: product._id, name: product.name, price: product.price, quantity: quantity });
+            if (!found) newCart.push({ _id: product._id, name: product.name, price: product.price, quantity: quantity, image: product.image });
             editUser({
                 variables: {
                     id: getUser._id,

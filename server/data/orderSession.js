@@ -4,8 +4,8 @@ const sessionCollection = mongoCollections.orderSession;
 const createSession = async (args) => {
     const sessions = await sessionCollection();
     const newSession = {
-        _id: args._id
-    }
+        _id: args._id,
+    };
     await sessions.insertOne(newSession);
     return newSession;
 };
@@ -14,7 +14,7 @@ const deleteSession = async (args) => {
     const sessions = await sessionCollection();
     await sessions.deleteOne({ _id: args._id });
     return {
-        deleted: true
+        deleted: true,
     };
 };
 
