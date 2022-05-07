@@ -3,7 +3,8 @@ import Navigation from "./Navigation";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import Landing from "./Landing";
 //import Home from "./Home";
-// import ForgotPassword from "./ForgotPassword";
+import UserDetailPage from "./UserDetailPage";
+import ForgotPassword from "./ForgotPassword";
 import Account from "./Account";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
@@ -15,7 +16,10 @@ import Admin from "./Admin/Admin";
 import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider } from "@apollo/client";
 import Landing from "./Landing";
 import IndividualProduct from "./Product/IndividualProduct";
-import Cart from "./Cart";
+import Cart from "./Cart/Cart";
+import UpdateProfile from "./UpdateProfile";
+import Success from "./Cart/Success";
+import Failed from "./Cart/Failed";
 
 const client = new ApolloClient({
     cache: new InMemoryCache(),
@@ -38,9 +42,14 @@ function App() {
                             <Route path="/products" element={<Products />} />
                             <Route path="/product/:id" element={<IndividualProduct />} />
                             <Route path="/cart" element={<Cart />} />
+                            <Route path="/forgot-password" element={<ForgotPassword />} />
+                            <Route path="/update-profile" element={<UpdateProfile />} />
+                            <Route path="/paymentsuccess" element={<Success />} />
+                            <Route path="/paymentfailed" element={<Failed />} />
                             <Route element={<PrivateRoute />}>
                             <Route path="/postRating" element={<CreateRating />} />
                                 {/* <Route path="/home" element={<Home />} /> */}
+                                <Route path="/userDetail" element={<UserDetailPage />} />
                                 <Route path="/account" element={<Account />} />
                                 <Route path="/admin" element={<Admin />} />
                             </Route>

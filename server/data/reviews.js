@@ -198,5 +198,11 @@ module.exports = {
         product_review_info.reviews = all_reviews;
         
         return product_review_info;
+    },
+
+    async getReviewByUserId (args) {
+        const reviews = await reviewCollection();
+        const userReviews = await reviews.find({ userId: args.userId }).sort({rating: 1}).toArray();
+        return userReviews;
     }
 }

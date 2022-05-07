@@ -153,19 +153,24 @@ function AdminProducts() {
                     }}
                 >
                     <Form.Label></Form.Label>
-                    <Form.Control ref={(node) => (name = node)} type="text" placeholder="Enter Product name" style={styles.input} />
+                    <Form.Control ref={(node) => (name = node)} type="text" placeholder="Enter Product name" style={styles.input} required />
 
                     <Form.Label></Form.Label>
-                    <Form.Control ref={(node) => (category = node)} type="text" placeholder="Enter Category" style={styles.input} />
+                    <Form.Select ref={(node) => (category = node)} type="text" style={styles.input} required>
+                        <option>Select Category</option>
+                        <option value="value1">value 1</option>
+                        <option value="value2">value 2</option>
+                        <option value="value3">value 3</option>
+                    </Form.Select>
 
                     <Form.Label></Form.Label>
-                    <Form.Control ref={(node) => (price = node)} type="number" placeholder="Enter Price" style={styles.input} />
+                    <Form.Control ref={(node) => (price = node)} type="number" placeholder="Enter Price" style={styles.input} required />
 
                     <Form.Label></Form.Label>
-                    <Form.Control ref={(node) => (quantity = node)} type="number" placeholder="Enter Quantity" style={styles.input} />
+                    <Form.Control ref={(node) => (quantity = node)} type="number" placeholder="Enter Quantity" style={styles.input} required />
 
                     <Form.Label></Form.Label>
-                    <Form.Control ref={(node) => (description = node)} type="text" placeholder="Enter Description" style={styles.input} />
+                    <Form.Control ref={(node) => (description = node)} type="text" placeholder="Enter Description" style={styles.input} required />
 
                     <Button variant="primary" type="submit">
                         Submit

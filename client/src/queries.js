@@ -6,6 +6,7 @@ const GET_PRODUCTS_NAME_PRICE = gql`
             _id
             name
             price
+            category
         }
     }
 `;
@@ -31,6 +32,17 @@ const GET_ALL_PRODUCTS = gql`
             price
             category
             quantity
+        }
+    }
+`;
+
+const SEARCH_PRODUCTS = gql`
+    query ($name: String!) {
+        searchProducts(name: $name) {
+            _id
+            name
+            price
+            category
         }
     }
 `;
@@ -78,6 +90,17 @@ const ADD_REVIEW = gql`
         addReview(productId: $productId, review: $review){
             productId
             review
+        }}`;
+// GraphQL query to get all users
+
+const CREATE_USER = gql`
+    mutation Mutation($_id: String!, $name: String!, $email: String!, $address: String!, $phoneNumber: String!) {
+        addUser(_id: $_id, name: $name, email: $email, address: $address, phoneNumber: $phoneNumber) {
+            _id
+            name
+            email
+            address
+            phoneNumber
         }
     }
 `;
@@ -86,6 +109,22 @@ const REVIEW_BY_ID = gql`
     query ($id: String){
         getReview(_id: $id){
             review
+        }}`;
+const GET_USER_BY_ID = gql`
+    query ($id: String) {
+        getUser(_id: $id) {
+            _id
+            name
+            email
+            address
+            phoneNumber
+            cart {
+                _id
+                name
+                price
+                quantity
+            }
+            createdAt
         }
     }
 `;
@@ -97,6 +136,49 @@ const ALL_REVIEWS_PRODUCT = gql`
         }
     }
 `;
+const GET_ALL_USERS = gql`
+    query {
+        getAllUsers {
+            _id
+            name
+            email
+            address
+            phoneNumber
+            createdAt
+        }
+    }
+`;
+
+const EDIT_USER = gql`
+    mutation Mutation($_id: String!, $name: String, $email: String, $address: String, $phoneNumber: String) {
+        editUser(_id: $_id, name: $name, email: $email, address: $address, phoneNumber: $phoneNumber) {
+            _id
+            name
+            email
+            address
+            phoneNumber
+        }
+    }
+`;
+
+const EDIT_USER_CART = gql`
+    mutation Mutation($id: String!, $cart: [Cart]) {
+        editUser(_id: $id, cart: $cart) {
+            _id
+            name
+            email
+            address
+            phoneNumber
+            cart {
+                _id
+                name
+                price
+                quantity
+            }
+        }
+    }
+`;
+
 let exported = {
     GET_PRODUCTS_BY_ID,
     GET_PRODUCTS_NAME_PRICE,
@@ -106,7 +188,13 @@ let exported = {
     EDIT_PRODUCT,
     ADD_REVIEW,
     REVIEW_BY_ID,
-    ALL_REVIEWS_PRODUCT
+    ALL_REVIEWS_PRODUCT,
+    CREATE_USER,
+    GET_USER_BY_ID,
+    GET_ALL_USERS,
+    SEARCH_PRODUCTS,
+    EDIT_USER,
+    EDIT_USER_CART,
 };
 
 export default exported;

@@ -70,4 +70,21 @@ const sortDesByCategory = async (args) => {
     return allProducts;
 };
 
-module.exports = { createProduct, editProduct, getAllProducts, getProductById, findByCategory, sortAscByCategory, sortDesByCategory, deleteProduct };
+const searchProducts = async (args) => {
+    const products = await productCollection();
+    products.createIndex({ name: "text" });
+    const searchedProducts = products.find({ $text: { $search: args.name } }).toArray();
+    return searchedProducts;
+};
+
+module.exports = {
+    createProduct,
+    editProduct,
+    getAllProducts,
+    getProductById,
+    findByCategory,
+    sortAscByCategory,
+    sortDesByCategory,
+    deleteProduct,
+    searchProducts,
+};
