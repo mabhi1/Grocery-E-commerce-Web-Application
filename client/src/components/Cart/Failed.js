@@ -18,7 +18,10 @@ function Failed() {
                 id: secret,
             },
         });
-        return <div>Failed</div>;
+        return <div>
+            <h3>Order Failed</h3>
+            <h4>Please check the credentials and try again</h4>
+            </div>;
     } else {
         navigate("/notfound");
     }

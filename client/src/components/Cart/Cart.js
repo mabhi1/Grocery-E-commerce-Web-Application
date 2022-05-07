@@ -1,11 +1,12 @@
 import { useQuery, useMutation } from "@apollo/client";
 import React, { useContext } from "react";
-import { Button, Card } from "react-bootstrap";
+import { Button, Card, Form, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import actions from "../../actions";
 import { AuthContext } from "../../Firebase/Auth";
 import queries from "../../queries";
 import { v4 as uuid } from "uuid";
+
 
 const styles = {
     card: {
@@ -35,6 +36,7 @@ const styles = {
         fontSize: "large",
     },
 };
+
 function Cart() {
     let totalPrice = 0;
     let secret = uuid();
@@ -45,6 +47,7 @@ function Cart() {
             id: currentUser ? currentUser.uid : "none",
         },
     });
+    
     const [addSession] = useMutation(queries.ADD_SESSION);
     const [editUser] = useMutation(queries.EDIT_USER_CART);
     const cart = useSelector((state) => state.cart);
@@ -120,6 +123,17 @@ function Cart() {
             },
         });
     };
+    console.log(data)
+    
+   /*  const { getUser } = data;
+    let a = getUser.address;
+    
+    let index;
+    for (let i=0; i< a.length; i++){
+        if (a[i]==",") index = i
+    }
+    let b = a.slice(index)
+    let c = a.slice(0,index) */
     return (
         <div>
             <div className="page-header">Cart</div>
@@ -128,6 +142,22 @@ function Cart() {
                     <div style={{ display: "flex", flexWrap: "wrap", marginBottom: "25px" }}>
                         {data?.getUser ? data.getUser.cart.map((product) => buildCard(product)) : cart.map((product) => buildCard(product))}
                     </div>
+            
+            <form className="login-form">
+                <div className="form-group">
+                    <label>
+                        Address 1
+                        <input className="form-control" placeholder={data.getUser.address} />
+                    </label>
+                </div>
+                <div className="form-group">
+                    <label>
+                        Address 2
+                        <input className="form-control" placeholder={data.getUser.address} />
+                    </label>
+                </div>
+            </form>
+
                     <div style={styles.totalPrice}>Total Price : {totalPrice}</div>
                     <Button onClick={handleCheckout}>Checkout</Button>
                 </div>

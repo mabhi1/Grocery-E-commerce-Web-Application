@@ -3,7 +3,7 @@ import AddOrder from "../orders/AddOrder";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import queries from "../../queries";
-
+import { Link } from "react-router-dom"; 
 function Success() {
     const navigate = useNavigate();
     const { secret } = useParams();
@@ -21,7 +21,10 @@ function Success() {
         });
         return (
             <div>
-                <AddOrder />
+                <h3>Payment Successful, your order was placed</h3>
+                <div className="w-100 text-center mt-3">
+                        <Link to="/">Return to Home</Link>
+                    </div>
             </div>
         );
     } else {
