@@ -29,7 +29,13 @@ function IndividualProduct() {
         return <div>{error.message}</div>;
     } else if (data) {
         const { product } = data;
+        console.log(product);
         const handleClick = () => {
+            if (quantity > product.quantity) {
+                alert(`Only ${product.quantity} quantity of ${product.name} is left in stock. Please choose a lesser value.`);
+                setQuantity(0);
+                return;
+            }
             if (currentUser) {
                 const { getUser } = userData.data;
                 let newCart = [];
@@ -37,14 +43,20 @@ function IndividualProduct() {
                 if (getUser.cart.length > 0) {
                     for (let item of getUser.cart) {
                         if (item._id !== product._id) {
-                            newCart.push({ _id: item._id, name: item.name, price: item.price, quantity: item.quantity });
+                            newCart.push({ _id: item._id, name: item.name, price: item.price, quantity: item.quantity, image: item.image });
                         } else {
-                            newCart.push({ _id: product._id, name: product.name, price: product.price, quantity: quantity + item.quantity });
+                            newCart.push({
+                                _id: product._id,
+                                name: product.name,
+                                price: product.price,
+                                quantity: quantity + item.quantity,
+                                image: product.image,
+                            });
                             found = true;
                         }
                     }
                 }
-                if (!found) newCart.push({ _id: product._id, name: product.name, price: product.price, quantity: quantity });
+                if (!found) newCart.push({ _id: product._id, name: product.name, price: product.price, quantity: quantity, image: product.image });
                 editUser({
                     variables: {
                         id: getUser._id,
@@ -61,11 +73,7 @@ function IndividualProduct() {
             <div style={{ marginTop: "150px" }}>
                 <Row xs={1} md={2} lg={4} className="m-5">
                     <Col style={{ width: "30%" }}>
-                        <img
-                            src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930"
-                            alt="No_Image"
-                            style={{ width: "340px" }}
-                        />
+                        <img src={product.image} alt="No_Image" style={{ width: "340px" }} />
                     </Col>
                     <Col style={{ width: "60%", minHeight: "270px" }}>
                         <Card>
@@ -105,7 +113,6 @@ function IndividualProduct() {
             </div>
         );
     }
-    return <div>IndividualProduct</div>;
 }
 
 export default IndividualProduct;

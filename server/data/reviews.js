@@ -22,7 +22,7 @@ const getAllReviews = async () => {
 
 const getReviewByUserId = async (args) => {
     const reviews = await reviewCollection();
-    const userReviews = await reviews.find({ userId: args.userId }).sort({rating: 1}).toArray();
+    const userReviews = await reviews.find({ userId: args.userId }).sort({rating: -1}).toArray();
     return userReviews;
 };
 

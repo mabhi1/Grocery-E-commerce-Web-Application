@@ -4,14 +4,6 @@ import { useSelector } from "react-redux";
 
 function ProductList(props) {
     let products = useSelector((state) => state.products);
-    console.log(products);
-    if (props.filterValue) {
-        if (props.filterValue !== "all") {
-            products = products.filter((product) => {
-                return product.category === props.filterValue;
-            });
-        }
-    }
     let sortedProducts = [];
     for (let product of products) {
         sortedProducts.push(product);
@@ -27,7 +19,7 @@ function ProductList(props) {
         return createCard(product);
     });
     return (
-        <Row xs={2} md={4} lg={6} xl={12} className="m-1">
+        <Row xs={2} md={4} lg={6} xl={12} className="m-auto" style={{ justifyContent: "center" }}>
             {props.sort ? sortedCards : cards}
         </Row>
     );

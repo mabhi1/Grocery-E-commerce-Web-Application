@@ -19,7 +19,6 @@ const NavigationAuth = () => {
         setUser(currentUser.displayName);
     }, [currentUser]);
 
-    console.log(user);
     return (
         // <div>
         //   <div>
@@ -47,7 +46,7 @@ const NavigationAuth = () => {
                     <Nav>
                         {/* <Nav.Link href="/home">Home</Nav.Link> */}
                         <p style={{ color: "white", paddingTop: "13px", fontWeight: "bold" }}>Hi, {currentUser.email.split("@")[0]}</p>
-                        <Link className="btn btn-dark" to="/products" role="button">
+                        <Link className="btn btn-dark" to="/products/1" role="button">
                             Products
                         </Link>
                         <Link className="btn btn-dark" to="/account" role="button">
@@ -88,7 +87,7 @@ const NavigationNonAuth = () => {
                         <Nav.Link href="#pricing">Pricing</Nav.Link>
                     </Nav>
                     <Nav>
-                        <Link className="btn btn-dark" to="/products" role="button">
+                        <Link className="btn btn-dark" to="/products/1" role="button">
                             Products
                         </Link>
                         <Link className="btn btn-dark" to="/signin" role="button">

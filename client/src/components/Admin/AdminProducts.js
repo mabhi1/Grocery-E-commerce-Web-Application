@@ -26,33 +26,33 @@ const styles = {
 function AdminProducts() {
     const [addProduct] = useMutation(queries.ADD_PRODUCT, {
         update(cache, { data: { addProduct } }) {
-            let products = [];
-            if (cache.readQuery({ query: queries.GET_ALL_PRODUCTS })) {
-                products = cache.readQuery({ query: queries.GET_ALL_PRODUCTS }).products;
+            let adminProducts = [];
+            if (cache.readQuery({ query: queries.GET_PRODUCTS_FOR_ADMIN })) {
+                adminProducts = cache.readQuery({ query: queries.GET_PRODUCTS_FOR_ADMIN }).adminProducts;
             } else {
-                products = [];
+                adminProducts = [];
             }
             cache.writeQuery({
-                query: queries.GET_ALL_PRODUCTS,
-                data: { products: products.concat([addProduct]) },
+                query: queries.GET_PRODUCTS_FOR_ADMIN,
+                data: { adminProducts: adminProducts.concat([addProduct]) },
             });
         },
     });
     const [deleteProduct] = useMutation(queries.DELETE_PRODUCT, {
         update(cache, { data: { deleteProduct } }) {
-            let products = cache.readQuery({ query: queries.GET_ALL_PRODUCTS }).products;
-            products = products?.filter((product) => {
+            let adminProducts = cache.readQuery({ query: queries.GET_PRODUCTS_FOR_ADMIN }).adminProducts;
+            adminProducts = adminProducts?.filter((product) => {
                 return product._id !== deleteProduct._id;
             });
             cache.writeQuery({
-                query: queries.GET_ALL_PRODUCTS,
-                data: { products: products },
+                query: queries.GET_PRODUCTS_FOR_ADMIN,
+                data: { adminProducts: adminProducts },
             });
         },
     });
     const [editModal, setEditModal] = useState(false);
     const [selectedProduct, setSelecetedProduct] = useState(null);
-    let { loading, data, error } = useQuery(queries.GET_ALL_PRODUCTS, { fetchPolicy: "cache-and-network" });
+    let { loading, data, error } = useQuery(queries.GET_PRODUCTS_FOR_ADMIN, { fetchPolicy: "cache-and-network" });
     const navigate = useNavigate();
     const { currentUser } = useContext(AuthContext);
     useEffect(() => {
@@ -65,11 +65,10 @@ function AdminProducts() {
     } else if (loading) {
         return <div>Loading...</div>;
     } else if (data) {
-        const { products } = data;
-        console.log(products);
+        const { adminProducts } = data;
         const createCard = (product) => {
             return (
-                <Col key={product.name} style={{ width: "12.5%", marginBottom: "20px" }}>
+                <Col key={product._id} style={{ width: "12.5%", marginBottom: "20px" }}>
                     <Card style={{ textAlign: "center" }} className="product-card">
                         <Card.Img
                             src="https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Z3JvY2VyeXxlbnwwfHwwfHw%3D&w=1000&q=80"
@@ -113,7 +112,7 @@ function AdminProducts() {
                 </Col>
             );
         };
-        const cards = products.map((product) => {
+        const cards = adminProducts.map((product) => {
             return createCard(product);
         });
         const showForm = () => {

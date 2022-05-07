@@ -1,20 +1,21 @@
 import { useQuery, useMutation } from "@apollo/client";
 import React, { useContext } from "react";
-import { Button, Card } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import actions from "../../actions";
 import { AuthContext } from "../../Firebase/Auth";
 import queries from "../../queries";
+import { v4 as uuid } from "uuid";
 
 const styles = {
     card: {
-        flexDirection: "row",
-        padding: "20px",
+        margin: "0px 15px 10px 15px",
+        lineHeight: "3.5em",
         border: "0",
-        width: "25%",
     },
     cardImg: {
-        width: "50%",
+        width: "auto",
+        height: "60px",
     },
     cardBody: {
         textAlign: "left",
@@ -36,6 +37,7 @@ const styles = {
 };
 function Cart() {
     let totalPrice = 0;
+    let secret = uuid();
     const { currentUser } = useContext(AuthContext);
     const { data } = useQuery(queries.GET_USER_BY_ID, {
         fetchPolicy: "cache-and-network",
@@ -43,6 +45,7 @@ function Cart() {
             id: currentUser ? currentUser.uid : "none",
         },
     });
+    const [addSession] = useMutation(queries.ADD_SESSION);
     const [editUser] = useMutation(queries.EDIT_USER_CART);
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
@@ -54,7 +57,7 @@ function Cart() {
             if (getUser.cart.length > 0) {
                 for (let item of getUser.cart) {
                     if (item._id !== id) {
-                        newCart.push({ _id: item._id, name: item.name, price: item.price, quantity: item.quantity });
+                        newCart.push({ _id: item._id, image: item.image, name: item.name, price: item.price, quantity: item.quantity });
                     }
                 }
             }
@@ -69,22 +72,23 @@ function Cart() {
         }
     };
     const buildCard = (product) => {
-        totalPrice += product.price;
+        totalPrice += product.price * product.quantity;
         console.log(product);
         return (
             <Card style={styles.card} key={product._id}>
-                <Card.Img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930" style={styles.cardImg} />
-                <Card.Body style={styles.cardBody}>
-                    <Card.Title>{product.name}</Card.Title>
-                    <Card.Text>
-                        Price : {product.price}
-                        <br />
-                        Quantity : {product.quantity}
-                    </Card.Text>
-                    <Button size="sm" onClick={() => handleClick(product._id)}>
-                        Remove
-                    </Button>
-                </Card.Body>
+                <Row>
+                    <Col>
+                        <Card.Img src={product.image} style={styles.cardImg} />
+                    </Col>
+                    <Col>{product.name}</Col>
+                    <Col>Price : ${product.price}.00</Col>
+                    <Col>Quantity : {product.quantity}</Col>
+                    <Col>
+                        <Button size="sm" onClick={() => handleClick(product._id)}>
+                            Remove
+                        </Button>
+                    </Col>
+                </Row>
             </Card>
         );
     };
@@ -97,6 +101,7 @@ function Cart() {
             body: JSON.stringify({
                 items: data?.getUser ? data.getUser.cart : cart,
                 email: currentUser ? currentUser.email : undefined,
+                secret: secret,
             }),
         })
             .then(async (res) => {
@@ -110,13 +115,18 @@ function Cart() {
             .catch((e) => {
                 console.error(e.error);
             });
+        addSession({
+            variables: {
+                id: secret,
+            },
+        });
     };
     return (
         <div>
             <div className="page-header">Cart</div>
             {cart.length > 0 || (data?.getUser && data.getUser.cart.length > 0) ? (
                 <div>
-                    <div style={{ display: "flex", flexWrap: "wrap", marginBottom: "25px" }}>
+                    <div style={{ marginBottom: "25px" }}>
                         {data?.getUser ? data.getUser.cart.map((product) => buildCard(product)) : cart.map((product) => buildCard(product))}
                     </div>
                     <div style={styles.totalPrice}>Total Price : {totalPrice}</div>

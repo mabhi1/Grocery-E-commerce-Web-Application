@@ -20,7 +20,13 @@ function ProductCard(props) {
     const [editUser] = useMutation(queries.EDIT_USER_CART);
     const dispatch = useDispatch();
     const product = props.product;
+    console.log(product);
     const handleClick = () => {
+        if (quantity > product.quantity) {
+            alert(`Only ${product.quantity} quantity of ${product.name} is left in stock. Please choose a lesser value.`);
+            setQuantity(0);
+            return;
+        }
         if (currentUser) {
             const { getUser } = data;
             let newCart = [];
@@ -28,14 +34,20 @@ function ProductCard(props) {
             if (getUser.cart.length > 0) {
                 for (let item of getUser.cart) {
                     if (item._id !== product._id) {
-                        newCart.push({ _id: item._id, name: item.name, price: item.price, quantity: item.quantity });
+                        newCart.push({ _id: item._id, name: item.name, price: item.price, quantity: item.quantity, image: item.image });
                     } else {
-                        newCart.push({ _id: product._id, name: product.name, price: product.price, quantity: quantity + item.quantity });
+                        newCart.push({
+                            _id: product._id,
+                            name: product.name,
+                            price: product.price,
+                            quantity: quantity + item.quantity,
+                            image: product.image,
+                        });
                         found = true;
                     }
                 }
             }
-            if (!found) newCart.push({ _id: product._id, name: product.name, price: product.price, quantity: quantity });
+            if (!found) newCart.push({ _id: product._id, name: product.name, price: product.price, quantity: quantity, image: product.image });
             editUser({
                 variables: {
                     id: getUser._id,
@@ -49,10 +61,10 @@ function ProductCard(props) {
         alert(`${product.name} added to your cart`);
     };
     return (
-        <Col style={{ width: "12.5%", marginBottom: "20px" }}>
+        <Col style={{ width: "16%", marginBottom: "20px" }}>
             <Card style={{ textAlign: "center" }}>
                 <Link to={`/product/${product._id}`}>
-                    <Card.Img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930" alt={product.name} />
+                    <Card.Img src={product.image} alt={product.name} style={{ width: "100%", height: "185px" }} />
                 </Link>
                 <Card.Body>
                     <Link className="btn btn-light" to={`/product/${product._id}`} role="button">
