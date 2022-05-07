@@ -6,7 +6,7 @@ import { useContext } from "react";
 
 function RemoveProduct (props)  {
     
-    const [editProduct] = useMutation(queries.EDIT_PRODUCT);
+    
 
     let getProd = useQuery(queries.GET_PRODUCTS_BY_ID, {
       fetchPolicy: "network-only",

@@ -61,31 +61,39 @@ function AddOrder() {
         return <h1> loading</h1>;
     } else if (data && getUserOrders.data && currentUser && data.getUser.cart.length > 0) {
         let newCart = [];
+        let total = 0;
         for (let i = 0; i < data.getUser.cart.length; i++) {
-            newCart.push({ quantity: data.getUser.cart[i].quantity, _id: data.getUser.cart[i]._id });
+            total += data.getUser.cart[i].price * data.getUser.cart[i].quantity;
+            newCart.push({
+                orderedQuantity: data.getUser.cart[i].quantity,
+                _id: data.getUser.cart[i]._id,
+                name: data.getUser.cart[i].name,
+                image: data.getUser.cart[i].image,
+                price: data.getUser.cart[i].price,
+            });
         }
         console.log(newCart)
         newCart.map((x) => RemoveProduct(x))
+
+        console.log(currentUser.email, total);
+        addOrder({
+            variables: {
+                userId: currentUser.uid,
+                userEmail: currentUser.email,
+                status: "ordered",
+                createdAt: text,
+                products: newCart,
+                total: total,
+                flag: getUserOrders.data.userOrders.length + 1,
+            },
+        });
+
         editUser({
             variables: {
                 id: currentUser.uid,
                 cart: [],
             },
         });
-
-        addOrder({
-            variables: {
-                userId: currentUser.uid,
-                status: "ordered",
-                createdAt: text,
-                products: newCart,
-                flag: getUserOrders.data.userOrders.length + 1,
-            },
-        });
-        console.log('bruh what')
-       
-      
-    
     }
     
 }

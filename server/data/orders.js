@@ -8,10 +8,13 @@ const createOrder = async (args) => {
     newOrder._id = uuid.v4();
     newOrder.status = args.status;
     newOrder.userId = args.userId;
+    newOrder.userEmail = args.userEmail;
+    newOrder.total = args.total;
     newOrder.createdAt = args.createdAt;
     newOrder.products = args.products;
     newOrder.flag = args.flag;
     await orders.insertOne(newOrder);
+    console.log(newOrder);
     return newOrder;
 };
 
@@ -27,6 +30,8 @@ const filterOrders = async (args) => {
                 _id: uuid.v4(),
                 status: userOrder.status,
                 userId: userOrder.userId,
+                userEmail: userOrder.userEmail,
+                total: userOrder.total,
                 createdAt: userOrder.createdAt,
                 products: userOrder.products,
                 flag: userOrder.flag,
@@ -43,11 +48,11 @@ const deleteOrder = async (args) => {
     return order;
 };
 
-const getStatusOrders = async(args) => {
+const getStatusOrders = async (args) => {
     const orders = await ordersCollection();
-    const recievedOrders = await orders.find({status: args.status}).toArray();
+    const recievedOrders = await orders.find({ status: args.status }).toArray();
     return recievedOrders;
-}
+};
 
 const getOrderById = async (args) => {
     const orders = await ordersCollection();
@@ -55,16 +60,16 @@ const getOrderById = async (args) => {
     return order;
 };
 
-const changeStatusToCompleted = async(args) => {
+const changeStatusToCompleted = async (args) => {
     const orders = await ordersCollection();
-    await orders.updateOne({ _id: args._id }, {$set:{status: "completed"}});
+    await orders.updateOne({ _id: args._id }, { $set: { status: "completed" } });
     const order = await orders.findOne({ _id: args._id });
     return order;
 };
 
-const changeStatusToDispatched = async(args) => {
+const changeStatusToDispatched = async (args) => {
     const orders = await ordersCollection();
-    await orders.updateOne({ _id: args._id }, {$set:{status: "dispatched"}});
+    await orders.updateOne({ _id: args._id }, { $set: { status: "dispatched" } });
     const order = await orders.findOne({ _id: args._id });
     return order;
 };
@@ -81,4 +86,14 @@ const getAllOrders = async () => {
     return order;
 };
 
-module.exports = { createOrder, getOrderById, deleteOrder, getOrdersByUserId, getAllOrders, filterOrders, getStatusOrders, changeStatusToCompleted, changeStatusToDispatched};
+module.exports = {
+    createOrder,
+    getOrderById,
+    deleteOrder,
+    getOrdersByUserId,
+    getAllOrders,
+    filterOrders,
+    getStatusOrders,
+    changeStatusToCompleted,
+    changeStatusToDispatched,
+};

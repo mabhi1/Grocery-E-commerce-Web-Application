@@ -19,6 +19,7 @@ import UpdateProfile from "./UpdateProfile";
 import Success from "./Cart/Success";
 import Failed from "./Cart/Failed";
 import "../App.css";
+import NotFound from "./NotFound";
 
 const client = new ApolloClient({
     cache: new InMemoryCache(),
@@ -43,8 +44,9 @@ function App() {
                             <Route path="/cart" element={<Cart />} />
                             <Route path="/forgot-password" element={<ForgotPassword />} />
                             <Route path="/update-profile" element={<UpdateProfile />} />
-                            <Route path="/paymentsuccess" element={<Success />} />
-                            <Route path="/paymentfailed" element={<Failed />} />
+                            <Route path="/paymentsuccess/:secret" element={<Success />} />
+                            <Route path="/paymentfailed/:secret" element={<Failed />} />
+                            <Route path="/notfound" element={<NotFound />} />
                             <Route element={<PrivateRoute />}>
                                 {/* <Route path="/home" element={<Home />} /> */}
                                 <Route path="/userDetail" element={<UserDetailPage />} />
