@@ -37,6 +37,7 @@ const GET_PRODUCTS_BY_ID = gql`
         product(_id: $id) {
             _id
             name
+            image
             description
             price
             category
@@ -168,7 +169,7 @@ const EDIT_USER = gql`
     }
 `;
 const GET_ALL_ORDERS = gql`
-    query Query {
+    query {
         getAllOrders {
             _id
             userId
@@ -178,13 +179,10 @@ const GET_ALL_ORDERS = gql`
                 _id
                 name
                 image
-                description
                 price
-                category
                 orderedQuantity
             }
             status
-            createdAt
         }
     }
 `;
@@ -275,6 +273,32 @@ const DELETE_SESSION = gql`
     }
 `;
 
+const COMPLETE_STATUS = gql`
+    mutation Mutation($id: String!) {
+        changeStatusToCompleted(_id: $id) {
+            _id
+            userId
+            userEmail
+            total
+            status
+            createdAt
+        }
+    }
+`;
+
+const DISPATCH_STATUS = gql`
+    mutation Mutation($id: String!) {
+        changeStatusToDispatched(_id: $id) {
+            _id
+            userId
+            userEmail
+            total
+            status
+            createdAt
+        }
+    }
+`;
+
 let exported = {
     GET_PRODUCTS_BY_ID,
     GET_PRODUCTS_FOR_ADMIN,
@@ -297,6 +321,8 @@ let exported = {
     ADD_SESSION,
     GET_SESSION,
     DELETE_SESSION,
+    DISPATCH_STATUS,
+    COMPLETE_STATUS,
 };
 
 export default exported;

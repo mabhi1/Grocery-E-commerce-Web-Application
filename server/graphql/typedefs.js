@@ -18,9 +18,6 @@ const typeDefs = gql`
         getAllOrders: [Order]
         order(_id: String): Order
         orderStatus(status: String): [Order]
-        changeStatusToCompleted(_id: String): Order
-        changeStatusToDispatched(_id: String): Order
-
         reviews: [Review]
         userReview(userId: String): [Review]
         productReview(productId: String): [Review]
@@ -131,6 +128,10 @@ const typeDefs = gql`
         editUser(_id: String!, name: String, email: String, address: String, phoneNumber: String, cart: [Cart]): User
 
         addSession(_id: String!): Session
+
+        changeStatusToCompleted(_id: String!): Order
+
+        changeStatusToDispatched(_id: String!): Order
     }
 `;
 

@@ -19,7 +19,6 @@ const NavigationAuth = () => {
         setUser(currentUser.displayName);
     }, [currentUser]);
 
-    console.log(user);
     return (
         // <div>
         //   <div>
