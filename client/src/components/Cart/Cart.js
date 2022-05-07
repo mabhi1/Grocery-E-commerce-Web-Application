@@ -6,7 +6,6 @@ import actions from "../../actions";
 import { AuthContext } from "../../Firebase/Auth";
 import queries from "../../queries";
 import { v4 as uuid } from "uuid";
-import AddOrder from "../orders/AddOrder";
 
 const styles = {
     card: {
@@ -38,6 +37,7 @@ const styles = {
 };
 function Cart() {
     let totalPrice = 0;
+    let secret = uuid();
     const { currentUser } = useContext(AuthContext);
     const { data } = useQuery(queries.GET_USER_BY_ID, {
         fetchPolicy: "cache-and-network",
@@ -45,6 +45,7 @@ function Cart() {
             id: currentUser ? currentUser.uid : "none",
         },
     });
+    const [addSession] = useMutation(queries.ADD_SESSION);
     const [editUser] = useMutation(queries.EDIT_USER_CART);
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
@@ -91,7 +92,6 @@ function Cart() {
         );
     };
     const handleCheckout = () => {
-        
         fetch("http://localhost:5000/create-checkout-session", {
             method: "POST",
             headers: {
@@ -100,7 +100,7 @@ function Cart() {
             body: JSON.stringify({
                 items: data?.getUser ? data.getUser.cart : cart,
                 email: currentUser ? currentUser.email : undefined,
-                secret: uuid(),
+                secret: secret,
             }),
         })
             .then(async (res) => {
@@ -114,6 +114,11 @@ function Cart() {
             .catch((e) => {
                 console.error(e.error);
             });
+        addSession({
+            variables: {
+                id: secret,
+            },
+        });
     };
     return (
         <div>

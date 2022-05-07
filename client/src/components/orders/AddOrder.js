@@ -30,9 +30,15 @@ function AddOrder() {
     } else if (loading) {
         return <h1> loading</h1>;
     } else if (data && getUserOrders.data && currentUser && data.getUser.cart.length > 0) {
+        console.log(data.getUser.cart);
         let newCart = [];
         for (let i = 0; i < data.getUser.cart.length; i++) {
-            newCart.push({ quantity: data.getUser.cart[i].quantity, _id: data.getUser.cart[i]._id });
+            newCart.push({
+                orderedQuantity: data.getUser.cart[i].quantity,
+                _id: data.getUser.cart[i]._id,
+                name: data.getUser.cart[i].name,
+                price: data.getUser.cart[i].price,
+            });
         }
 
         editUser({

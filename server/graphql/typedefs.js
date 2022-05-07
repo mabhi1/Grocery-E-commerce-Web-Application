@@ -10,10 +10,10 @@ const typeDefs = gql`
         searchProducts(name: String!): [Product]
         adminProducts: [Product]
         numberOfProducts: Int
-        
+
         getUser(_id: String): User
         getAllUsers: [User]
-        
+
         userOrders(userId: String): [Order]
         getAllOrders: [Order]
         order(_id: String): Order
@@ -29,7 +29,7 @@ const typeDefs = gql`
         session(_id: String!): Session
     }
 
-    type Session{
+    type Session {
         _id: String
     }
 
@@ -44,9 +44,18 @@ const typeDefs = gql`
     type Order {
         _id: String
         userId: String
-        products: [Product]
+        products: [Prod]
         status: String
         createdAt: String
+    }
+
+    type Prod {
+        _id: String
+        name: String
+        description: String
+        price: Int
+        category: String
+        orderedQuantity: Int
     }
 
     input Pro {
@@ -55,7 +64,7 @@ const typeDefs = gql`
         description: String
         price: Int
         category: String
-        quantity: Int
+        orderedQuantity: Int
     }
 
     type Product {
@@ -105,7 +114,7 @@ const typeDefs = gql`
 
         deleteProduct(_id: String!): Product
 
-        deleteSession(_id:String!): Deleted
+        deleteSession(_id: String!): Deleted
 
         addUser(_id: String, name: String!, email: String!, address: String!, phoneNumber: String!, createdAt: String): User
 
