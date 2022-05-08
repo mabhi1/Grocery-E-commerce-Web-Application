@@ -8,7 +8,7 @@ import queries from "../../queries";
 ReactModal.setAppElement("#root");
 const styles = {
     content: {
-        width: "40%",
+        height: "540px",
         marginLeft: "auto",
         marginRight: "auto",
         marginTop: "90px",
@@ -16,6 +16,7 @@ const styles = {
 };
 function EditModal(props) {
     let name;
+    let image;
     let category;
     let price;
     let quantity;
@@ -44,11 +45,12 @@ function EditModal(props) {
                 <Form
                     onSubmit={(e) => {
                         e.preventDefault();
-                        console.log(product._id, name.value, description.value, price.value, category.value, quantity.value);
+                        console.log(image.value.toString());
                         editProduct({
                             variables: {
                                 id: product._id.toString(),
                                 name: name.value.toString(),
+                                image: image.value.toString(),
                                 description: description.value.toString(),
                                 price: parseInt(price.value),
                                 category: category.value.toString(),
@@ -61,7 +63,10 @@ function EditModal(props) {
                     <Form.Label htmlFor="name">Enter Product name</Form.Label>
                     <Form.Control ref={(node) => (name = node)} type="text" placeholder="Enter Product name" defaultValue={product.name} />
                     <br />
-                    <Form.Label htmlFor="description">Enter Category</Form.Label>
+                    <Form.Label htmlFor="image">Enter Image URL</Form.Label>
+                    <Form.Control ref={(node) => (image = node)} type="text" placeholder="Enter image url" defaultValue={product.image} />
+                    <br />
+                    <Form.Label htmlFor="category">Enter Category</Form.Label>
                     <Form.Control ref={(node) => (category = node)} type="text" placeholder="Enter Category" defaultValue={product.category} />
                     <br />
                     <Form.Label htmlFor="price">Enter Price</Form.Label>
