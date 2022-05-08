@@ -1,4 +1,3 @@
-import "../App.css";
 import Navigation from "./Navigation";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import Landing from "./Landing";
@@ -20,6 +19,8 @@ import Cart from "./Cart/Cart";
 import UpdateProfile from "./UpdateProfile";
 import Success from "./Cart/Success";
 import Failed from "./Cart/Failed";
+import "../App.css";
+import NotFound from "./NotFound";
 
 const client = new ApolloClient({
     cache: new InMemoryCache(),
@@ -39,13 +40,14 @@ function App() {
                             <Route path="/" element={<Landing />} />
                             <Route path="/signin" element={<SignIn />} />
                             <Route path="/signup" element={<SignUp />} />
-                            <Route path="/products" element={<Products />} />
+                            <Route path="/products/:pageNum" element={<Products />} />
                             <Route path="/product/:id" element={<IndividualProduct />} />
                             <Route path="/cart" element={<Cart />} />
                             <Route path="/forgot-password" element={<ForgotPassword />} />
                             <Route path="/update-profile" element={<UpdateProfile />} />
-                            <Route path="/paymentsuccess" element={<Success />} />
-                            <Route path="/paymentfailed" element={<Failed />} />
+                            <Route path="/paymentsuccess/:secret" element={<Success />} />
+                            <Route path="/paymentfailed/:secret" element={<Failed />} />
+                            <Route path="/notfound" element={<NotFound />} />
                             <Route element={<PrivateRoute />}>
                             <Route path="/postRating" element={<CreateRating />} />
                                 {/* <Route path="/home" element={<Home />} /> */}

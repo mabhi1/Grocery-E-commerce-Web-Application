@@ -1,18 +1,14 @@
 import { gql } from "@apollo/client";
 
-const GET_PRODUCTS_NAME_PRICE = gql`
-    query {
-        products {
-            _id
-            name
-            price
-            category
-        }
+const NUMBER_OF_PRODUCTS = gql`
+    query Query {
+        numberOfProducts
     }
 `;
-const GET_PRODUCTS_BY_ID = gql`
-    query ($id: String) {
-        product(_id: $id) {
+
+const GET_PRODUCTS_FOR_ADMIN = gql`
+    query Query {
+        adminProducts {
             _id
             name
             description
@@ -23,11 +19,39 @@ const GET_PRODUCTS_BY_ID = gql`
     }
 `;
 
-const GET_ALL_PRODUCTS = gql`
-    query {
-        products {
+const GET_PRODUCT_BY_CATEGORY = gql`
+    query Query($category: String) {
+        category(category: $category) {
             _id
             name
+            description
+            price
+            category
+            quantity
+        }
+    }
+`;
+
+const GET_PRODUCTS_BY_ID = gql`
+    query ($id: String) {
+        product(_id: $id) {
+            _id
+            name
+            image
+            description
+            price
+            category
+            quantity
+        }
+    }
+`;
+
+const GET_ALL_PRODUCTS = gql`
+    query Query($page: Int) {
+        products(page: $page) {
+            _id
+            name
+            image
             description
             price
             category
@@ -41,6 +65,7 @@ const SEARCH_PRODUCTS = gql`
         searchProducts(name: $name) {
             _id
             name
+            image
             price
             category
         }
@@ -120,6 +145,7 @@ const GET_USER_BY_ID = gql`
             phoneNumber
             cart {
                 _id
+                image
                 name
                 price
                 quantity
@@ -160,6 +186,24 @@ const EDIT_USER = gql`
         }
     }
 `;
+const GET_ALL_ORDERS = gql`
+    query {
+        getAllOrders {
+            _id
+            userId
+            userEmail
+            total
+            products {
+                _id
+                name
+                image
+                price
+                orderedQuantity
+            }
+            status
+        }
+    }
+`;
 
 const EDIT_USER_CART = gql`
     mutation Mutation($id: String!, $cart: [Cart]) {
@@ -179,9 +223,103 @@ const EDIT_USER_CART = gql`
     }
 `;
 
+const ADD_ORDER = gql`
+    mutation Mutation($userId: String!, $userEmail: String!, $total: Int!, $products: [Pro], $status: String, $createdAt: String, $flag: Int) {
+        addOrder(userId: $userId, userEmail: $userEmail, total: $total, products: $products, status: $status, createdAt: $createdAt, flag: $flag) {
+            _id
+            userId
+            products {
+                _id
+                name
+                description
+                price
+                category
+                orderedQuantity
+            }
+            status
+            createdAt
+        }
+    }
+`;
+
+const GET_USER_ORDERS = gql`
+    query Query($userId: String) {
+        userOrders(userId: $userId) {
+            _id
+            userId
+            products {
+                _id
+                name
+                description
+                price
+                category
+                orderedQuantity
+            }
+            status
+            createdAt
+        }
+    }
+`;
+
+const FILTER_ORDER = gql`
+    mutation Mutation($userId: String!) {
+        filterOrder(userId: $userId)
+    }
+`;
+
+const ADD_SESSION = gql`
+    mutation Mutation($id: String!) {
+        addSession(_id: $id) {
+            _id
+        }
+    }
+`;
+
+const GET_SESSION = gql`
+    query Query($id: String!) {
+        session(_id: $id) {
+            _id
+        }
+    }
+`;
+
+const DELETE_SESSION = gql`
+    mutation Mutation($id: String!) {
+        deleteSession(_id: $id) {
+            deleted
+        }
+    }
+`;
+
+const COMPLETE_STATUS = gql`
+    mutation Mutation($id: String!) {
+        changeStatusToCompleted(_id: $id) {
+            _id
+            userId
+            userEmail
+            total
+            status
+            createdAt
+        }
+    }
+`;
+
+const DISPATCH_STATUS = gql`
+    mutation Mutation($id: String!) {
+        changeStatusToDispatched(_id: $id) {
+            _id
+            userId
+            userEmail
+            total
+            status
+            createdAt
+        }
+    }
+`;
+
 let exported = {
     GET_PRODUCTS_BY_ID,
-    GET_PRODUCTS_NAME_PRICE,
+    GET_PRODUCTS_FOR_ADMIN,
     ADD_PRODUCT,
     GET_ALL_PRODUCTS,
     DELETE_PRODUCT,
@@ -195,6 +333,17 @@ let exported = {
     SEARCH_PRODUCTS,
     EDIT_USER,
     EDIT_USER_CART,
+    GET_PRODUCT_BY_CATEGORY,
+    NUMBER_OF_PRODUCTS,
+    GET_ALL_ORDERS,
+    ADD_ORDER,
+    GET_USER_ORDERS,
+    FILTER_ORDER,
+    ADD_SESSION,
+    GET_SESSION,
+    DELETE_SESSION,
+    DISPATCH_STATUS,
+    COMPLETE_STATUS,
 };
 
 export default exported;

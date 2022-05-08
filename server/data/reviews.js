@@ -1,6 +1,6 @@
 const mongoCollections = require('../config/mongoCollection');
 const productsCollection = mongoCollections.products;
-// const usersCollection = mongoCollections.users;
+const usersCollection = mongoCollections.users;
 const reviewCollection = mongoCollections.reviews;
 const uuid = require('uuid');
 const { ObjectId } = require('mongodb');
@@ -9,13 +9,14 @@ module.exports = {
 
     async createReview(args){
 
+        let userId = args.userId;
         let productId = args.productId;
         let review = args.review;
         let rating = args.rating;
-        
-        // if(!userid){
-        //     throw "ERROR! The userid field should have valid value";
-        // }
+
+        if(!userId){
+            throw "ERROR! The userid field should have valid value";
+        }
 
         if(!productId){
             throw "ERROR! The productId field should have valid value";
@@ -29,9 +30,9 @@ module.exports = {
             throw "ERROR! The rating field should have valid value";
         }
 
-        // if(typeof(userid) !== "string"){
-        //     throw "ERROR! The userid parameter should be a string";
-        // }
+        if(typeof(userId) !== "string"){
+            throw "ERROR! The userid parameter should be a string";
+        }
 
         if(typeof(productId) !== "string"){
             throw "ERROR! The productId parameter should be a string";
@@ -45,10 +46,10 @@ module.exports = {
             throw "ERROR! The rating parameter should be an integer";
         }
 
-        // if(userid.length == 0 || userid.trim().length == 0)
-        // {
-        //     throw "ERROR! The userid parameter cannot be empty";
-        // }
+        if(userId.length == 0 || userId.trim().length == 0)
+        {
+            throw "ERROR! The userid parameter cannot be empty";
+        }
 
         if(productId.length == 0 || productId.trim().length == 0)
         {
@@ -77,15 +78,15 @@ module.exports = {
         const date = month + "-" + day + "-" + year + " " + hrs%12 + ":" + min + ":" + seconds;
         const reviews = await reviewCollection();
         const products = await productsCollection();
-        // const users = await usersCollection();
+        const users = await usersCollection();
 
         const newReview = {};
 
         newReview._id = uuid.v4();
-        // newReview.userid = userid;
+        newReview.userId = userId;
         newReview.productId = productId;
-        newReview.rating = rating;
         newReview.review = review;
+        newReview.rating = rating;
         newReview.createdAt = date;
 
         await reviews.insertOne(newReview);
@@ -103,14 +104,14 @@ module.exports = {
 
         // let parsedUserId = ObjectId(userid);
 
-        // await users.updateOne(
-        //     {
-        //         _id: userid,
-        //     },
-        //     {
-        //         $push: {reviews : newReview._id}
-        //     }
-        // )
+        await users.updateOne(
+            {
+                _id: userId,
+            },
+            {
+                $push: {reviews : newReview._id}
+            }
+        )
 
         return newReview;
     },
@@ -150,59 +151,58 @@ module.exports = {
         return reviewInfo;
     },
 
-    async getAllReviews_Product(args){
+    async getReviewByUserId (args) {
 
-        let product_id = "";
+        let userid = args.userId;
 
-        product_id = args._id;
-        
-        if(!product_id)
+        if(!userid){
+            throw "ERROR! The userid field should have valid value";
+        }
+
+        if(typeof(userid) !== "string"){
+            throw "ERROR! The userid parameter should be a string";
+        }
+
+        if(userid.length == 0 || userid.trim().length == 0)
         {
-            throw "ERROR! The product_id is not provided";
+            throw "ERROR! The userid parameter cannot be empty";
         }
 
-        if(typeof(product_id) !== "string")
-        {
-            throw "ERROR! The product_id parameter should be a string";
-        }
-
-        if(product_id.length == 0 || product_id.trim().length == 0)
-        {
-            throw "ERROR! The product_id parameter cannot be empty";
-        }
-
-        const products = await productsCollection();
-
-        const product_info = await products.findOne({_id: product_id});
-
-        if(product_info == null){
-            throw "ERROR! No product found with the given product id";
-        }
-
-        let review_ids = product_info.reviews;
-
-        let product_review_info = {};
-
-        let all_reviews = [];
-
-        let total_rating_product = 0;
-
-        for(let i=0; i<review_ids.length; i++)
-        {
-            let a = await this.getReviewById(review_ids[i]);
-            total_rating_product += a.rating;
-            all_reviews.push(a.review);
-        }
-
-        product_review_info.overall_rating = total_rating_product;
-        product_review_info.reviews = all_reviews;
-        
-        return product_review_info;
+        const reviews = await reviewCollection();
+        const userReviews = await reviews.find({ userId: userid }).sort({rating: 1}).toArray();
+        return userReviews;
     },
 
-    async getReviewByUserId (args) {
+    async getAllReviews () {
+
         const reviews = await reviewCollection();
-        const userReviews = await reviews.find({ userId: args.userId }).sort({rating: 1}).toArray();
-        return userReviews;
+        const allReviews = await reviews.find({}).toArray();
+        return allReviews;
+    },
+
+    async getReviewByProductId (args){
+
+        let productId = args.productId;
+
+        if(!productId){
+            throw "ERROR! The productId field should have valid value";
+        }
+
+        if(typeof(productId) !== "string"){
+            throw "ERROR! The productId parameter should be a string";
+        }
+
+        if(productId.length == 0 || productId.trim().length == 0)
+        {
+            throw "ERROR! The productId parameter cannot be empty";
+        }
+
+        const reviews = await reviewCollection();
+        const productReviews = await reviews.find({ productId: productId }).sort({rating: -1}).toArray();
+
+        if(productReviews == null){
+            throw "ERROR! No review found for the product with the given product id";
+        }
+        return productReviews;
     }
 }

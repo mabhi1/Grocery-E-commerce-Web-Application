@@ -1,27 +1,53 @@
 const productData = require("../data/products");
 const userData = require("../data/users");
 const reviewData = require("../data/reviews");
-
+const sessionData = require("../data/orderSession");
+const ordersData = require("../data/orders");
 const resolvers = {
     Query: {
         
-        //--------------------PRODUCT FUNCTIONS---------------------//
         product: async (_, args) => {
             const products = await productData.getProductById(args);
             return products;
         },
-        products: async () => {
-            const products = await productData.getAllProducts();
+
+        numberOfProducts: async (_, args) => {
+            const numberOfProducts = await productData.totalNumberOfProducts();
+            if (args.page > Math.ceil(numberOfProducts / 2) || args.page < 1) return new Error("Not Found");
+            const products = await productData.getAllProducts(args);
             return products;
         },
+
+        adminProducts: async () => {
+            const products = await productData.getAdminProducts();
+            return products;
+        },
+
+        order: async (_, args) => {
+            const orders = await ordersData.getOrderById(args);
+            return orders;
+        },
+
+        userOrders: async (_, args) => {
+            const orders = await ordersData.getOrdersByUserId(args);
+            return orders;
+        },
+
+        getAllOrders: async (_, args) => {
+            const orders = await ordersData.getAllOrders();
+            return orders;
+        },
+
         category: async (_, args) => {
             const products = await productData.findByCategory(args);
             return products;
         },
+
         ascCategory: async (_, args) => {
             const products = await productData.sortAscByCategory(args);
             return products;
         },
+        
         desCategory: async (_, args) => {
             const products = await productData.sortDesByCategory(args);
             return products;
@@ -32,7 +58,6 @@ const resolvers = {
             return products;
         },
 
-        //------------------USER FUNCTIONS------------------//
         getUser: async (_, args) => {
             const user = await userData.getUser(args);
             return user;
@@ -41,13 +66,12 @@ const resolvers = {
             const users = await userData.getAllUsers();
             return users;
         },  
-       
-        //----------------REVIEW FUNCTIONS------------------//
-        reviews : async () => {
+        
+        reviews: async () => {
             const reviews = await reviewData.getAllReviews();
             return reviews;
         },
-        review: async (_, args) => {
+        reviewbyId: async (_, args) => {
             const review = await reviewData.getReviewById(args);
             return review;
         },
@@ -60,35 +84,48 @@ const resolvers = {
             return review;
         },
         
-        getReview : async (_, args) => {
-            const reviewInfo = await reviewData.getReviewById(args);
-            return reviewInfo;
+        orderStatus: async (_, args) => {
+            const orders = await ordersData.getStatusOrders(args);
+            return orders;
         },
-        product_Reviews : async (_, args) => {
-            const all_reviews = await reviewData.getAllReviews_Product(args);
-            return all_reviews;
-        }
+        session: async (_, args) => {
+            const session = await sessionData.getSessionById(args);
+            return session;
+        },
     },
 
     Mutation: {
+        changeStatusToCompleted: async (_, args) => {
+            const order = await ordersData.changeStatusToCompleted(args);
+            return order;
+        },
+        changeStatusToDispatched: async (_, args) => {
+            const order = await ordersData.changeStatusToDispatched(args);
+            return order;
+        },
         addProduct: async (_, args) => {
-            const newProduct = await productData.addProduct(args);
+            const newProduct = await productData.createProduct(args);
             return newProduct;
         },
-
+        addReview: async (_, args) => {
+            const newReview = await reviewData.createReview(args);
+            return newReview;
+        },
+        addSession: async (_, args) => {
+            const newSession = await sessionData.createSession(args);
+            return newSession;
+        },
+        deleteSession: async (_, args) => {
+            const boolean = await sessionData.deleteSession(args);
+            return boolean;
+        },
         editProduct: async (_, args) => {
             const newProduct = await productData.editProduct(args);
             return newProduct;
         },
-
         deleteProduct: async (_, args) => {
             const product = await productData.deleteProduct(args);
             return product;
-        },
-        
-        addReview: async (_, args) => {
-            const newReview = await reviewData.createReview(args);
-            return newReview;
         },
 
         addUser: async (_, args) => {
@@ -100,11 +137,17 @@ const resolvers = {
             const newUser = await userData.editUser(args);
             return newUser;
         },
-        
-        addReview: async (_, args) => {
-            const new_review = await reviewData.createReview(args);
-            return new_review;
-        }
+
+        addOrder: async (_, args) => {
+            const newOrder = await ordersData.createOrder(args);
+            await ordersData.filterOrders(args);
+            return newOrder;
+        },
+
+        deleteOrder: async (_, args) => {
+            const order = await ordersData.deleteOrder(args);
+            return order;
+        },
     },
 };
 
