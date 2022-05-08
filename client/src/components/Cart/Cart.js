@@ -1,27 +1,15 @@
 import { useQuery, useMutation } from "@apollo/client";
 import React, { useContext } from "react";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import actions from "../../actions";
 import { AuthContext } from "../../Firebase/Auth";
 import queries from "../../queries";
 import { v4 as uuid } from "uuid";
+import CartCards from "./CartCards";
+import { useState } from "react";
 
 const styles = {
-    card: {
-        margin: "0px 15px 10px 15px",
-        lineHeight: "3.5em",
-        border: "0",
-    },
-    cardImg: {
-        width: "auto",
-        height: "60px",
-    },
-    cardBody: {
-        textAlign: "left",
-        marginLeft: "10px",
-        padding: "0",
-    },
     totalPrice: {
         float: "left",
         width: "80%",
@@ -45,12 +33,12 @@ function Cart() {
             id: currentUser ? currentUser.uid : "none",
         },
     });
+    const [error, setError] = useState(false);
     const [addSession] = useMutation(queries.ADD_SESSION);
     const [editUser] = useMutation(queries.EDIT_USER_CART);
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
-    const handleClick = (id) => {
-        console.log(id);
+    const handleClick = (id, err) => {
         if (currentUser) {
             const { getUser } = data;
             let newCart = [];
@@ -73,24 +61,7 @@ function Cart() {
     };
     const buildCard = (product) => {
         totalPrice += product.price * product.quantity;
-        console.log(product);
-        return (
-            <Card style={styles.card} key={product._id}>
-                <Row>
-                    <Col>
-                        <Card.Img src={product.image} style={styles.cardImg} />
-                    </Col>
-                    <Col>{product.name}</Col>
-                    <Col>Price : ${product.price}.00</Col>
-                    <Col>Quantity : {product.quantity}</Col>
-                    <Col>
-                        <Button size="sm" onClick={() => handleClick(product._id)}>
-                            Remove
-                        </Button>
-                    </Col>
-                </Row>
-            </Card>
-        );
+        return <CartCards product={product} handleClick={handleClick} key={product._id} setError={setError} />;
     };
     const handleCheckout = () => {
         fetch("http://localhost:5000/create-checkout-session", {
@@ -130,7 +101,7 @@ function Cart() {
                         {data?.getUser ? data.getUser.cart.map((product) => buildCard(product)) : cart.map((product) => buildCard(product))}
                     </div>
                     <div style={styles.totalPrice}>Total Price : {totalPrice}</div>
-                    <Button onClick={handleCheckout}>Checkout</Button>
+                    {error ? <Button disabled>Checkout</Button> : <Button onClick={handleCheckout}>Checkout</Button>}
                 </div>
             ) : (
                 <div style={{ margin: "50px", fontSize: "x-large", fontFamily: "initial" }}>Your cart is empty</div>
