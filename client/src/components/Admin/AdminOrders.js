@@ -27,7 +27,7 @@ function AdminOrders() {
         return (
             <>
                 <div className="mb-3">
-                    <span style={{ marginRight: "50px" }}>Filter Orders :</span>
+                    <span className="filter-order">Filter Orders :</span>
                     <Form.Check inline name="group1" label="Ordered" type="radio" id="ordered" onChange={handleFilterValue} />
                     <Form.Check inline name="group1" label="Dispatched" type="radio" id="dispatched" onChange={handleFilterValue} />
                     <Form.Check inline name="group1" label="Completed" type="radio" id="completed" onChange={handleFilterValue} />

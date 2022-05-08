@@ -24,9 +24,9 @@ function OrderCard(props) {
     return (
         <Card className="mb-4" style={{ display: filter === order.status || filter === "all" ? "flex" : "none" }}>
             <Card.Header style={{ padding: 0 }}>
-                <Row style={{ lineHeight: "2.5em", textAlign: "center", "--bs-gutter-x": "0" }} className={order.status}>
+                <Row style={{ lineHeight: "2.5em", textAlign: "center", "--bs-gutter-x": "0" }} xs={1} className={order.status}>
                     <Col>User : {order.userEmail}</Col>
-                    <Col>Total : {order.total}</Col>
+                    <Col>Total Price : ${order.total}.00</Col>
                     <Col style={{ textTransform: "capitalize" }}>Status : {order.status}</Col>
                     <Col>
                         {order.status === "ordered" ? (

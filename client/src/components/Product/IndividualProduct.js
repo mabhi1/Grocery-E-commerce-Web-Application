@@ -6,12 +6,14 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import Toast from "react-bootstrap/Toast";
 import { useDispatch } from "react-redux";
 import actions from "../../actions";
 import { AuthContext } from "../../Firebase/Auth";
 
 function IndividualProduct() {
     const [quantity, setQuantity] = useState(0);
+    const [toast, setToast] = useState(false);
     const { currentUser } = useContext(AuthContext);
     const userData = useQuery(queries.GET_USER_BY_ID, {
         fetchPolicy: "cache-and-network",
@@ -29,10 +31,9 @@ function IndividualProduct() {
         return <div>{error.message}</div>;
     } else if (data) {
         const { product } = data;
-        console.log(product);
         const handleClick = () => {
             if (quantity > product.quantity) {
-                alert(`Only ${product.quantity} quantity of ${product.name} is left in stock. Please choose a lesser value.`);
+                alert(`Only ${product.quantity} quantity of ${product.name} is left in stock. Please choose a smaller value.`);
                 setQuantity(0);
                 return;
             }
@@ -67,19 +68,26 @@ function IndividualProduct() {
                 dispatch(actions.addProduct(product._id, product.name, product.price, quantity));
             }
             setQuantity(0);
-            alert(`${product.name} added to your cart`);
+            setToast(true);
         };
         return (
             <div style={{ marginTop: "150px" }}>
-                <Row xs={1} md={2} lg={4} className="m-5">
-                    <Col style={{ width: "30%" }}>
-                        <img src={product.image} alt="No_Image" style={{ width: "340px" }} />
+                <Row className="m-5" style={{ border: "1px solid rgba(0,0,0,.125)" }}>
+                    <Col
+                        md={3}
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <img src={product.image} alt="No_Image" style={{ width: "100%", height: "auto" }} />
                     </Col>
-                    <Col style={{ width: "60%", minHeight: "270px" }}>
-                        <Card>
+                    <Col style={{ width: "60%", minHeight: "270px", padding: "0" }}>
+                        <Card style={{ border: "0" }}>
                             <Card.Header style={{ fontSize: "20px" }}>{product.name}</Card.Header>
                             <Card.Body>
-                                <Card.Text>Price : {product.price}</Card.Text>
+                                <Card.Text>Price : ${product.price}.00</Card.Text>
                                 <Card.Text>Description : {product.description}</Card.Text>
                                 <Card.Text>Category : {product.category}</Card.Text>
                                 <Card.Text>Quantity in stock : {product.quantity}</Card.Text>
@@ -110,6 +118,18 @@ function IndividualProduct() {
                         </Card>
                     </Col>
                 </Row>
+                <Toast onClose={() => setToast(false)} show={toast} delay={2000} autohide>
+                    <Toast.Header>
+                        <img
+                            src="https://iconarchive.com/download/i48706/custom-icon-design/pretty-office-2/success.ico"
+                            className="rounded me-2"
+                            alt=""
+                            style={{ width: "20px" }}
+                        />
+                        <strong className="me-auto">Success</strong>
+                    </Toast.Header>
+                    <Toast.Body>{`${product.name} added to your cart`}</Toast.Body>
+                </Toast>
             </div>
         );
     }

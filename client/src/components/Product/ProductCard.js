@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Col, Card, Button } from "react-bootstrap";
+import { Toast, Col, Card, Button, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import actions from "../../actions";
@@ -7,8 +7,25 @@ import { AuthContext } from "../../Firebase/Auth";
 import { useQuery, useMutation } from "@apollo/client";
 import queries from "../../queries";
 
+const styles = {
+    Col: { marginBottom: "20px" },
+    Card: { textAlign: "center" },
+    Container: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        borderRadius: "3px",
+        height: "185px",
+        padding: "0",
+        margin: "0",
+        overflow: "hidden",
+    },
+    Image: { width: "75%", height: "auto", margin: "auto" },
+    toastImage: { width: "20px" },
+};
 function ProductCard(props) {
     let [quantity, setQuantity] = useState(0);
+    let [toast, setToast] = useState(false);
     const { currentUser } = useContext(AuthContext);
     const { data } = useQuery(queries.GET_USER_BY_ID, {
         fetchPolicy: "cache-and-network",
@@ -23,7 +40,7 @@ function ProductCard(props) {
     console.log(product);
     const handleClick = () => {
         if (quantity > product.quantity) {
-            alert(`Only ${product.quantity} quantity of ${product.name} is left in stock. Please choose a lesser value.`);
+            alert(`Only ${product.quantity} quantity of ${product.name} is left in stock. Please choose a smaller value.`);
             setQuantity(0);
             return;
         }
@@ -58,19 +75,19 @@ function ProductCard(props) {
             dispatch(actions.addProduct(product._id, product.name, product.price, quantity));
         }
         setQuantity(0);
-        alert(`${product.name} added to your cart`);
+        setToast(true);
     };
     return (
-        <Col style={{ width: "16%", marginBottom: "20px" }}>
-            <Card style={{ textAlign: "center" }}>
-                <Link to={`/product/${product._id}`}>
-                    <Card.Img src={product.image} alt={product.name} style={{ width: "100%", height: "185px" }} />
-                </Link>
+        <Col style={styles.Col}>
+            <Card style={styles.Card}>
+                <Container style={styles.Container}>
+                    <Card.Img src={product.image} alt={product.name} style={styles.Image} />
+                </Container>
                 <Card.Body>
                     <Link className="btn btn-light" to={`/product/${product._id}`} role="button">
                         {product.name}
                     </Link>
-                    <Card.Text>Price : ${product.price}</Card.Text>
+                    <Card.Text>Price : ${product.price}.00</Card.Text>
                     <Button
                         size="sm"
                         className="btn btn-light"
@@ -93,6 +110,18 @@ function ProductCard(props) {
                             Add to Cart
                         </Button>
                     )}
+                    <Toast onClose={() => setToast(false)} show={toast} delay={2000} autohide>
+                        <Toast.Header>
+                            <img
+                                src="https://iconarchive.com/download/i48706/custom-icon-design/pretty-office-2/success.ico"
+                                className="rounded me-2"
+                                alt=""
+                                style={styles.toastImage}
+                            />
+                            <strong className="me-auto">Success</strong>
+                        </Toast.Header>
+                        <Toast.Body>{`${product.name} added to your cart`}</Toast.Body>
+                    </Toast>
                 </Card.Body>
             </Card>
         </Col>
