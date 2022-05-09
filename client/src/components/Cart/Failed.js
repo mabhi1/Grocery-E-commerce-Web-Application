@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import queries from "../../queries";
+import { Button, Alert } from "react-bootstrap";
 
 function Failed() {
     const navigate = useNavigate();
@@ -18,10 +19,12 @@ function Failed() {
                 id: secret,
             },
         });
-        return <div>
-            <h3>Order Failed</h3>
-            <h4>Please check the credentials and try again</h4>
-            </div>;
+        return (
+            <div>
+                <Alert variant="danger">Order Failed</Alert>
+                <Button onClick={() => navigate("/")}>Home</Button>
+            </div>
+        );
     } else {
         navigate("/notfound");
     }

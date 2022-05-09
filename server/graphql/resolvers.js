@@ -89,21 +89,21 @@ const resolvers = {
             const orders = await ordersData.getStatusOrders(args);
             return orders;
         },
-        changeStatusToCompleted: async (_,args) => {
-            const order = await ordersData.changeStatusToCompleted(args);
-            return order;
-        },
-        changeStatusToDispatched: async (_,args) => {
-            const order = await ordersData.changeStatusToDispatched(args);
-            return order;
-        },
-        session: async(_,args) => {
+        session: async (_, args) => {
             const session = await sessionData.getSessionById(args);
             return session;
-        }
+        },
     },
 
     Mutation: {
+        changeStatusToCompleted: async (_, args) => {
+            const order = await ordersData.changeStatusToCompleted(args);
+            return order;
+        },
+        changeStatusToDispatched: async (_, args) => {
+            const order = await ordersData.changeStatusToDispatched(args);
+            return order;
+        },
         addProduct: async (_, args) => {
             const newProduct = await productData.createProduct(args);
             return newProduct;
@@ -114,12 +114,12 @@ const resolvers = {
             return newReview;
         },
 
-        addSession: async(_,args) => {
+        addSession: async (_, args) => {
             const newSession = await sessionData.createSession(args);
             return newSession;
         },
 
-        deleteSession: async(_,args) => {
+        deleteSession: async (_, args) => {
             const boolean = await sessionData.deleteSession(args);
             return boolean;
         },

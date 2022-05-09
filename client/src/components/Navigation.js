@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
 import { AuthContext } from "../Firebase/Auth";
@@ -13,13 +13,7 @@ const Navigation = () => {
 const NavigationAuth = () => {
     const { currentUser } = useContext(AuthContext);
     console.log(currentUser);
-    const [user, setUser] = useState(currentUser.displayName);
 
-    useEffect(() => {
-        setUser(currentUser.displayName);
-    }, [currentUser]);
-
-    console.log(user);
     return (
         // <div>
         //   <div>
@@ -37,7 +31,14 @@ const NavigationAuth = () => {
         // </div>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top" style={{ boxShadow: "0px 5px 10px 0px black" }}>
             <Container>
-                <Navbar.Brand href="/">Asian Mart</Navbar.Brand>
+                <Navbar.Brand href="/">
+                    <img
+                        src="https://icons-for-free.com/download-icon-shop+shopping+trolley+icon-1320191097483113693_512.png"
+                        alt="asian_mart"
+                        style={{ width: "40px" }}
+                    />{" "}
+                    Asian Mart
+                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
@@ -80,7 +81,14 @@ const NavigationNonAuth = () => {
 
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top" style={{ boxShadow: "0px 5px 10px 0px black" }}>
             <Container>
-                <Navbar.Brand href="/">Asian Mart</Navbar.Brand>
+                <Navbar.Brand href="/">
+                    <img
+                        src="https://icons-for-free.com/download-icon-shop+shopping+trolley+icon-1320191097483113693_512.png"
+                        alt="asian_mart"
+                        style={{ width: "45px" }}
+                    />{" "}
+                    Asian Mart
+                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
