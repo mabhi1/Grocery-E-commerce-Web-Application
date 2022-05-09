@@ -19,7 +19,7 @@ function Account(props) {
         },
     });
 
-    //console.log(data);
+    console.log(data);
 
     if (data) {
         const { getUser } = data;
@@ -57,7 +57,7 @@ function Account(props) {
                                     <strong>Phone:</strong> {getUser && getUser.phoneNumber}
                                     <br />
                                     <br />
-                                    <strong>Address:</strong> {getUser && getUser.address}
+                                    <strong>Address:</strong> {getUser.addressStreet+", "+getUser.apt+", "+getUser.city+", "+getUser.state+", "+getUser.zip}
                                     <Link to="/update-profile" className="btn btn-primary w-100 mt-3 ">
                                         Update Profile
                                     </Link>
