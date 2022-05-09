@@ -84,6 +84,7 @@ function Products() {
     }
     if (data) {
         let { products } = data;
+        console.log(productByCategory, products)
         dispatch(actions.showProducts(productByCategory?.length > 0 ? productByCategory : products));
         return (
             <div>

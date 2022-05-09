@@ -73,6 +73,9 @@
   box-shadow: 2px 2px 6px -2px black;
 }
 
+input[type="radio"] {
+  display: none;
+}
 .search-div{
   display: flex;
   padding-left: 20px;
