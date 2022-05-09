@@ -76,6 +76,34 @@ const main = async () => {
     // });
 
     //----------------------------GET A USER----------------------------------//
+=======
+// const edituser = await users.editUser({
+//     _id: "TRbubFmdZXcHPix88cDavna3tRn2",
+//     name: "Aditya Doe",
+// });
+// console.log(edituser);
+
+// const createUser = await users.createUser({
+//   name: "Joker Doe",
+//   email: "JD@JD.com",
+//   phoneNumber: "5675675657",
+//   addressStreet: "123 Main St",
+//   apt: "Apt. 1",
+//   city: "San Francisco",
+//   state: "CA",
+//   zip: "94111",
+// });
+// console.log(createUser);
+
+const editUser = await users.editUser({
+  _id: "mogS6rpNZERpY5gF505RKkLyDBX2",
+  name: "Aditya Doe",
+  addressStreet: "123 Main St",
+  apt: "Apt. 1",
+  city: "San Francisco",
+  state: "CA",
+});
+console.log(editUser);
 
     // const getuser = await users.getUser({ _id: "gaQir7iPWFcNMQibWnBja7BZavJ2" });
     // console.log(getuser);

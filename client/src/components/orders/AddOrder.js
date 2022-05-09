@@ -42,8 +42,7 @@ function AddOrder() {
                 price: data.getUser.cart[i].price,
             });
         }
-
-        console.log(currentUser.email, total);
+        console.log(getUserOrders.data.userOrders.length + 1);
         addOrder({
             variables: {
                 userId: currentUser.uid,

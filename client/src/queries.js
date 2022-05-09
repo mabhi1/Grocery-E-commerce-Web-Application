@@ -1,9 +1,9 @@
 import { gql } from "@apollo/client";
 
 const NUMBER_OF_PRODUCTS = gql`
-    query Query {
-        numberOfProducts
-    }
+  query Query {
+    numberOfProducts
+  }
 `;
 
 const GET_PRODUCTS_FOR_ADMIN = gql`
@@ -21,56 +21,56 @@ const GET_PRODUCTS_FOR_ADMIN = gql`
 `;
 
 const GET_PRODUCT_BY_CATEGORY = gql`
-    query Query($category: String) {
-        category(category: $category) {
-            _id
-            name
-            description
-            price
-            category
-            quantity
-        }
+  query Query($category: String) {
+    category(category: $category) {
+      _id
+      name
+      description
+      price
+      category
+      quantity
     }
+  }
 `;
 
 const GET_PRODUCTS_BY_ID = gql`
-    query ($id: String) {
-        product(_id: $id) {
-            _id
-            name
-            image
-            description
-            price
-            category
-            quantity
-        }
+  query ($id: String) {
+    product(_id: $id) {
+      _id
+      name
+      image
+      description
+      price
+      category
+      quantity
     }
+  }
 `;
 
 const GET_ALL_PRODUCTS = gql`
-    query Query($page: Int) {
-        products(page: $page) {
-            _id
-            name
-            image
-            description
-            price
-            category
-            quantity
-        }
+  query Query($page: Int) {
+    products(page: $page) {
+      _id
+      name
+      image
+      description
+      price
+      category
+      quantity
     }
+  }
 `;
 
 const SEARCH_PRODUCTS = gql`
-    query ($name: String!) {
-        searchProducts(name: $name) {
-            _id
-            name
-            image
-            price
-            category
-        }
+  query ($name: String!) {
+    searchProducts(name: $name) {
+      _id
+      name
+      image
+      price
+      category
     }
+  }
 `;
 
 const ADD_PRODUCT = gql`
@@ -88,16 +88,16 @@ const ADD_PRODUCT = gql`
 `;
 
 const DELETE_PRODUCT = gql`
-    mutation Mutation($id: String!) {
-        deleteProduct(_id: $id) {
-            _id
-            name
-            description
-            price
-            category
-            quantity
-        }
+  mutation Mutation($id: String!) {
+    deleteProduct(_id: $id) {
+      _id
+      name
+      description
+      price
+      category
+      quantity
     }
+  }
 `;
 
 const EDIT_PRODUCT = gql`
@@ -111,7 +111,7 @@ const EDIT_PRODUCT = gql`
             category
             quantity
         }
-    }
+  }
 `;
 
 const ADD_REVIEW = gql`
@@ -125,16 +125,56 @@ mutation Mutation($userId: String!, $productId: String!, $review: String!, $rati
     }
   }`;
 
+// const CREATE_USER = gql`
+//     mutation Mutation($_id: String, $name: String!, $email: String!, $addressStreet: String!, $apt: String!, $city: String!, $state: String!, $zip: String! , $phoneNumber: String!) {
+//         addUser(_id: $_id, name: $name, email: $email, addressStreet: $addressStreet, apt:$apt, city: $city, state: $state, zip: $zip, phoneNumber: $phoneNumber) {
+//             _id
+//             name
+//             email
+//             addressStreet
+//             apt
+//             city
+//             state
+//             zip
+//             phoneNumber
+//         }
+//     }
+// `;
+
 const CREATE_USER = gql`
-    mutation Mutation($_id: String!, $name: String!, $email: String!, $address: String!, $phoneNumber: String!) {
-        addUser(_id: $_id, name: $name, email: $email, address: $address, phoneNumber: $phoneNumber) {
-            _id
-            name
-            email
-            address
-            phoneNumber
-        }
+  mutation Mutation(
+    $_id: String!
+    $name: String!
+    $email: String!
+    $addressStreet: String!
+    $apt: String!
+    $city: String!
+    $state: String!
+    $zip: String!
+    $phoneNumber: String!
+  ) {
+    addUser(
+      _id: $_id
+      name: $name
+      email: $email
+      addressStreet: $addressStreet
+      apt: $apt
+      city: $city
+      state: $state
+      zip: $zip
+      phoneNumber: $phoneNumber
+    ) {
+      _id
+      name
+      email
+      addressStreet
+      apt
+      city
+      state
+      zip
+      phoneNumber
     }
+  }
 `;
 
 const REVIEW_BY_ID = gql`
@@ -182,45 +222,87 @@ query ProductReview {
   }`;
         
 const GET_USER_BY_ID = gql`
-    query ($id: String) {
-        getUser(_id: $id) {
-            _id
-            name
-            email
-            address
-            phoneNumber
-            cart {
-                _id
-                image
-                name
-                price
-                quantity
-            }
-            createdAt
-        }
+  query ($id: String) {
+    getUser(_id: $id) {
+      _id
+      name
+      email
+      addressStreet
+      apt
+      city
+      state
+      zip
+      phoneNumber
+      cart {
+        _id
+        image
+        name
+        price
+        quantity
+      }
+      createdAt
     }
+  }
 `;
 
 const GET_ALL_USERS = gql`
-    query {
-        getAllUsers {
-            _id
-            name
-            email
-            address
-            phoneNumber
-            createdAt
-        }
+  query {
+    getAllUsers {
+      _id
+      name
+      email
+      addressStreet
+      apt
+      city
+      state
+      zip
+      phoneNumber
+      createdAt
     }
+  }
 `;
 
+// const EDIT_USER = gql`
+//   mutation Mutation($_id: String!, $name: String, $address: String, $phoneNumber: String) {
+//     editUser(_id: $_id, name: $name, address: $address, phoneNumber: $phoneNumber) {
+//       _id
+//       name
+//       address
+//       phoneNumber
+//     }
+//   }
+// `;
+
 const EDIT_USER = gql`
-    mutation Mutation($_id: String!, $name: String, $email: String, $address: String, $phoneNumber: String) {
-        editUser(_id: $_id, name: $name, email: $email, address: $address, phoneNumber: $phoneNumber) {
+    mutation Mutation(
+        $_id: String!
+        $name: String
+        $addressStreet: String
+        $apt: String
+        $city: String
+        $state: String
+        $zip: String
+        $phoneNumber: String
+    ) {
+        editUser(
+            _id: $_id
+            name: $name
+            email: $email
+            addressStreet: $addressStreet
+            apt: $apt
+            city: $city
+            state: $state
+            zip: $zip
+            phoneNumber: $phoneNumber
+        ) {
             _id
             name
             email
-            address
+            addressStreet
+            apt
+            city
+            state
+            zip
             phoneNumber
             cart {
                 _id
@@ -233,8 +315,10 @@ const EDIT_USER = gql`
         }
     }
 `;
+
+
 const GET_ALL_ORDERS = gql`
-    query {
+    query Query {
         getAllOrders {
             _id
             userId
@@ -244,30 +328,33 @@ const GET_ALL_ORDERS = gql`
                 _id
                 name
                 image
+                description
                 price
+                category
                 orderedQuantity
             }
+            flag
             status
-        }
-    }
+            createdAt
+        }}
 `;
 
 const EDIT_USER_CART = gql`
-    mutation Mutation($id: String!, $cart: [Cart]) {
-        editUser(_id: $id, cart: $cart) {
-            _id
-            name
-            email
-            address
-            phoneNumber
-            cart {
-                _id
-                name
-                price
-                quantity
-            }
-        }
+  mutation Mutation($id: String!, $cart: [Cart]) {
+    editUser(_id: $id, cart: $cart) {
+      _id
+      name
+      email
+      address
+      phoneNumber
+      cart {
+        _id
+        name
+        price
+        quantity
+      }
     }
+  }
 `;
 
 const ADD_ORDER = gql`
@@ -275,9 +362,12 @@ const ADD_ORDER = gql`
         addOrder(userId: $userId, userEmail: $userEmail, total: $total, products: $products, status: $status, createdAt: $createdAt, flag: $flag) {
             _id
             userId
+            userEmail
+            total
             products {
                 _id
                 name
+                image
                 description
                 price
                 category
@@ -286,78 +376,101 @@ const ADD_ORDER = gql`
             status
             createdAt
         }
-    }
+  }
 `;
 
 const GET_USER_ORDERS = gql`
-    query Query($userId: String) {
-        userOrders(userId: $userId) {
+  query Query($userId: String) {
+    userOrders(userId: $userId) {
+      _id
+      userId
+      products {
+        _id
+        name
+        description
+        price
+        category
+        orderedQuantity
+      }
+      status
+      createdAt
+    }
+  }
+`;
+
+const FILTER_ORDER = gql`
+  mutation Mutation($userId: String!) {
+    filterOrder(userId: $userId)
+  }
+`;
+
+const ADD_SESSION = gql`
+  mutation Mutation($id: String!) {
+    addSession(_id: $id) {
+      _id
+    }
+  }
+`;
+
+const GET_SESSION = gql`
+  query Query($id: String!) {
+    session(_id: $id) {
+      _id
+    }
+  }
+`;
+
+const DELETE_SESSION = gql`
+  mutation Mutation($id: String!) {
+    deleteSession(_id: $id) {
+      deleted
+    }
+  }
+`;
+
+const COMPLETE_STATUS = gql`
+  mutation Mutation($id: String!) {
+    changeStatusToCompleted(_id: $id) {
+      _id
+      userId
+      userEmail
+      total
+      status
+      createdAt
+    }
+  }
+`;
+
+const DISPATCH_STATUS = gql`
+  mutation Mutation($id: String!) {
+    changeStatusToDispatched(_id: $id) {
+      _id
+      userId
+      userEmail
+      total
+      status
+      createdAt
+    }
+  }
+`;
+
+const GET_ORDER_BY_ID = gql`
+    query Query($id: String) {
+        order(_id: $id) {
             _id
             userId
+            userEmail
+            total
             products {
                 _id
                 name
+                image
                 description
                 price
                 category
                 orderedQuantity
             }
-            status
-            createdAt
-        }
-    }
-`;
-
-const FILTER_ORDER = gql`
-    mutation Mutation($userId: String!) {
-        filterOrder(userId: $userId)
-    }
-`;
-
-const ADD_SESSION = gql`
-    mutation Mutation($id: String!) {
-        addSession(_id: $id) {
-            _id
-        }
-    }
-`;
-
-const GET_SESSION = gql`
-    query Query($id: String!) {
-        session(_id: $id) {
-            _id
-        }
-    }
-`;
-
-const DELETE_SESSION = gql`
-    mutation Mutation($id: String!) {
-        deleteSession(_id: $id) {
-            deleted
-        }
-    }
-`;
-
-const COMPLETE_STATUS = gql`
-    mutation Mutation($id: String!) {
-        changeStatusToCompleted(_id: $id) {
-            _id
-            userId
-            userEmail
-            total
-            status
-            createdAt
-        }
-    }
-`;
-
-const DISPATCH_STATUS = gql`
-    mutation Mutation($id: String!) {
-        changeStatusToDispatched(_id: $id) {
-            _id
-            userId
-            userEmail
-            total
+            flag
             status
             createdAt
         }
@@ -393,6 +506,7 @@ let exported = {
     DELETE_SESSION,
     DISPATCH_STATUS,
     COMPLETE_STATUS,
+    GET_ORDER_BY_ID,
 };
 
 export default exported;
