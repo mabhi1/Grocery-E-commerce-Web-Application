@@ -2,10 +2,36 @@ import { useMutation, useQuery } from "@apollo/client";
 import { AuthContext } from "../../Firebase/Auth";
 import queries from "../../queries";
 import { useContext } from "react";
+import RemoveProduct from "./RemoveProduct"
 
 function AddOrder() {
     const d = new Date();
     let text = d.toString();
+    const [addOrder] = useMutation(queries.ADD_ORDER);
+    const [editUser] = useMutation(queries.EDIT_USER_CART);
+    
+
+    // function RemoveProduct (x)  {
+
+    //     let getProd = useQuery(queries.GET_PRODUCTS_BY_ID, {
+    //       fetchPolicy: "network-only",
+    //       variables: {
+    //         _id : x._id
+    //       },
+    //     });
+    //     console.log(getProd.quantity)
+    //     console.log(x.quantity)
+    //     let a = getProd.quantity - x.quantity
+    //     console.log(a)
+    //     editProduct({
+    //       variables: {
+    //         _id : x._id,
+    //         quantity: a
+    //       },
+    //     });
+    //     return null;
+    // }
+
     const { currentUser } = useContext(AuthContext);
 
     const { data, loading, error } = useQuery(queries.GET_USER_BY_ID, {
@@ -22,8 +48,11 @@ function AddOrder() {
         },
     });
 
-    const [addOrder] = useMutation(queries.ADD_ORDER);
-    const [editUser] = useMutation(queries.EDIT_USER_CART);
+   
+
+    
+    
+    
 
     if (error) {
         return <h1> error</h1>;
@@ -41,8 +70,9 @@ function AddOrder() {
                 image: data.getUser.cart[i].image,
                 price: data.getUser.cart[i].price,
             });
+            <RemoveProduct id={data.getUser.cart[i]._id} quantity={data.getUser.cart[i].quantity}/>
         }
-        console.log(getUserOrders.data.userOrders.length + 1);
+
         addOrder({
             variables: {
                 userId: currentUser.uid,
@@ -62,5 +92,6 @@ function AddOrder() {
             },
         });
     }
+    
 }
 export default AddOrder;

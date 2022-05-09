@@ -1,6 +1,9 @@
 import { useQuery, useMutation } from "@apollo/client";
 import React, { useContext } from "react";
+
+
 import { Button } from "react-bootstrap";
+
 import { useDispatch, useSelector } from "react-redux";
 import actions from "../../actions";
 import { AuthContext } from "../../Firebase/Auth";
@@ -8,6 +11,7 @@ import queries from "../../queries";
 import CartCards from "./CartCards";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 
 const styles = {
     totalPrice: {
@@ -23,6 +27,7 @@ const styles = {
         fontSize: "large",
     },
 };
+
 function Cart() {
     let totalPrice = 0;
     let navigate = useNavigate();
@@ -33,7 +38,11 @@ function Cart() {
             id: currentUser ? currentUser.uid : "none",
         },
     });
+
+    
+    const [addSession] = useMutation(queries.ADD_SESSION);
     const [error, setError] = useState(false);
+
     const [editUser] = useMutation(queries.EDIT_USER_CART);
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
@@ -63,6 +72,8 @@ function Cart() {
         return <CartCards product={product} handleClick={handleClick} key={product._id} setError={setError} />;
     };
 
+
+
     return (
         <div>
             <div className="page-header">Cart</div>
@@ -71,6 +82,22 @@ function Cart() {
                     <div style={{ marginBottom: "25px" }}>
                         {data?.getUser ? data.getUser.cart.map((product) => buildCard(product)) : cart.map((product) => buildCard(product))}
                     </div>
+            
+            <form className="login-form">
+                <div className="form-group">
+                    <label>
+                        Address 1
+                        <input className="form-control" placeholder={data.getUser.address} />
+                    </label>
+                </div>
+                <div className="form-group">
+                    <label>
+                        Address 2
+                        <input className="form-control" placeholder={data.getUser.address} />
+                    </label>
+                </div>
+            </form>
+
                     <div style={styles.totalPrice}>Total Price : {totalPrice}</div>
                     {error ? <Button disabled>Checkout</Button> : <Button onClick={() => navigate("/checkout")}>Checkout</Button>}
                 </div>
