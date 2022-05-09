@@ -10,6 +10,7 @@ import Toast from "react-bootstrap/Toast";
 import { useDispatch } from "react-redux";
 import actions from "../../actions";
 import { AuthContext } from "../../Firebase/Auth";
+import PostRating from "../Ratings";
 
 function IndividualProduct() {
     const [quantity, setQuantity] = useState(0);
@@ -115,6 +116,8 @@ function IndividualProduct() {
                                     Add to Cart
                                 </Button>
                             )}
+
+                            <PostRating />
                         </Card>
                     </Col>
                 </Row>

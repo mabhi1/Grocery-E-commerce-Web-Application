@@ -11,11 +11,16 @@ const resolvers = {
             return products;
         },
 
-        numberOfProducts: async (_, args) => {
+        products: async (_, args) => {
             const numberOfProducts = await productData.totalNumberOfProducts();
             if (args.page > Math.ceil(numberOfProducts / 2) || args.page < 1) return new Error("Not Found");
             const products = await productData.getAllProducts(args);
             return products;
+        },
+
+        numberOfProducts: async() => {
+            const numberOfProducts = await productData.totalNumberOfProducts();
+            return numberOfProducts;
         },
 
         adminProducts: async () => {

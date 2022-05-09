@@ -110,6 +110,7 @@ function ProductCard(props) {
                             Add to Cart
                         </Button>
                     )}
+                    
                     <Toast onClose={() => setToast(false)} show={toast} delay={2000} autohide>
                         <Toast.Header>
                             <img

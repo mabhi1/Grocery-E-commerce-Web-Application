@@ -58,7 +58,7 @@ function App() {
 
   return (
     <div style={styles.container}>
-      <h2> Product Review </h2>
+      <h2> Post a review for the product </h2>
       <div style={styles.stars}>
         {stars.map((_, index) => {
           return (

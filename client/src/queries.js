@@ -115,12 +115,15 @@ const EDIT_PRODUCT = gql`
 `;
 
 const ADD_REVIEW = gql`
-    mutation Mutation($productId: String!, $review: String!) {
-        addReview(productId: $productId, review: $review){
-            productId
-            review
-        }}`;
-// GraphQL query to get all users
+mutation Mutation($userId: String!, $productId: String!, $review: String!, $rating: Int!) {
+    addReview(userId: $userId, productId: $productId, review: $review, rating: $rating) {
+      _id
+      userId
+      productId
+      review
+      rating
+    }
+  }`;
 
 const CREATE_USER = gql`
     mutation Mutation($_id: String!, $name: String!, $email: String!, $address: String!, $phoneNumber: String!) {
@@ -135,10 +138,49 @@ const CREATE_USER = gql`
 `;
 
 const REVIEW_BY_ID = gql`
-    query ($id: String){
-        getReview(_id: $id){
-            review
-        }}`;
+query Query($id: String) {
+    reviewbyId(_id: $id) {
+      _id
+      userId
+      productId
+      review
+      rating
+    }
+  }`;
+
+const REVIEW_BY_USERID = gql`
+query UserReview($userId: String) {
+    userReview(userId: $userId) {
+      _id
+      userId
+      productId
+      review
+      rating
+    }
+  }`;
+
+const ALL_REVIEWS_PRODUCT = gql`
+query ProductReview($productId: String) {
+    productReview(productId: $productId) {
+      _id
+      userId
+      productId
+      review
+      rating
+    }
+  }`;
+
+const ALL_REVIEWS = gql`
+query ProductReview {
+    reviews {
+      _id
+      userId
+      productId
+      review
+      rating
+    }
+  }`;
+        
 const GET_USER_BY_ID = gql`
     query ($id: String) {
         getUser(_id: $id) {
@@ -159,13 +201,6 @@ const GET_USER_BY_ID = gql`
     }
 `;
 
-const ALL_REVIEWS_PRODUCT = gql`
-    query ($id: String){
-        product_Reviews(_id: $id){
-            review
-        }
-    }
-`;
 const GET_ALL_USERS = gql`
     query {
         getAllUsers {
@@ -338,7 +373,9 @@ let exported = {
     EDIT_PRODUCT,
     ADD_REVIEW,
     REVIEW_BY_ID,
+    REVIEW_BY_USERID,
     ALL_REVIEWS_PRODUCT,
+    ALL_REVIEWS,
     CREATE_USER,
     GET_USER_BY_ID,
     GET_ALL_USERS,
