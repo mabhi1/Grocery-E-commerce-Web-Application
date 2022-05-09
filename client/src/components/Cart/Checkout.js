@@ -1,24 +1,36 @@
-import React, { useContext } from "react";
+import React, { useContext,useState } from "react";
 import { AuthContext } from "../../Firebase/Auth";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery, useMutation, useSubscription } from "@apollo/client";
 import queries from "../../queries";
 import { Col, Row, Button, Alert, Form , Container} from "react-bootstrap";
 import { v4 as uuid } from "uuid";
 import CartCards from "./CartCards";
+import {reactLocalStorage} from 'reactjs-localstorage';
 
-function Checkout(props) {
+function Checkout() {
+
     let totalPrice = 0;
     const { currentUser } = useContext(AuthContext);
     const [addSession] = useMutation(queries.ADD_SESSION);
     let secret = uuid();
+    
     const { data } = useQuery(queries.GET_USER_BY_ID, {
         fetchPolicy: "cache-and-network",
         variables: {
             id: currentUser ? currentUser.uid : "none",
         },
     });
+
+    const [zip,setZip] = useState(data.getUser.zip);
+    const [city,setCity] = useState(data.getUser.city);
+    const [state,setState] = useState(data.getUser.state);
+    const [apt,setApt] = useState(data.getUser.apt);
+    const [addressStreet,setAddressStreet] = useState(data.getUser.addressStreet);
+ 
+    
     const handleCheckout = () => {
-        fetch("http://localhost:5000/create-checkout-session", {
+        reactLocalStorage.setObject('addressDetails', {'addressStreet': addressStreet, 'zip': zip, 'state': state, 'city': city, 'apt': apt});
+        fetch("http://localhost:5001/create-checkout-session", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -51,12 +63,12 @@ function Checkout(props) {
         return <CartCards product={product} key={product._id} checkout={true} />;
     };
     return (
-        <Row style={{ marginTop: "150px" }}>
+        <Row>
             <Col>
           
                                     
                                     
-                                   {/*  <strong>Name:</strong> {data.getUser && data.getUser.name}
+                                    {/* <strong>Name:</strong> {data.getUser && data.getUser.name}
                                     <br />
                                     <br />
                                     <strong>Email:</strong> {data.getUser && data.getUser.email}
@@ -78,17 +90,56 @@ function Checkout(props) {
                                     <br />
                                     <br />
                                     <input defaultValue={data.getUser.zip} placeholder="Enter Zip" /> */}
-                                    <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
-                <div className="w-100" style={{ maxWidth: "600px" }}>
+                                    <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "80vh" }}>
+                <div className="w-75" style={{ maxWidth: "600px" }}>
                     <Form>
                         {/* <p>{JSON.stringify(currentUser.displayName)}</p> */}
                         {/* //!Jumbotron for user Detail */}
                         <div className="jumbotron jumbotron-fluid" style={{ backgroundColor: "#F0F8FF", borderRadius: "20px", color: "black" }}>
                             <div className="container">
-                                <h1 className="display-4">Welcome, {currentUser.displayName} </h1>
-                                <p className="lead">Please provide additional detalis so we can serve you better</p>
+                                <h1 className="display-4">Order Details</h1>
+                            
                             </div>
                         </div> 
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control
+                                type="text"
+                                className="form-control"
+                                id="inputAddress2"
+                                defaultValue={data?.getUser.name}
+                                disabled
+                                readOnly
+                                
+                                
+                            />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control
+                                type="text"
+                                className="form-control"
+                                id="inputAddress2"
+                                defaultValue={data?.getUser.email}
+                                disabled
+                                readOnly
+                                
+                            />
+                        </Form.Group>
+                        
+                        <Form.Group className="mb-3">
+                            <Form.Label>Phone Number</Form.Label>
+                            <Form.Control
+                                type="text"
+                                className="form-control"
+                                id="inputAddress2"
+                                placeholder="Enter Phone Number"
+                                defaultValue={data?.getUser.phoneNumber }
+                                
+                            />
+                        </Form.Group>
 
                         <Form.Group className="mb-3">
                             <Form.Label>Address</Form.Label>
@@ -97,7 +148,8 @@ function Checkout(props) {
                                 className="form-control"
                                 id="inputAddress2"
                                 placeholder="Enter Address"
-                                defaultValue={data.getUser.addressStreet}
+                                defaultValue={data?.getUser.addressStreet}
+                                onChange={e => setAddressStreet({ val: e.target.value })}
                                 
                             />
                         </Form.Group>
@@ -109,7 +161,8 @@ function Checkout(props) {
                                 className="form-control"
                                 id="inputAddress2"
                                 placeholder="Enter Apt"
-                                defaultValue={data.getUser.apt}
+                                defaultValue={data?.getUser.apt}
+                                onChange={e => setApt({ val: e.target.value })}
                                 
                             />
                         </Form.Group>
@@ -121,7 +174,8 @@ function Checkout(props) {
                                 className="form-control"
                                 id="inputAddress2"
                                 placeholder="Enter State"
-                                defaultValue={data.getUser.state}
+                                defaultValue={data?.getUser.state}
+                                onChange={e => setState({ val: e.target.value })}
                                 
                             />
                         </Form.Group>
@@ -133,7 +187,8 @@ function Checkout(props) {
                                 className="form-control"
                                 id="inputAddress2"
                                 placeholder="Enter City"
-                                defaultValue={data.getUser.city}
+                                defaultValue={data?.getUser.city}
+                                onChange={e => setCity({ val: e.target.value })}
                                 
                             />
                         </Form.Group>
@@ -144,7 +199,8 @@ function Checkout(props) {
                                 className="form-control"
                                 id="inputAddress2"
                                 placeholder="Enter Zip"
-                                defaultValue={data.getUser.zip}
+                                defaultValue={data?.getUser.zip}
+                                onChange={e => setZip({ val: e.target.value })}
                                 
                             />
                         </Form.Group>
@@ -156,11 +212,11 @@ function Checkout(props) {
             </Col>
             <Col>
                 {data?.getUser.cart.map((product) => buildCard(product))}
-                <div style={{ marginRight: "80px", display: "flex" }}>
-                    <Alert variant="info" style={{ width: "fit-content" }}>
+                <div style={{ margin: "25px" }}>
+                    <Alert variant="info" style={{ lineHeight: "0.1em" }}>
                         Total Price : {totalPrice}
                     </Alert>
-                    <Button onClick={handleCheckout} style={{ marginLeft: "25px" }} size="sm">
+                    <Button onClick={handleCheckout} style={{ width: "100%", margin: "0" }} size="sm">
                         Pay Now
                     </Button>
                 </div>
