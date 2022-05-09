@@ -56,6 +56,11 @@ const typeDefs = gql`
         flag: Int
         status: String
         createdAt: String
+        addressStreet: String
+        zip: String
+        apt: String
+        city: String
+        state: String
     }
 
     type Prod {
@@ -135,7 +140,7 @@ const typeDefs = gql`
 
         addUser(_id: String!, name: String!, email: String!, addressStreet: String!, apt : String!,city: String! ,state: String!, zip: String!,phoneNumber: String!, createdAt: String): User
 
-        addOrder(userId: String!, userEmail: String!, total: Int!, products: [Pro], status: String, createdAt: String, flag: Int): Order
+        addOrder(userId: String!, userEmail: String!, total: Int!, products: [Pro], status: String, createdAt: String, flag: Int, addressStreet: String, zip: String, apt: String, state: String, city: String  ): Order
 
         deleteOrder(_id: String!): Order
 
