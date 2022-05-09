@@ -117,7 +117,7 @@ const typeDefs = gql`
 
         addReview(userId: String!, productId: String!, review: String!, rating: Int!): Review
 
-        editProduct(_id: String!, name: String, price: Int, quantity: Int, description: String, category: String): Product
+        editProduct(_id: String!, image: String, name: String, price: Int, quantity: Int, description: String, category: String): Product
 
         deleteProduct(_id: String!): Product
 

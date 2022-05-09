@@ -140,3 +140,73 @@
 .dispatched{
   background: #d5ff94;
 }
+
+.toast{
+  position: fixed;
+  top: 100px;
+  z-index: 9;
+  right: 20px;
+  background: #deffde
+}
+
+.filter-order{
+  margin-right: 50px;
+}
+
+#product-form label{
+  display: none;
+}
+
+#product-form input, #product-form select{
+  width: 99%;;
+}
+
+#product-form{
+  display: block;
+  background: rgba(0, 0, 0, 0.05);
+  margin-top: -58px;
+  padding-top: 50px;
+  border-radius: 8px;
+}
+
+@media (max-width:720px) {
+  .product-header{
+    display: block;
+  }
+  .search-div{
+    justify-content: center;
+    width: 100%;
+  }
+  .filter-value{
+    width: 100%;
+    justify-content: center;
+    margin: 8px 0px 0px 0px;
+  }
+  .sort-product{
+    width: 100%;
+    text-align: center;
+  }
+  .toast{
+    top:65px;
+    right: 5px
+  }
+  .col{
+    text-align: center;
+  }
+  .filter-order{
+    display: block;
+    margin: 0;
+  }
+}
+
+@media (max-width:1024px) {
+  .search-div{
+    width: 45%;
+  }
+  .filter-value{
+    width: 30%;
+  }
+  .sort-product{
+    width: 25%;
+  }
+}

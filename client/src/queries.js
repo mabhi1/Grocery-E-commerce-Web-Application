@@ -7,16 +7,17 @@ const NUMBER_OF_PRODUCTS = gql`
 `;
 
 const GET_PRODUCTS_FOR_ADMIN = gql`
-  query Query {
-    adminProducts {
-      _id
-      name
-      description
-      price
-      category
-      quantity
+    query Query {
+        adminProducts {
+            _id
+            name
+            image
+            description
+            price
+            category
+            quantity
+        }
     }
-  }
 `;
 
 const GET_PRODUCT_BY_CATEGORY = gql`
@@ -73,15 +74,17 @@ const SEARCH_PRODUCTS = gql`
 `;
 
 const ADD_PRODUCT = gql`
-  mutation createProduct($name: String!, $description: String, $price: Int!, $category: String!, $quantity: Int!) {
-    addProduct(name: $name, description: $description, price: $price, category: $category, quantity: $quantity) {
-      name
-      description
-      price
-      category
-      quantity
+    mutation Mutation($name: String!, $price: Int!, $category: String!, $quantity: Int!, $image: String, $description: String) {
+        addProduct(name: $name, price: $price, category: $category, quantity: $quantity, image: $image, description: $description) {
+            _id
+            name
+            image
+            description
+            price
+            category
+            quantity
+        }
     }
-  }
 `;
 
 const DELETE_PRODUCT = gql`
@@ -98,15 +101,16 @@ const DELETE_PRODUCT = gql`
 `;
 
 const EDIT_PRODUCT = gql`
-  mutation Mutation($id: String!, $name: String, $price: Int, $quantity: Int, $description: String, $category: String) {
-    editProduct(_id: $id, name: $name, price: $price, quantity: $quantity, description: $description, category: $category) {
-      _id
-      name
-      description
-      price
-      category
-      quantity
-    }
+    mutation Mutation($id: String!, $name: String, $image: String, $price: Int, $quantity: Int, $description: String, $category: String) {
+        editProduct(_id: $id, name: $name, image: $image, price: $price, quantity: $quantity, description: $description, category: $category) {
+            _id
+            name
+            image
+            description
+            price
+            category
+            quantity
+        }
   }
 `;
 
@@ -247,6 +251,14 @@ const EDIT_USER = gql`
             state
             zip
             phoneNumber
+            cart {
+                _id
+                image
+                name
+                price
+                quantity
+            }
+            createdAt
         }
     }
 `;
