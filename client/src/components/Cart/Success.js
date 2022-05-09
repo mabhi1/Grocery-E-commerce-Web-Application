@@ -25,6 +25,7 @@ function Success() {
                 <div className="w-100 text-center mt-3">
                         <Link to="/">Return to Home</Link>
                     </div>
+                <AddOrder />
             </div>
         );
     } else {

@@ -3,10 +3,11 @@ import React, { useContext, useState } from "react";
 //import ChangePassword from "./ChangePassword";
 import { AuthContext } from "../Firebase/Auth";
 import { useNavigate, Link } from "react-router-dom";
-import { Card, Button, Alert, Container } from "react-bootstrap";
+import { Card, Button, Alert, Container,Table } from "react-bootstrap";
 import { dosignOut } from "../Firebase/FirebaseFunctions";
 import { useQuery } from "@apollo/client";
 import queries from "../queries";
+import UserOrders from "./orders/UserOrders";
 
 function Account(props) {
     const { currentUser } = useContext(AuthContext);
@@ -18,6 +19,8 @@ function Account(props) {
             id: currentUser.uid,
         },
     });
+
+    
 
     //console.log(data);
 
@@ -63,7 +66,14 @@ function Account(props) {
                                     </Link>
                                 </Card.Body>
                             </Card>
-
+                            <div className="w-100" style={{ maxWidth: "400px" }}>
+                            <Card>
+                                <Card.Body>
+                                    <h1 className="text-center mb-4">Your Orders</h1>
+                                    <UserOrders />
+                                </Card.Body>
+                            </Card>
+                            </div>
                             <div className="w-100 text-center mt-2">
                                 <Button variant="btn btn-danger" onClick={handleLogout}>
                                     Log Out
