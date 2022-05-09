@@ -44,6 +44,7 @@ const typeDefs = gql`
         userEmail: String
         total: Int
         products: [Prod]
+        flag: Int
         status: String
         createdAt: String
     }

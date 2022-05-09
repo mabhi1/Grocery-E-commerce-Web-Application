@@ -181,7 +181,7 @@ const EDIT_USER = gql`
     }
 `;
 const GET_ALL_ORDERS = gql`
-    query {
+    query Query {
         getAllOrders {
             _id
             userId
@@ -191,10 +191,14 @@ const GET_ALL_ORDERS = gql`
                 _id
                 name
                 image
+                description
                 price
+                category
                 orderedQuantity
             }
+            flag
             status
+            createdAt
         }
     }
 `;
@@ -222,9 +226,12 @@ const ADD_ORDER = gql`
         addOrder(userId: $userId, userEmail: $userEmail, total: $total, products: $products, status: $status, createdAt: $createdAt, flag: $flag) {
             _id
             userId
+            userEmail
+            total
             products {
                 _id
                 name
+                image
                 description
                 price
                 category
@@ -311,6 +318,29 @@ const DISPATCH_STATUS = gql`
     }
 `;
 
+const GET_ORDER_BY_ID = gql`
+    query Query($id: String) {
+        order(_id: $id) {
+            _id
+            userId
+            userEmail
+            total
+            products {
+                _id
+                name
+                image
+                description
+                price
+                category
+                orderedQuantity
+            }
+            flag
+            status
+            createdAt
+        }
+    }
+`;
+
 let exported = {
     GET_PRODUCTS_BY_ID,
     GET_PRODUCTS_FOR_ADMIN,
@@ -335,6 +365,7 @@ let exported = {
     DELETE_SESSION,
     DISPATCH_STATUS,
     COMPLETE_STATUS,
+    GET_ORDER_BY_ID,
 };
 
 export default exported;

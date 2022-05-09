@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
-import React, { useContext, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import queries from "../../queries";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -12,6 +12,7 @@ import actions from "../../actions";
 import { AuthContext } from "../../Firebase/Auth";
 
 function IndividualProduct() {
+    let navigate = useNavigate();
     const [quantity, setQuantity] = useState(0);
     const [toast, setToast] = useState(false);
     const { currentUser } = useContext(AuthContext);
@@ -25,11 +26,18 @@ function IndividualProduct() {
     const dispatch = useDispatch();
     const [editUser] = useMutation(queries.EDIT_USER_CART);
     let { loading, error, data } = useQuery(queries.GET_PRODUCTS_BY_ID, { variables: { id: id } });
+    useEffect(() => {
+        if (data) {
+            if (!data.product) {
+                navigate("/notfound");
+            }
+        }
+    }, [data, navigate]);
     if (loading) {
         return <div>Loading...</div>;
     } else if (error) {
         return <div>{error.message}</div>;
-    } else if (data) {
+    } else if (data && data.product) {
         const { product } = data;
         const handleClick = () => {
             if (quantity > product.quantity) {
@@ -41,11 +49,13 @@ function IndividualProduct() {
                 const { getUser } = userData.data;
                 let newCart = [];
                 let found = false;
+                let totalQuantity = 0;
                 if (getUser.cart.length > 0) {
                     for (let item of getUser.cart) {
                         if (item._id !== product._id) {
                             newCart.push({ _id: item._id, name: item.name, price: item.price, quantity: item.quantity, image: item.image });
                         } else {
+                            totalQuantity = quantity + item.quantity;
                             newCart.push({
                                 _id: product._id,
                                 name: product.name,
@@ -57,6 +67,15 @@ function IndividualProduct() {
                         }
                     }
                 }
+                if (totalQuantity > product.quantity) {
+                    alert(
+                        `Only ${product.quantity} quantity of ${product.name} is left in stock. You already have ${
+                            totalQuantity - quantity
+                        } in your cart.`
+                    );
+                    setQuantity(0);
+                    return;
+                }
                 if (!found) newCart.push({ _id: product._id, name: product.name, price: product.price, quantity: quantity, image: product.image });
                 editUser({
                     variables: {
@@ -65,6 +84,7 @@ function IndividualProduct() {
                     },
                 });
             } else {
+                navigate("/signin");
                 dispatch(actions.addProduct(product._id, product.name, product.price, quantity));
             }
             setQuantity(0);

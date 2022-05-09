@@ -74,7 +74,7 @@ function Products() {
                         </Form.Select>
                     </div>
                     <div className="sort-product">
-                        <Form.Check type="checkbox" name="sortByPrice" id="sortByPrice" onChange={handleChange} /> Sort by Price
+                        <input type="checkbox" name="sortByPrice" id="sortByPrice" onChange={handleChange} /> Sort by Price
                     </div>
                 </div>
 
