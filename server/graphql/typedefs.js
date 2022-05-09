@@ -82,7 +82,11 @@ const typeDefs = gql`
         _id: String
         name: String
         email: String
-        address: String
+        addressStreet: String
+        apt: String
+        city: String
+        state: String
+        zip: String
         phoneNumber: String
         cart: [CartProduct]
         createdAt: String
@@ -119,13 +123,13 @@ const typeDefs = gql`
 
         deleteSession(_id: String!): Deleted
 
-        addUser(_id: String, name: String!, email: String!, address: String!, phoneNumber: String!, createdAt: String): User
+        addUser(_id: String!, name: String!, email: String!, addressStreet: String!, apt : String!,city: String! ,state: String!, zip: String!,phoneNumber: String!, createdAt: String): User
 
         addOrder(userId: String!, userEmail: String!, total: Int!, products: [Pro], status: String, createdAt: String, flag: Int): Order
 
         deleteOrder(_id: String!): Order
 
-        editUser(_id: String!, name: String, email: String, address: String, phoneNumber: String, cart: [Cart]): User
+        editUser(_id: String!, name: String, email: String, addressStreet: String, apt: String, city:String, state:String, zip:String ,phoneNumber: String, cart: [Cart]): User
 
         addSession(_id: String!): Session
 
