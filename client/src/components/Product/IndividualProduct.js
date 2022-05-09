@@ -136,11 +136,10 @@ function IndividualProduct() {
                                     Add to Cart
                                 </Button>
                             )}
-
-                            <PostRating />
                         </Card>
                     </Col>
                 </Row>
+                <PostRating />
                 <Toast onClose={() => setToast(false)} show={toast} delay={2000} autohide>
                     <Toast.Header>
                         <img
