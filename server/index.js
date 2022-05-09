@@ -50,6 +50,6 @@ app.post("/create-checkout-session", async (req, res) => {
     }
 });
 
-app.listen(5000, () => {
-    console.log("🚀 Express server ready at http://localhost:5000 🚀");
+app.listen(5001, () => {
+    console.log("🚀 Express server ready at http://localhost:5001 🚀");
 });

@@ -4,6 +4,7 @@ import { AuthContext } from "../Firebase/Auth";
 import { useMutation, useQuery } from "@apollo/client";
 import queries from "../queries";
 import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const UserDetailPage = () => {
     let navigate = useNavigate();
@@ -25,7 +26,8 @@ const UserDetailPage = () => {
     });
 
     // function alertBox() {
-    //   alert("user added successfully" + name + address1 + address2 + city + zip + phoneNumber + state + currentUser.email);
+    //   //alert("user added successfully" + name + address1 + address2 + city + zip + phoneNumber + state + currentUser.email);
+    //   alert("user added successfully "+ name + " address "+ address1 + " city "+ city + " zip "+ zip + " phoneNumber "+ phoneNumber + " state "+ state + " email "+ currentUser.email);
     // }
 
     //let _id;
@@ -33,6 +35,10 @@ const UserDetailPage = () => {
     //let email;
     //let address;
     //let phoneNumber;
+
+    // if (currentUser) {
+    //     return <Navigate to="/" />;
+    // }
 
     return (
         <>
@@ -170,7 +176,6 @@ const UserDetailPage = () => {
                                     <option value="Wisconsin">Wisconsin</option>
                                     <option value="Wyoming">Wyoming</option>
                                 </Form.Select>
-                                <p>{state}</p>
                             </Form.Group>
 
                             <Form.Group as={Col}>
@@ -198,7 +203,11 @@ const UserDetailPage = () => {
                                                 _id: currentUser.uid,
                                                 name: name || "test",
                                                 email: currentUser.email,
-                                                address: address1 + ", " + address2 + ", " + city + ", " + state + ", " + zip,
+                                                addressStreet: address1,
+                                                apt: address2,
+                                                city: city,
+                                                state: state,
+                                                zip: zip,
                                                 phoneNumber: phoneNumber,
                                             },
                                         });
