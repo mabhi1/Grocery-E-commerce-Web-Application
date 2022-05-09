@@ -114,7 +114,16 @@ const EDIT_PRODUCT = gql`
   }
 `;
 
-// GraphQL query to get all users
+const ADD_REVIEW = gql`
+mutation Mutation($userId: String!, $productId: String!, $review: String!, $rating: Int!) {
+    addReview(userId: $userId, productId: $productId, review: $review, rating: $rating) {
+      _id
+      userId
+      productId
+      review
+      rating
+    }
+  }`;
 
 // const CREATE_USER = gql`
 //     mutation Mutation($_id: String, $name: String!, $email: String!, $addressStreet: String!, $apt: String!, $city: String!, $state: String!, $zip: String! , $phoneNumber: String!) {
@@ -168,6 +177,50 @@ const CREATE_USER = gql`
   }
 `;
 
+const REVIEW_BY_ID = gql`
+query Query($id: String) {
+    reviewbyId(_id: $id) {
+      _id
+      userId
+      productId
+      review
+      rating
+    }
+  }`;
+
+const REVIEW_BY_USERID = gql`
+query UserReview($userId: String) {
+    userReview(userId: $userId) {
+      _id
+      userId
+      productId
+      review
+      rating
+    }
+  }`;
+
+const ALL_REVIEWS_PRODUCT = gql`
+query ProductReview($productId: String) {
+    productReview(productId: $productId) {
+      _id
+      userId
+      productId
+      review
+      rating
+    }
+  }`;
+
+const ALL_REVIEWS = gql`
+query ProductReview {
+    reviews {
+      _id
+      userId
+      productId
+      review
+      rating
+    }
+  }`;
+        
 const GET_USER_BY_ID = gql`
   query ($id: String) {
     getUser(_id: $id) {
@@ -431,6 +484,11 @@ let exported = {
     GET_ALL_PRODUCTS,
     DELETE_PRODUCT,
     EDIT_PRODUCT,
+    ADD_REVIEW,
+    REVIEW_BY_ID,
+    REVIEW_BY_USERID,
+    ALL_REVIEWS_PRODUCT,
+    ALL_REVIEWS,
     CREATE_USER,
     GET_USER_BY_ID,
     GET_ALL_USERS,

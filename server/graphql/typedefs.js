@@ -2,6 +2,7 @@ const { gql } = require("apollo-server");
 
 const typeDefs = gql`
     type Query {
+        
         products(page: Int): [Product]
         product(_id: String): Product
         category(category: String): [Product]
@@ -9,6 +10,13 @@ const typeDefs = gql`
         desCategory(category: String): [Product]
         searchProducts(name: String!): [Product]
         adminProducts: [Product]
+
+        reviewbyId(_id: String): Review
+        
+        reviews: [Review]
+        userReview(userId: String): [Review]
+        productReview(productId: String): [Review]
+
         numberOfProducts: Int
 
         getUser(_id: String): User
@@ -18,10 +26,6 @@ const typeDefs = gql`
         getAllOrders: [Order]
         order(_id: String): Order
         orderStatus(status: String): [Order]
-        reviews: [Review]
-        userReview(userId: String): [Review]
-        productReview(productId: String): [Review]
-        review(_id: String!): Review
 
         session(_id: String!): Session
     }
@@ -38,6 +42,11 @@ const typeDefs = gql`
         rating: Int
     }
 
+    type productReview{
+        review : String
+        rating: Int
+    }
+    
     type Order {
         _id: String
         userId: String
@@ -78,7 +87,7 @@ const typeDefs = gql`
         category: String
         quantity: Int
     }
-
+    
     type User {
         _id: String
         name: String
@@ -121,7 +130,7 @@ const typeDefs = gql`
         editProduct(_id: String!, image: String, name: String, price: Int, quantity: Int, description: String, category: String): Product
 
         deleteProduct(_id: String!): Product
-
+        
         deleteSession(_id: String!): Deleted
 
         addUser(_id: String!, name: String!, email: String!, addressStreet: String!, apt : String!,city: String! ,state: String!, zip: String!,phoneNumber: String!, createdAt: String): User
