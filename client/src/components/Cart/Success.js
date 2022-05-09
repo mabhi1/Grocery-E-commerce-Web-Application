@@ -3,6 +3,7 @@ import AddOrder from "../orders/AddOrder";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import queries from "../../queries";
+import { Alert, Button } from "react-bootstrap";
 
 function Success() {
     const navigate = useNavigate();
@@ -22,6 +23,8 @@ function Success() {
         return (
             <div>
                 <AddOrder />
+                <Alert variant="success">Order placed successfully</Alert>
+                <Button onClick={() => navigate("/")}>Home</Button>
             </div>
         );
     } else {

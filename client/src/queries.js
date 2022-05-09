@@ -265,22 +265,25 @@ const EDIT_USER = gql`
 
 
 const GET_ALL_ORDERS = gql`
-  query {
-    getAllOrders {
-      _id
-      userId
-      userEmail
-      total
-      products {
-        _id
-        name
-        image
-        price
-        orderedQuantity
-      }
-      status
-    }
-  }
+    query Query {
+        getAllOrders {
+            _id
+            userId
+            userEmail
+            total
+            products {
+                _id
+                name
+                image
+                description
+                price
+                category
+                orderedQuantity
+            }
+            flag
+            status
+            createdAt
+        }}
 `;
 
 const EDIT_USER_CART = gql`
@@ -302,21 +305,24 @@ const EDIT_USER_CART = gql`
 `;
 
 const ADD_ORDER = gql`
-  mutation Mutation($userId: String!, $userEmail: String!, $total: Int!, $products: [Pro], $status: String, $createdAt: String, $flag: Int) {
-    addOrder(userId: $userId, userEmail: $userEmail, total: $total, products: $products, status: $status, createdAt: $createdAt, flag: $flag) {
-      _id
-      userId
-      products {
-        _id
-        name
-        description
-        price
-        category
-        orderedQuantity
-      }
-      status
-      createdAt
-    }
+    mutation Mutation($userId: String!, $userEmail: String!, $total: Int!, $products: [Pro], $status: String, $createdAt: String, $flag: Int) {
+        addOrder(userId: $userId, userEmail: $userEmail, total: $total, products: $products, status: $status, createdAt: $createdAt, flag: $flag) {
+            _id
+            userId
+            userEmail
+            total
+            products {
+                _id
+                name
+                image
+                description
+                price
+                category
+                orderedQuantity
+            }
+            status
+            createdAt
+        }
   }
 `;
 
@@ -395,30 +401,54 @@ const DISPATCH_STATUS = gql`
   }
 `;
 
+const GET_ORDER_BY_ID = gql`
+    query Query($id: String) {
+        order(_id: $id) {
+            _id
+            userId
+            userEmail
+            total
+            products {
+                _id
+                name
+                image
+                description
+                price
+                category
+                orderedQuantity
+            }
+            flag
+            status
+            createdAt
+        }
+    }
+`;
+
 let exported = {
-  GET_PRODUCTS_BY_ID,
-  GET_PRODUCTS_FOR_ADMIN,
-  ADD_PRODUCT,
-  GET_ALL_PRODUCTS,
-  DELETE_PRODUCT,
-  EDIT_PRODUCT,
-  CREATE_USER,
-  GET_USER_BY_ID,
-  GET_ALL_USERS,
-  SEARCH_PRODUCTS,
-  EDIT_USER,
-  EDIT_USER_CART,
-  GET_PRODUCT_BY_CATEGORY,
-  NUMBER_OF_PRODUCTS,
-  GET_ALL_ORDERS,
-  ADD_ORDER,
-  GET_USER_ORDERS,
-  FILTER_ORDER,
-  ADD_SESSION,
-  GET_SESSION,
-  DELETE_SESSION,
-  DISPATCH_STATUS,
-  COMPLETE_STATUS,
+    GET_PRODUCTS_BY_ID,
+    GET_PRODUCTS_FOR_ADMIN,
+    ADD_PRODUCT,
+    GET_ALL_PRODUCTS,
+    DELETE_PRODUCT,
+    EDIT_PRODUCT,
+    CREATE_USER,
+    GET_USER_BY_ID,
+    GET_ALL_USERS,
+    SEARCH_PRODUCTS,
+    EDIT_USER,
+    EDIT_USER_CART,
+    GET_PRODUCT_BY_CATEGORY,
+    NUMBER_OF_PRODUCTS,
+    GET_ALL_ORDERS,
+    ADD_ORDER,
+    GET_USER_ORDERS,
+    FILTER_ORDER,
+    ADD_SESSION,
+    GET_SESSION,
+    DELETE_SESSION,
+    DISPATCH_STATUS,
+    COMPLETE_STATUS,
+    GET_ORDER_BY_ID,
 };
 
 export default exported;
