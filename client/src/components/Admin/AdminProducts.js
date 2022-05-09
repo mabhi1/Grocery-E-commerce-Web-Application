@@ -1,9 +1,9 @@
 import { useQuery, useMutation } from "@apollo/client";
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../Firebase/Auth";
 import queries from "../../queries";
-import { Card, Button, Col, Form, Row } from "react-bootstrap";
+import { Card, Button, Col, Form, Row, Container } from "react-bootstrap";
 import EditModal from "./EditModal";
 
 const styles = {
@@ -15,13 +15,20 @@ const styles = {
         width: "100%",
         padding: "15px",
     },
-    heading: {
-        borderBottom: 0,
-        background: "#f8f9fabd",
-    },
     input: {
         margin: "5px",
     },
+    Container: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        borderRadius: "3px",
+        height: "185px",
+        padding: "0",
+        margin: "0",
+        overflow: "hidden",
+    },
+    Image: { width: "75%", height: "auto", margin: "auto" },
 };
 function AdminProducts() {
     const [addProduct] = useMutation(queries.ADD_PRODUCT, {
@@ -68,21 +75,19 @@ function AdminProducts() {
         const { adminProducts } = data;
         const createCard = (product) => {
             return (
-                <Col key={product._id} style={{ width: "12.5%", marginBottom: "20px" }}>
+                <Col key={product._id} style={{ marginBottom: "20px" }}>
                     <Card style={{ textAlign: "center" }} className="product-card">
-                        <Card.Img
-                            src="https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Z3JvY2VyeXxlbnwwfHwwfHw%3D&w=1000&q=80"
-                            className="card-img-top"
-                            alt={product.name}
-                        />
+                        <Container style={styles.Container}>
+                            <Card.Img src={product.image} className="card-img-top" alt={product.name} style={styles.Image} />
+                        </Container>
                         <Card.Body>
-                            <Card.Header className="mb-3" style={styles.heading}>
+                            <Link className="btn btn-light" to={`/product/${product._id}`} role="button">
                                 {product.name}
-                            </Card.Header>
+                            </Link>
                             <Card.Text>
                                 {product.category}
                                 <br />
-                                Price : ${product.price}
+                                Price : ${product.price}.00
                                 <br />
                                 Quantity : {product.quantity}
                             </Card.Text>
@@ -117,9 +122,10 @@ function AdminProducts() {
         });
         const showForm = () => {
             const form = document.getElementById("product-form");
-            form.style.display === "flex" ? (form.style.display = "none") : (form.style.display = "flex");
+            form.style.display === "block" ? (form.style.display = "none") : (form.style.display = "block");
         };
         let name;
+        let image;
         let category;
         let price;
         let quantity;
@@ -138,6 +144,7 @@ function AdminProducts() {
                         addProduct({
                             variables: {
                                 name: name.value.toString(),
+                                image: image.value.toString(),
                                 description: description.value.toString(),
                                 price: parseInt(price.value),
                                 category: category.value.toString(),
@@ -145,6 +152,7 @@ function AdminProducts() {
                             },
                         });
                         name.value = "";
+                        image.value = "";
                         description.value = "";
                         price.value = "";
                         category.value = "";
@@ -155,9 +163,12 @@ function AdminProducts() {
                     <Form.Control ref={(node) => (name = node)} type="text" placeholder="Enter Product name" style={styles.input} required />
 
                     <Form.Label></Form.Label>
+                    <Form.Control ref={(node) => (image = node)} type="text" placeholder="Enter image url" style={styles.input} required />
+
+                    <Form.Label></Form.Label>
                     <Form.Select ref={(node) => (category = node)} type="text" style={styles.input} required>
                         <option>Select Category</option>
-                        <option value="value1">value 1</option>
+                        <option value="snacks & beverages">Snacks & Beverages</option>
                         <option value="value2">value 2</option>
                         <option value="value3">value 3</option>
                     </Form.Select>
@@ -175,7 +186,7 @@ function AdminProducts() {
                         Submit
                     </Button>
                 </Form>
-                <Row xs={2} md={4} lg={6}>
+                <Row xs={1} md={3} lg={6}>
                     {cards}
                 </Row>
                 {editModal && <EditModal isOpen={editModal} handleClose={setEditModal} product={selectedProduct} />}

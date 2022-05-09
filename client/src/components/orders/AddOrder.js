@@ -72,9 +72,7 @@ function AddOrder() {
             });
             <RemoveProduct id={data.getUser.cart[i]._id} quantity={data.getUser.cart[i].quantity}/>
         }
-        console.log(newCart)
 
-        console.log(currentUser.email, total);
         addOrder({
             variables: {
                 userId: currentUser.uid,

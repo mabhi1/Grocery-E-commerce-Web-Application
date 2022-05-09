@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import queries from "../../queries";
 import { Link } from "react-router-dom"; 
+import { Alert, Button } from "react-bootstrap";
+
 function Success() {
     const navigate = useNavigate();
     const { secret } = useParams();
@@ -26,6 +28,8 @@ function Success() {
                         <Link to="/">Return to Home</Link>
                     </div>
                 <AddOrder />
+                <Alert variant="success">Order placed successfully</Alert>
+                <Button onClick={() => navigate("/")}>Home</Button>
             </div>
         );
     } else {

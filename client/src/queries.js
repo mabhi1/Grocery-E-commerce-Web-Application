@@ -11,6 +11,7 @@ const GET_PRODUCTS_FOR_ADMIN = gql`
         adminProducts {
             _id
             name
+            image
             description
             price
             category
@@ -37,6 +38,7 @@ const GET_PRODUCTS_BY_ID = gql`
         product(_id: $id) {
             _id
             name
+            image
             description
             price
             category
@@ -72,9 +74,11 @@ const SEARCH_PRODUCTS = gql`
 `;
 
 const ADD_PRODUCT = gql`
-    mutation createProduct($name: String!, $description: String, $price: Int!, $category: String!, $quantity: Int!) {
-        addProduct(name: $name, description: $description, price: $price, category: $category, quantity: $quantity) {
+    mutation Mutation($name: String!, $price: Int!, $category: String!, $quantity: Int!, $image: String, $description: String) {
+        addProduct(name: $name, price: $price, category: $category, quantity: $quantity, image: $image, description: $description) {
+            _id
             name
+            image
             description
             price
             category
@@ -97,10 +101,11 @@ const DELETE_PRODUCT = gql`
 `;
 
 const EDIT_PRODUCT = gql`
-    mutation Mutation($id: String!, $name: String, $price: Int, $quantity: Int, $description: String, $category: String) {
-        editProduct(_id: $id, name: $name, price: $price, quantity: $quantity, description: $description, category: $category) {
+    mutation Mutation($id: String!, $name: String, $image: String, $price: Int, $quantity: Int, $description: String, $category: String) {
+        editProduct(_id: $id, name: $name, image: $image, price: $price, quantity: $quantity, description: $description, category: $category) {
             _id
             name
+            image
             description
             price
             category
@@ -109,16 +114,98 @@ const EDIT_PRODUCT = gql`
     }
 `;
 
-// GraphQL query to get all users
+const ADD_REVIEW = gql`
+    mutation Mutation($userId: String!, $productId: String!, $review: String!, $rating: Int!) {
+        addReview(userId: $userId, productId: $productId, review: $review, rating: $rating) {
+            _id
+            userId
+            productId
+            review
+            rating
+        }
+    }
+`;
 
 const CREATE_USER = gql`
-    mutation Mutation($_id: String!, $name: String!, $email: String!, $address: String!, $phoneNumber: String!) {
-        addUser(_id: $_id, name: $name, email: $email, address: $address, phoneNumber: $phoneNumber) {
+    mutation Mutation(
+        $_id: String!
+        $name: String!
+        $email: String!
+        $addressStreet: String!
+        $apt: String!
+        $city: String!
+        $state: String!
+        $zip: String!
+        $phoneNumber: String!
+    ) {
+        addUser(
+            _id: $_id
+            name: $name
+            email: $email
+            addressStreet: $addressStreet
+            apt: $apt
+            city: $city
+            state: $state
+            zip: $zip
+            phoneNumber: $phoneNumber
+        ) {
             _id
             name
             email
-            address
+            addressStreet
+            apt
+            city
+            state
+            zip
             phoneNumber
+        }
+    }
+`;
+
+const REVIEW_BY_ID = gql`
+    query Query($id: String) {
+        reviewbyId(_id: $id) {
+            _id
+            userId
+            productId
+            review
+            rating
+        }
+    }
+`;
+
+const REVIEW_BY_USERID = gql`
+    query UserReview($userId: String) {
+        userReview(userId: $userId) {
+            _id
+            userId
+            productId
+            review
+            rating
+        }
+    }
+`;
+
+const ALL_REVIEWS_PRODUCT = gql`
+    query ProductReview($productId: String) {
+        productReview(productId: $productId) {
+            _id
+            userId
+            productId
+            review
+            rating
+        }
+    }
+`;
+
+const ALL_REVIEWS = gql`
+    query ProductReview {
+        reviews {
+            _id
+            userId
+            productId
+            review
+            rating
         }
     }
 `;
@@ -129,7 +216,11 @@ const GET_USER_BY_ID = gql`
             _id
             name
             email
-            address
+            addressStreet
+            apt
+            city
+            state
+            zip
             phoneNumber
             cart {
                 _id
@@ -149,24 +240,59 @@ const GET_ALL_USERS = gql`
             _id
             name
             email
-            address
+            addressStreet
+            apt
+            city
+            state
+            zip
             phoneNumber
             createdAt
         }
     }
 `;
 
+
 const EDIT_USER = gql`
-    mutation Mutation($_id: String!, $name: String, $email: String, $address: String, $phoneNumber: String) {
-        editUser(_id: $_id, name: $name, email: $email, address: $address, phoneNumber: $phoneNumber) {
+    mutation Mutation(
+        $_id: String!
+        $name: String
+        $addressStreet: String
+        $apt: String
+        $city: String
+        $state: String
+        $zip: String
+        $phoneNumber: String
+    ) {
+        editUser(
+            _id: $_id
+            name: $name
+            addressStreet: $addressStreet
+            apt: $apt
+            city: $city
+            state: $state
+            zip: $zip
+            phoneNumber: $phoneNumber
+        ) {
             _id
             name
-            email
-            address
+            addressStreet
+            apt
+            city
+            state
+            zip
             phoneNumber
+            cart {
+                _id
+                image
+                name
+                price
+                quantity
+            }
+            createdAt
         }
     }
 `;
+
 const GET_ALL_ORDERS = gql`
     query Query {
         getAllOrders {
@@ -183,6 +309,7 @@ const GET_ALL_ORDERS = gql`
                 category
                 orderedQuantity
             }
+            flag
             status
             createdAt
         }
@@ -193,12 +320,9 @@ const EDIT_USER_CART = gql`
     mutation Mutation($id: String!, $cart: [Cart]) {
         editUser(_id: $id, cart: $cart) {
             _id
-            name
-            email
-            address
-            phoneNumber
             cart {
                 _id
+                image
                 name
                 price
                 quantity
@@ -212,9 +336,12 @@ const ADD_ORDER = gql`
         addOrder(userId: $userId, userEmail: $userEmail, total: $total, products: $products, status: $status, createdAt: $createdAt, flag: $flag) {
             _id
             userId
+            userEmail
+            total
             products {
                 _id
                 name
+                image
                 description
                 price
                 category
@@ -275,6 +402,55 @@ const DELETE_SESSION = gql`
     }
 `;
 
+const COMPLETE_STATUS = gql`
+    mutation Mutation($id: String!) {
+        changeStatusToCompleted(_id: $id) {
+            _id
+            userId
+            userEmail
+            total
+            status
+            createdAt
+        }
+    }
+`;
+
+const DISPATCH_STATUS = gql`
+    mutation Mutation($id: String!) {
+        changeStatusToDispatched(_id: $id) {
+            _id
+            userId
+            userEmail
+            total
+            status
+            createdAt
+        }
+    }
+`;
+
+const GET_ORDER_BY_ID = gql`
+    query Query($id: String) {
+        order(_id: $id) {
+            _id
+            userId
+            userEmail
+            total
+            products {
+                _id
+                name
+                image
+                description
+                price
+                category
+                orderedQuantity
+            }
+            flag
+            status
+            createdAt
+        }
+    }
+`;
+
 let exported = {
     GET_PRODUCTS_BY_ID,
     GET_PRODUCTS_FOR_ADMIN,
@@ -282,6 +458,11 @@ let exported = {
     GET_ALL_PRODUCTS,
     DELETE_PRODUCT,
     EDIT_PRODUCT,
+    ADD_REVIEW,
+    REVIEW_BY_ID,
+    REVIEW_BY_USERID,
+    ALL_REVIEWS_PRODUCT,
+    ALL_REVIEWS,
     CREATE_USER,
     GET_USER_BY_ID,
     GET_ALL_USERS,
@@ -297,6 +478,9 @@ let exported = {
     ADD_SESSION,
     GET_SESSION,
     DELETE_SESSION,
+    DISPATCH_STATUS,
+    COMPLETE_STATUS,
+    GET_ORDER_BY_ID,
 };
 
 export default exported;

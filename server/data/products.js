@@ -22,6 +22,7 @@ const editProduct = async (args) => {
     const product = await products.findOne({ _id: args._id });
     if (product) {
         if (args.name) product.name = args.name;
+        if (args.image) product.image = args.image;
         if (args.description) product.description = args.description;
         if (args.price) product.price = args.price;
         if (args.category) product.category = args.category;

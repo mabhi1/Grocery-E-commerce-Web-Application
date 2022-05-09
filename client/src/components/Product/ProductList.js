@@ -19,7 +19,7 @@ function ProductList(props) {
         return createCard(product);
     });
     return (
-        <Row xs={2} md={4} lg={6} xl={12} className="m-auto" style={{ justifyContent: "center" }}>
+        <Row xs={1} md={3} lg={6} xl={12} className="m-auto">
             {props.sort ? sortedCards : cards}
         </Row>
     );
