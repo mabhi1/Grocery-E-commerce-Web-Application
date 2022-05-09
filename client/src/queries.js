@@ -114,23 +114,6 @@ const EDIT_PRODUCT = gql`
   }
 `;
 
-// GraphQL query to get all users
-
-// const CREATE_USER = gql`
-//     mutation Mutation($_id: String, $name: String!, $email: String!, $addressStreet: String!, $apt: String!, $city: String!, $state: String!, $zip: String! , $phoneNumber: String!) {
-//         addUser(_id: $_id, name: $name, email: $email, addressStreet: $addressStreet, apt:$apt, city: $city, state: $state, zip: $zip, phoneNumber: $phoneNumber) {
-//             _id
-//             name
-//             email
-//             addressStreet
-//             apt
-//             city
-//             state
-//             zip
-//             phoneNumber
-//         }
-//     }
-// `;
 
 const CREATE_USER = gql`
   mutation Mutation(
@@ -209,16 +192,6 @@ const GET_ALL_USERS = gql`
   }
 `;
 
-// const EDIT_USER = gql`
-//   mutation Mutation($_id: String!, $name: String, $address: String, $phoneNumber: String) {
-//     editUser(_id: $_id, name: $name, address: $address, phoneNumber: $phoneNumber) {
-//       _id
-//       name
-//       address
-//       phoneNumber
-//     }
-//   }
-// `;
 
 const EDIT_USER = gql`
     mutation Mutation(
@@ -234,7 +207,6 @@ const EDIT_USER = gql`
         editUser(
             _id: $_id
             name: $name
-            email: $email
             addressStreet: $addressStreet
             apt: $apt
             city: $city
@@ -244,7 +216,6 @@ const EDIT_USER = gql`
         ) {
             _id
             name
-            email
             addressStreet
             apt
             city

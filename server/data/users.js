@@ -9,13 +9,11 @@ const createUser = async (args) => {
     newUser.name = args.name;
     newUser.email = args.email;
     newUser.phoneNumber = args.phoneNumber;
-    //newUser.address = args.address;
     newUser.addressStreet = args.addressStreet;
     newUser.apt = args.apt;
     newUser.city = args.city;
     newUser.state = args.state;
     newUser.zip = args.zip;
-    //Why Password
     newUser.cart = [];
     newUser.orders = [];
     newUser.reviews = [];
@@ -43,7 +41,6 @@ const editUser = async (args) => {
         if (args.name) user.name = args.name;
         if (args.email) user.email = args.email;
         if (args.phoneNumber) user.phoneNumber = args.phoneNumber;
-        //if (args.address) user.address = args.address;
         if (args.addressStreet) user.addressStreet = args.addressStreet;
         if (args.apt) user.apt = args.apt;
         if (args.city) user.city = args.city;
