@@ -4,7 +4,6 @@ import { AuthContext } from "../Firebase/Auth";
 import { useMutation, useQuery } from "@apollo/client";
 import queries from "../queries";
 import { useNavigate } from "react-router-dom";
-import { Navigate } from "react-router-dom";
 
 const UserDetailPage = () => {
     let navigate = useNavigate();
@@ -12,7 +11,6 @@ const UserDetailPage = () => {
     const [state, setState] = useState("");
     const [name] = useState(currentUser.displayName);
     const { data } = useQuery(queries.GET_USER_BY_ID, { variables: { id: currentUser.uid } });
-    if (data) navigate("/account");
     // const [email, setEmail] = useState("");
     const [address1, setAddress1] = useState("");
     const [address2, setAddress2] = useState("");
