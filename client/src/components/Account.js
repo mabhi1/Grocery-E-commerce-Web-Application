@@ -21,7 +21,7 @@ function Account(props) {
 
     console.log(data);
 
-    if (data) {
+    if (data && data.getUser) {
         const { getUser } = data;
 
         async function handleLogout() {
@@ -57,7 +57,8 @@ function Account(props) {
                                     <strong>Phone:</strong> {getUser && getUser.phoneNumber}
                                     <br />
                                     <br />
-                                    <strong>Address:</strong> {getUser.addressStreet+", "+getUser.apt+", "+getUser.city+", "+getUser.state+", "+getUser.zip}
+                                    <strong>Address:</strong>{" "}
+                                    {getUser.addressStreet + ", " + getUser.apt + ", " + getUser.city + ", " + getUser.state + ", " + getUser.zip}
                                     <Link to="/update-profile" className="btn btn-primary w-100 mt-3 ">
                                         Update Profile
                                     </Link>
