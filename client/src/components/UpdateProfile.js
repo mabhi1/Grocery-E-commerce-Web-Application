@@ -8,40 +8,25 @@ import { useQuery } from "@apollo/client";
 import { updateName } from "../Firebase/FirebaseFunctions";
 
 
+
 const UserDetailPage = () => {
   let navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
-  const [state, setState] = useState("");
+ //const [state, setState] = useState("");
   const name = useRef();
+  const addressStreet = useRef();
+  const apartment = useRef();
+  const city = useRef();
+  const state = useRef();
+   const zip = useRef();
+   const phoneNumber = useRef();
   const [userId] = useState(currentUser.uid);
-  //const [name] = useState(currentUser.displayName);
-
-  // const [email, setEmail] = useState("");
-  const [address1, setAddress1] = useState("");
-  const [address2, setAddress2] = useState("");
-  const [city, setCity] = useState("");
-  const [zip, setZip] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-
-  // const [addUser] = useMutation(queries.CREATE_USER, {
-  //     fetchPolicy: "network-only",
-  // });
 
   const [editUser] = useMutation(queries.EDIT_USER, {
     fetchPolicy: "network-only",
     });
 
 
-
-  // function alertBox() {
-  //   alert("user added successfully" + name + address1 + address2 + city + zip + phoneNumber + state + currentUser.email);
-  // }
-
-  //let _id;
-  //let name;
-  //let email;
-  //let address;
-  //let phoneNumber;
 console.log(currentUser.uid);
   const { data, error, loading } = useQuery(queries.GET_USER_BY_ID, {
     fetchPolicy: "cache-and-network",
@@ -52,48 +37,13 @@ console.log(currentUser.uid);
 
   console.log(data);
 
-  const handleSubmit = async  (e) => {
-    e.preventDefault();
-    try{
-       await updateName(name.current.value);
-    }catch(e){
-        console.log("error updating name");
-    }
-
-    try{
-   
-    editUser({
-        variables: {
-            _id: currentUser.uid,
-            name: name.current.value,
-            addressStreet: address1 ,
-            apt: address2 ,
-            city: city ,
-            state: state ,
-            zip: zip ,
-            phoneNumber: phoneNumber
-            
-        },
-    });
-    }catch(e){
-        console.log("error updating user");
-    } 
-    
-    alert("user updated successfully");
-
-    navigate("/account");
-
-  }
-
-
 
   if (data) {
     return (
       <>
         <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
           <div className="w-100" style={{ maxWidth: "600px" }}>
-            <Form onSubmit={handleSubmit}>
-              {/* <p>{JSON.stringify(currentUser.displayName)}</p> */}
+            <Form>
               {/* //!Jumbotron for user Detail */}
               <div className="jumbotron jumbotron-fluid" style={{ backgroundColor: "#F0F8FF", borderRadius: "20px", color: "black" }}>
                 <div className="container">
@@ -101,18 +51,6 @@ console.log(currentUser.uid);
                   <p className="lead">Please choose fields you want to update</p>
                 </div>
               </div>
-              {/* <Row className="mb-3">
-            
-              <Form.Group as={Col} controlId="formGridEmail">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
-              </Form.Group>
-
-              <Form.Group as={Col} controlId="formGridPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
-              </Form.Group>
-            </Row> */}
               <Form.Group as={Col} controlId="formGridEmail">
                 <Form.Label>Name</Form.Label>
                 <Form.Control type="text" ref = {name} defaultValue ={currentUser.displayName}  placeholder="Enter Name" />
@@ -121,7 +59,7 @@ console.log(currentUser.uid);
               <InputGroup className="mb-3">
                 <InputGroup.Text id="basic-addon1">+1</InputGroup.Text>
                 <Form.Control
-                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  ref = {phoneNumber}
                   type="tel"
                   pattern="[0-9]{10}"
                   className="form-control"
@@ -141,7 +79,7 @@ console.log(currentUser.uid);
                   type="text"
                   className="form-control"
                   id="inputAddress"
-                  onChange={(e) => setAddress1(e.target.value)}
+                  ref = {addressStreet}
                 />
               </Form.Group>
 
@@ -153,9 +91,7 @@ console.log(currentUser.uid);
                   id="inputAddress2"
                   placeholder="Apartment, studio, or floor"
                   defaultValue={data.getUser.apt}
-                  onChange={(e) => {
-                    setAddress2(e.target.value);
-                  }}
+                  ref = {apartment}
                 />
               </Form.Group>
 
@@ -168,13 +104,13 @@ console.log(currentUser.uid);
                     defaultValue={data.getUser.city}
                     className="form-control"
                     id="inputCity"
-                    onChange={(e) => setCity(e.target.value)}
+                    ref = {city}
                   />
                 </Form.Group>
 
                 <Form.Group as={Col}>
                   <Form.Label>State</Form.Label>
-                  <Form.Select value={state} onChange={(e) => setState(e.target.value)}>
+                  <Form.Select ref={state}>
                     <option defaultValue>{data.getUser.state}</option>
                     <option value="Alabama">Alabama</option>
                     <option value="Alaska">Alaska</option>
@@ -234,7 +170,7 @@ console.log(currentUser.uid);
                 <Form.Group as={Col}>
                   <Form.Label>Zip</Form.Label>
                   <Form.Control
-                    onChange={(e) => setZip(e.target.value)}
+                    ref={zip}
                     type="text"
                     pattern="[0-9]*"
                     placeholder="Enter Zip"
@@ -250,40 +186,39 @@ console.log(currentUser.uid);
                 type="submit"
                 name="submitButton"
 
-                // onClick={(e) => {
-                //     e.preventDefault();
-                //     try {
-                //         if (address1 && address2 && city && state && zip && phoneNumber) {
-                //             addUser({
-                //                 variables: {
-                //                     _id: currentUser.uid,
-                //                     name: name || "test",
-                //                     email: currentUser.email,
-                //                     address: address1 + ", " + address2 + ", " + city + ", " + state + ", " + zip,
-                //                     phoneNumber: phoneNumber,
-                //                 },
-                //             });
-                //             setAddress1("");
-                //             setAddress2("");
-                //             setCity("");
-                //             setState("");
-                //             setZip("");
-                //             setPhoneNumber("");
-                //             navigate("/");
-                //         } else {
-                //             alert("Please fill out all fields");
-                //         }
-                //     } catch (err) {
-                //         console.log(err);
-                //     }
-                // }}
-
-                // onClick={(e) => {
-                //   e.preventDefault();
-                //   alertBox();
-                // }}
-
-                
+                onClick={async(e) => {
+                  e.preventDefault();
+                  try{
+                     await updateName(name.current.value);
+                  }catch(e){
+                      console.log("error updating name");
+                  }
+              
+                  try{
+                 
+                  editUser({
+                      variables: {
+                          _id: currentUser.uid,
+                          name: name.current.value,
+                          addressStreet: addressStreet.current.value ,
+                          apt: apartment.current.value, 
+                          city: city.current.value ,
+                          state: state.current.value ,
+                          zip: zip.current.value ,
+                          phoneNumber: phoneNumber.current.value ,
+                          
+                      },
+                  });
+                  }catch(e){
+                      console.log("error updating user");
+                  } 
+                  
+                  alert("user updated successfully");
+              
+                  navigate("/account");
+                }
+              
+                }
               >
                 Submit
               </Button>
