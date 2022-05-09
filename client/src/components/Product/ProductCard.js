@@ -34,7 +34,6 @@ function ProductCard(props) {
             id: currentUser ? currentUser.uid : "none",
         },
     });
-    console.log("data", data);
     const [editUser] = useMutation(queries.EDIT_USER_CART);
     const dispatch = useDispatch();
     const product = props.product;
@@ -122,6 +121,7 @@ function ProductCard(props) {
                             Add to Cart
                         </Button>
                     )}
+
                     <Toast onClose={() => setToast(false)} show={toast} delay={2000} autohide>
                         <Toast.Header>
                             <img

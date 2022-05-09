@@ -1,17 +1,16 @@
 import React, { useContext, useState } from "react";
 import { Container, Form, Button, Row, Col, InputGroup, FormLabel } from "react-bootstrap";
 import { AuthContext } from "../Firebase/Auth";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import queries from "../queries";
 import { useNavigate } from "react-router-dom";
-import { Navigate } from "react-router-dom";
 
 const UserDetailPage = () => {
     let navigate = useNavigate();
     const { currentUser } = useContext(AuthContext);
     const [state, setState] = useState("");
     const [name] = useState(currentUser.displayName);
-
+    const { data } = useQuery(queries.GET_USER_BY_ID, { variables: { id: currentUser.uid } });
     // const [email, setEmail] = useState("");
     const [address1, setAddress1] = useState("");
     const [address2, setAddress2] = useState("");

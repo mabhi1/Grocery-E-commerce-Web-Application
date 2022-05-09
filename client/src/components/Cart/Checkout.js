@@ -6,7 +6,7 @@ import { Col, Row, Button, Alert } from "react-bootstrap";
 import { v4 as uuid } from "uuid";
 import CartCards from "./CartCards";
 
-function Checkout(props) {
+function Checkout() {
     let totalPrice = 0;
     const { currentUser } = useContext(AuthContext);
     const [addSession] = useMutation(queries.ADD_SESSION);
@@ -51,15 +51,15 @@ function Checkout(props) {
         return <CartCards product={product} key={product._id} checkout={true} />;
     };
     return (
-        <Row style={{ marginTop: "150px" }}>
+        <Row xs={1} md={2}>
             <Col></Col>
             <Col>
                 {data?.getUser.cart.map((product) => buildCard(product))}
-                <div style={{ marginRight: "80px", display: "flex" }}>
-                    <Alert variant="info" style={{ width: "fit-content" }}>
+                <div style={{ margin: "25px" }}>
+                    <Alert variant="info" style={{ lineHeight: "0.1em" }}>
                         Total Price : {totalPrice}
                     </Alert>
-                    <Button onClick={handleCheckout} style={{ marginLeft: "25px" }} size="sm">
+                    <Button onClick={handleCheckout} style={{ width: "100%", margin: "0" }} size="sm">
                         Pay Now
                     </Button>
                 </div>
