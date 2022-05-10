@@ -61,7 +61,14 @@ function SignUp() {
 
     return (
         <>
-            <h1 className="page-header">Sign up</h1>
+            <div
+                className="jumbotron jumbotron-fluid"
+                style={{ backgroundColor: "#F0F8FF", borderRadius: "20px", color: "black", marginBottom: "30px" }}
+            >
+                <div className="container">
+                    <h1 className="display-4">Sign Up</h1>
+                </div>
+            </div>
             <Container className="d-flex align-items-center justify-content-center">
                 <div className="w-100" style={{ maxWidth: "600px" }}>
                     {pwMatch && (
@@ -112,8 +119,17 @@ function SignUp() {
                         </button>
                     </form>
                     <br />
-                    <Toast onClose={() => setError(false)} show={error} style={styles.toast} position={"top-end"} autohide delay={3000}>
-                        <Toast.Body style={styles.toastBody}>User already registered</Toast.Body>
+                    <Toast onClose={() => setError(false)} show={error} style={styles.toastBody} position={"top-end"} autohide delay={3000}>
+                        <Toast.Header>
+                            <img
+                                src="https://toppng.com/uploads/preview/error-handling-windows-xp-error-logo-11563210401mwwnodn9yn.png"
+                                className="rounded me-2"
+                                alt=""
+                                style={{ width: "20px" }}
+                            />
+                            <strong className="me-auto">Error</strong>
+                        </Toast.Header>
+                        <Toast.Body>User already registered</Toast.Body>
                     </Toast>
                     <br />
                 </div>

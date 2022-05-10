@@ -70,11 +70,12 @@ function App({ product }) {
 
     const handleSubmit = () => {
         const review = document.getElementById("review").value.toString();
-        if (!review) return;
+        if (!review || !rating) return;
         addReview({
             variables: {
                 productId: product._id,
-                userId: currentUser?.displayName,
+                userName: currentUser?.displayName,
+                userId: currentUser?.uid,
                 review: review,
                 rating: rating,
             },
@@ -82,47 +83,63 @@ function App({ product }) {
         setRating(0);
         document.getElementById("review").value = "";
     };
+    if (currentUser) {
+        return (
+            <div style={styles.container}>
+                <h2
+                    style={{
+                        margin: "20px",
+                        fontFamily: "monospace",
+                        fontSize: "larger",
+                        textAlign: "left",
+                    }}
+                >
+                    Post a review for the product
+                </h2>
+                <div style={styles.stars}>
+                    {stars.map((_, index) => {
+                        return (
+                            <label key={index}>
+                                <input type="radio" name="rating" value={rating} onClick={() => setRating(rating)} style={{ display: "none" }} />
 
-    return (
-        <div style={styles.container}>
-            <h2
-                style={{
-                    margin: "20px",
-                    fontFamily: "monospace",
-                    fontSize: "larger",
-                    textAlign: "left",
-                }}
-            >
-                Post a review for the product
-            </h2>
-            <div style={styles.stars}>
-                {stars.map((_, index) => {
-                    return (
-                        <label key={index}>
-                            <input type="radio" name="rating" value={rating} onClick={() => setRating(rating)} />
+                                <FaStar
+                                    size={24}
+                                    onClick={() => handleClick(index + 1)}
+                                    onMouseOver={() => handleMouseOver(index + 1)}
+                                    onMouseLeave={handleMouseLeave}
+                                    color={(hoverValue || rating) > index ? colors.yellow : colors.grey}
+                                    style={{
+                                        marginRight: 10,
+                                        cursor: "pointer",
+                                    }}
+                                />
+                            </label>
+                        );
+                    })}
+                </div>
+                <textarea placeholder="How was your experience?" style={styles.textarea} id="review" />
 
-                            <FaStar
-                                size={24}
-                                onClick={() => handleClick(index + 1)}
-                                onMouseOver={() => handleMouseOver(index + 1)}
-                                onMouseLeave={handleMouseLeave}
-                                color={(hoverValue || rating) > index ? colors.yellow : colors.grey}
-                                style={{
-                                    marginRight: 10,
-                                    cursor: "pointer",
-                                }}
-                            />
-                        </label>
-                    );
-                })}
+                <Button style={styles.button} onClick={handleSubmit}>
+                    Submit
+                </Button>
             </div>
-            <textarea placeholder="How was your experience?" style={styles.textarea} id="review" />
-
-            <Button style={styles.button} onClick={handleSubmit}>
-                Submit
-            </Button>
-        </div>
-    );
+        );
+    } else {
+        return (
+            <div style={styles.container}>
+                <h2
+                    style={{
+                        margin: "20px",
+                        fontFamily: "monospace",
+                        fontSize: "larger",
+                        textAlign: "left",
+                    }}
+                >
+                    Login to post a review
+                </h2>
+            </div>
+        );
+    }
 }
 
 export default App;

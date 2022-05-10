@@ -70,7 +70,14 @@ function Cart() {
 
     return (
         <div>
-            <div className="page-header">Cart</div>
+            <div
+                className="jumbotron jumbotron-fluid"
+                style={{ backgroundColor: "#F0F8FF", borderRadius: "20px", color: "black", marginBottom: "30px" }}
+            >
+                <div className="container">
+                    <h1 className="display-4">Cart</h1>
+                </div>
+            </div>
             {cart.length > 0 || (data?.getUser && data.getUser.cart.length > 0) ? (
                 <div>
                     <div style={{ marginBottom: "25px" }}>

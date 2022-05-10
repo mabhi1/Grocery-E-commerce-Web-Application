@@ -35,10 +35,10 @@ const UserOrders = () => {
                                 <td>{x.flag}</td>
                                 <td>
                                     {x.products.map((y) => {
-                                        return <h6>{y.name}</h6>;
+                                        return <div key={y.name}>{y.name}</div>;
                                     })}
                                 </td>
-                                
+
                                 <td>{x.total}</td>
                                 <td>{x.createdAt.split("G")[0]}</td>
                                 <td>{x.status}</td>
