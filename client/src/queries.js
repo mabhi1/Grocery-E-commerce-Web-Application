@@ -314,6 +314,11 @@ const GET_ALL_ORDERS = gql`
             flag
             status
             createdAt
+            zip
+            state
+            city
+            apt
+            addressStreet
         }
     }
 `;
@@ -376,6 +381,8 @@ const GET_USER_ORDERS = gql`
             }
             status
             createdAt
+            flag
+            total
         }
     }
 `;

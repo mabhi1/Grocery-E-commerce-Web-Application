@@ -25,18 +25,22 @@ const UserOrders = () => {
                         <th>Ordered Items</th>
                         <th>Total Price</th>
                         <th>Order Date</th>
+                        <th>Order Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     {data.userOrders.map((x) => {
                         return (
                             <tr key={x._id}>
-                                <td>{x._id}</td>
+                                <td>{x.flag}</td>
                                 <td>
                                     {x.products.map((y) => {
                                         return <h6>{y.name}</h6>;
                                     })}
                                 </td>
+                                
+                                <td>{x.total}</td>
+                                <td>{x.createdAt.split("G")[0]}</td>
                                 <td>{x.status}</td>
                             </tr>
                         );

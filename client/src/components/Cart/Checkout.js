@@ -62,6 +62,12 @@ function Checkout() {
     };
     return (
         <Row>
+            <div className="jumbotron jumbotron-fluid" style={{ backgroundColor: "#F0F8FF", borderRadius: "20px", color: "black", marginBottom: "30px" }}>
+                <div className="container">
+                    <h1 className="display-4">Order Details</h1>
+                
+                </div>
+            </div> 
             <Col>
                 {/* <strong>Name:</strong> {data.getUser && data.getUser.name}
                                     <br />

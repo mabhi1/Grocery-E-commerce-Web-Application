@@ -23,10 +23,7 @@ function Success() {
         });
         return (
             <div>
-                <h3>Payment Successful, your order was placed</h3>
-                <div className="w-100 text-center mt-3">
-                        <Link to="/">Return to Home</Link>
-                    </div>
+            
                 <AddOrder />
                 <Alert variant="success">Order placed successfully</Alert>
                 <Button onClick={() => navigate("/")}>Home</Button>

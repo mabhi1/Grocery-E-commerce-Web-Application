@@ -44,6 +44,7 @@ function OrderCard(props) {
             </Card.Header>
             <ListGroup>
                 {order.products.map((product) => {
+                    
                     return (
                         <ListGroupItem key={product._id}>
                             <Row>
@@ -58,10 +59,16 @@ function OrderCard(props) {
                                     Quantity : {product.orderedQuantity}
                                 </Col>
                             </Row>
+                            
                         </ListGroupItem>
                     );
                 })}
             </ListGroup>
+                    <Row>
+                <Col>
+                    {order.addressStreet}
+                </Col>
+            </Row>
         </Card>
     );
 }
