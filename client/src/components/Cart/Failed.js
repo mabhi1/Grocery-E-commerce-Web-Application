@@ -19,12 +19,14 @@ function Failed() {
                 id: secret,
             },
         });
+
         return (
             <div>
                 <Alert variant="danger">Failed to place your order</Alert>
                 <Button onClick={() => navigate("/")}>Home</Button>
             </div>
         );
+
     } else {
         navigate("/notfound");
     }
