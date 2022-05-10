@@ -3,12 +3,16 @@ import { AuthContext } from "../../Firebase/Auth";
 import queries from "../../queries";
 import { useContext } from "react";
 
+import { reactLocalStorage } from "reactjs-localstorage";
+let add = reactLocalStorage.getObject("addressDetails");
+console.log(add);
 function AddOrder() {
     const d = new Date();
     let text = d.toString();
     const [addOrder] = useMutation(queries.ADD_ORDER);
     const [editUser] = useMutation(queries.EDIT_USER_CART);
 
+    console.log(add);
     // function RemoveProduct (x)  {
 
     //     let getProd = useQuery(queries.GET_PRODUCTS_BY_ID, {
@@ -63,7 +67,6 @@ function AddOrder() {
                 price: data.getUser.cart[i].price,
             });
         }
-
         addOrder({
             variables: {
                 userId: currentUser.uid,
@@ -73,6 +76,11 @@ function AddOrder() {
                 products: newCart,
                 total: total,
                 flag: getUserOrders.data.userOrders.length + 1,
+                zip: add.zip.val ? add.zip.val : add.zip,
+                state: add.state.val ? add.state.val : add.state,
+                city: add.city.val ? add.city.val : add.city,
+                apt: add.apt.val ? add.apt.val : add.apt,
+                addressStreet: add.addressStreet.val ? add.addressStreet.val : add.addressStreet,
             },
         });
 

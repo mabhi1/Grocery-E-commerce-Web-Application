@@ -42,8 +42,8 @@ function Account(props) {
             <div>
                 <>
                     <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "60vh" }}>
-                        <div className="w-100" style={{ maxWidth: "400px" }}>
-                            <Card>
+                        <div className="w-100">
+                            <Card style={{ marginBottom: "25px" }}>
                                 <Card.Body>
                                     <h1 className="text-center mb-4">Profile</h1>
                                     {error1 && <Alert variant="danger">{error1}</Alert>}
@@ -63,7 +63,7 @@ function Account(props) {
                                     </Link>
                                 </Card.Body>
                             </Card>
-                            <div className="w-100" style={{ maxWidth: "400px" }}>
+                            <div className="w-100">
                                 <Card>
                                     <Card.Body>
                                         <h1 className="text-center mb-4">Your Orders</h1>

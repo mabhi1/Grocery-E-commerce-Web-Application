@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import React from "react";
-import { Badge, Card, Container } from "react-bootstrap";
+import { Badge, Button, Card, Container } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 import queries from "../../queries";
 
@@ -23,7 +23,6 @@ function Reviews({ product }) {
         const buildCard = (review) => {
             let rating = [];
             for (let i = 1; i < review.rating + 1; i++) {
-                console.log(i);
                 rating.push(
                     <FaStar
                         size={18}
@@ -40,6 +39,9 @@ function Reviews({ product }) {
                         <i>User : {review.userId}</i>
                     </Card.Header>
                     <Card.Body>
+                        <Button size="sm" variant="danger">
+                            Report abuse
+                        </Button>
                         <Card.Text>{rating}</Card.Text>
                         <Card.Text>{review.review}</Card.Text>
                     </Card.Body>

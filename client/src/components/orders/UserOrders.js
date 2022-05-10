@@ -21,7 +21,7 @@ const UserOrders = () => {
             <Table striped bordered hover size="sm">
                 <thead>
                     <tr>
-                        <th>Order ID</th>
+                        <th>Order No</th>
                         <th>Ordered Items</th>
                         <th>Total Price</th>
                         <th>Order Date</th>
