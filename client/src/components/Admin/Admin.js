@@ -7,7 +7,14 @@ import AdminOrders from "./AdminOrders";
 function Admin() {
     return (
         <div>
-            <div className="page-header">Admin Dashboard</div>
+            <div
+                className="jumbotron jumbotron-fluid"
+                style={{ backgroundColor: "#F0F8FF", borderRadius: "20px", color: "black", marginBottom: "30px" }}
+            >
+                <div className="container">
+                    <h1 className="display-4">Dashboard</h1>
+                </div>
+            </div>
             <Tabs defaultActiveKey="orders" id="uncontrolled-tab-example" className="mb-3" style={{ margin: "25px" }}>
                 <Tab eventKey="orders" title="Orders">
                     <AdminOrders />

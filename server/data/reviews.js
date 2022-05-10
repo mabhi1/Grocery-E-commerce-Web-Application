@@ -7,6 +7,7 @@ const { ObjectId } = require("mongodb");
 
 module.exports = {
     async createReview(args) {
+        let userName = args.userName;
         let userId = args.userId;
         let productId = args.productId;
         let review = args.review;
@@ -62,15 +63,23 @@ module.exports = {
 
         const d = new Date();
 
-        const month = d.getMonth() + 1;
-        const day = d.getDate();
+        function compstr(val) {
+            if (val < 10) {
+                return "0" + val;
+            } else {
+                return val;
+            }
+        }
+
+        const month = compstr(d.getMonth() + 1);
+        const day = compstr(d.getDate());
         const year = d.getFullYear();
 
-        const hrs = d.getHours();
-        const min = d.getMinutes();
-        const seconds = d.getSeconds();
+        const hrs = compstr(d.getHours());
+        const min = compstr(d.getMinutes());
+        const seconds = compstr(d.getSeconds());
 
-        const date = month + "-" + day + "-" + year + " " + (hrs % 12) + ":" + min + ":" + seconds;
+        const date = month + "-" + day + "-" + year + " " + hrs + ":" + min + ":" + seconds;
         const reviews = await reviewCollection();
         const products = await productsCollection();
         const users = await usersCollection();
@@ -79,6 +88,7 @@ module.exports = {
 
         newReview._id = uuid.v4();
         newReview.userId = userId;
+        newReview.userName = userName;
         newReview.productId = productId;
         newReview.review = review;
         newReview.rating = rating;
@@ -158,7 +168,7 @@ module.exports = {
         }
 
         const reviews = await reviewCollection();
-        const userReviews = await reviews.find({ userId: userid }).sort({ rating: 1 }).toArray();
+        const userReviews = await reviews.find({ userId: userid }).sort({ createdAt: -1 }).toArray();
         return userReviews;
     },
 

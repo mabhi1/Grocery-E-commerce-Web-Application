@@ -21,6 +21,7 @@ import Failed from "./Cart/Failed";
 import "../App.css";
 import NotFound from "./NotFound";
 import Checkout from "./Cart/Checkout";
+import Footer from "./Footer";
 
 const client = new ApolloClient({
     cache: new InMemoryCache(),
@@ -58,6 +59,7 @@ function App() {
                             </Route>
                         </Routes>
                     </div>
+                    <Footer />
                 </Router>
             </ApolloProvider>
         </AuthProvider>

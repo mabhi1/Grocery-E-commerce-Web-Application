@@ -42,11 +42,11 @@ function OrderCard(props) {
                     </Col>
                 </Row>
             </Card.Header>
-            <ListGroup>
+
+            <ListGroup style={{ borderRadius: "0" }}>
                 {order.products.map((product) => {
-                    
                     return (
-                        <ListGroupItem key={product._id}>
+                        <ListGroupItem key={product._id} style={{ border: "0", borderBottom: "1px solid #e9e9e9" }}>
                             <Row>
                                 <Col sm="3" md="2" lg="2" style={{ textAlign: "center" }}>
                                     <Card.Img src={product.image} alt={product.name} style={{ height: "72px", width: "auto" }} />
@@ -59,16 +59,15 @@ function OrderCard(props) {
                                     Quantity : {product.orderedQuantity}
                                 </Col>
                             </Row>
-                            
                         </ListGroupItem>
                     );
                 })}
             </ListGroup>
-                    <Row>
-                <Col>
-                    {order.addressStreet}
-                </Col>
-            </Row>
+            <Card.Body style={{ padding: "0px 0px 0px 10px", color: "#6f6f6f" }}>
+                <Card.Text>
+                    <i>Address : {order.apt + " " + order.addressStreet + " " + order.city + " " + order.state + " " + order.zip}</i>
+                </Card.Text>
+            </Card.Body>
         </Card>
     );
 }
