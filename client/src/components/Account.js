@@ -20,10 +20,6 @@ function Account(props) {
         },
     });
 
-    
-
-    //console.log(data);
-    console.log(data);
 
     if (data) {
         const { getUser } = data;

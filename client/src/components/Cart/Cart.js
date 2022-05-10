@@ -1,6 +1,9 @@
 import { useQuery, useMutation } from "@apollo/client";
 import React, { useContext } from "react";
+
+
 import { Button } from "react-bootstrap";
+
 import { useDispatch, useSelector } from "react-redux";
 import actions from "../../actions";
 import { AuthContext } from "../../Firebase/Auth";
@@ -35,9 +38,11 @@ function Cart() {
             id: currentUser ? currentUser.uid : "none",
         },
     });
+
     
     const [addSession] = useMutation(queries.ADD_SESSION);
     const [error, setError] = useState(false);
+
     const [editUser] = useMutation(queries.EDIT_USER_CART);
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
@@ -66,17 +71,8 @@ function Cart() {
         totalPrice += product.price * product.quantity;
         return <CartCards product={product} handleClick={handleClick} key={product._id} setError={setError} />;
     };
-    console.log(data)
-    
-   /*  const { getUser } = data;
-    let a = getUser.address;
-    
-    let index;
-    for (let i=0; i< a.length; i++){
-        if (a[i]==",") index = i
-    }
-    let b = a.slice(index)
-    let c = a.slice(0,index) */
+
+
 
     return (
         <div>
