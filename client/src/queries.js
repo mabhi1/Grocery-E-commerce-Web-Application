@@ -332,25 +332,31 @@ const EDIT_USER_CART = gql`
 `;
 
 const ADD_ORDER = gql`
-    mutation Mutation($userId: String!, $userEmail: String!, $total: Int!, $products: [Pro], $status: String, $createdAt: String, $flag: Int) {
-        addOrder(userId: $userId, userEmail: $userEmail, total: $total, products: $products, status: $status, createdAt: $createdAt, flag: $flag) {
-            _id
-            userId
-            userEmail
-            total
-            products {
-                _id
-                name
-                image
-                description
-                price
-                category
-                orderedQuantity
-            }
-            status
-            createdAt
-        }
+mutation Mutation($userId: String!, $userEmail: String!, $total: Int!, $state: String, $zip: String, $apt: String, $city: String, $products: [Pro], $status: String, $createdAt: String, $flag: Int, $addressStreet: String) {
+    addOrder(userId: $userId, userEmail: $userEmail, total: $total, state: $state, zip: $zip, apt: $apt, city: $city, products: $products, status: $status, createdAt: $createdAt, flag: $flag, addressStreet: $addressStreet) {
+      _id
+      userId
+      userEmail
+      total
+      products {
+        _id
+        name
+        image
+        description
+        price
+        category
+        orderedQuantity
+      }
+      flag
+      status
+      createdAt
+      addressStreet
+      zip
+      apt
+      city
+      state
     }
+  }
 `;
 
 const GET_USER_ORDERS = gql`
