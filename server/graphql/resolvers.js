@@ -122,7 +122,7 @@ const resolvers = {
         deleteSession: async(_,args) => {
             const boolean = await sessionData.deleteSession(args);
             return boolean;
-        },
+        },  
 
         editProduct: async (_, args) => {
             const newProduct = await productData.editProduct(args);

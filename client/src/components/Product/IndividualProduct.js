@@ -9,6 +9,7 @@ import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
 import actions from "../../actions";
 import { AuthContext } from "../../Firebase/Auth";
+import ProductReviews from "./ProductReviews"
 
 function IndividualProduct() {
     const [quantity, setQuantity] = useState(0);
@@ -102,6 +103,7 @@ function IndividualProduct() {
                         </Card>
                     </Col>
                 </Row>
+                <ProductReviews id={id}/>
             </div>
         );
     }

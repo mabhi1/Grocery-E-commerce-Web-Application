@@ -1,16 +1,31 @@
 const mongoCollections = require("../config/mongoCollection");
 const ordersCollection = mongoCollections.orders;
+const productCollection = mongoCollections.products;
 const uuid = require("uuid");
+const productData = require("./products");
 
 const createOrder = async (args) => {
     const orders = await ordersCollection();
+    const products = await productCollection();
     const newOrder = {};
+    const orderProducts = [];
     newOrder._id = uuid.v4();
     newOrder.status = args.status;
     newOrder.userId = args.userId;
     newOrder.createdAt = args.createdAt;
     newOrder.products = args.products;
     newOrder.flag = args.flag;
+
+    for(let i = 0; i < args.products.length; i++) {
+        let product = await products.findOne({_id: args.products[i]._id});
+        let quantity = product.quantity;
+        quantity = quantity - args.products[i].quantity;
+        product = products.updateOne({_id:  args.products[i]._id}, {$set: {quantity: quantity}});
+        const updatedProduct = await products.findOne({_id: args.products[i]._id});
+        orderProducts.push(updatedProduct); 
+    };
+
+    console.log(orderProducts);
     await orders.insertOne(newOrder);
     return newOrder;
 };

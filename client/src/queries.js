@@ -6,6 +6,26 @@ const NUMBER_OF_PRODUCTS = gql`
     }
 `;
 
+const GET_USER_REVIEWS = gql`
+    query Query($id: String!){
+        userReviews(userId: $id){
+            _id,
+            review,
+            rating
+        }
+    }
+`;
+
+const GET_PRODUCT_REVIEWS = gql`
+    query Query($id: String!){
+        productReview(productId: $id){
+            _id,
+            review,
+            rating
+        }
+    }
+`;
+
 const GET_PRODUCTS_FOR_ADMIN = gql`
     query Query {
         adminProducts {
@@ -260,6 +280,8 @@ let exported = {
     ADD_ORDER,
     GET_USER_ORDERS,
     FILTER_ORDER,
+    GET_PRODUCT_REVIEWS,
+    GET_USER_REVIEWS
 };
 
 export default exported;
