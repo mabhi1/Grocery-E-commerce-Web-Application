@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
-import { Navigate, useNavigate, Link } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { createUser } from "../Firebase/FirebaseFunctions";
 import { AuthContext } from "../Firebase/Auth";
 import { Alert, Container } from "react-bootstrap";
@@ -30,7 +30,7 @@ function SignUp() {
     let email = useRef();
     let passRef = useRef();
     let confPassRef = useRef();
-        const { currentUser } = useContext(AuthContext);
+    const { currentUser } = useContext(AuthContext);
     const [pwMatch, setPwMatch] = useState("");
     //this is for toggling state of usa
     //const [state, setState] = useState("");
@@ -78,14 +78,7 @@ function SignUp() {
                         </div>
                         <div className="form-group">
                             <label>Email:</label>
-                            <input
-                                className="form-control"
-                                required
-                                name="email"
-                                type="email"
-                                placeholder="Email"
-                                ref={email}
-                            />
+                            <input className="form-control" required name="email" type="email" placeholder="Email" ref={email} />
                         </div>
                         <div className="form-group">
                             <label>Password:</label>
@@ -112,15 +105,9 @@ function SignUp() {
                                 required
                             />
                         </div>
-                        
 
                         {/* //TODO Sumbit Button */}
-                        <button
-                            id="submitButton"
-                            type="submit"
-                            name="submitButton"
-                            className="btn btn-warning"
-                        >
+                        <button id="submitButton" type="submit" name="submitButton" className="btn btn-warning">
                             Sign Up
                         </button>
                     </form>
@@ -133,7 +120,6 @@ function SignUp() {
             </Container>
         </>
     );
-
 }
 
 export default SignUp;
