@@ -2,16 +2,17 @@ import { useMutation, useQuery } from "@apollo/client";
 import { AuthContext } from "../../Firebase/Auth";
 import queries from "../../queries";
 import { useContext } from "react";
-import RemoveProduct from "./RemoveProduct"
-import {reactLocalStorage} from "reactjs-localstorage";
-let add = reactLocalStorage.getObject('addressDetails');
-console.log(add)
+
+import { reactLocalStorage } from "reactjs-localstorage";
+let add = reactLocalStorage.getObject("addressDetails");
+console.log(add);
 function AddOrder() {
     const d = new Date();
     let text = d.toString();
     const [addOrder] = useMutation(queries.ADD_ORDER);
     const [editUser] = useMutation(queries.EDIT_USER_CART);
-    console.log(add)
+
+    console.log(add);
     // function RemoveProduct (x)  {
 
     //     let getProd = useQuery(queries.GET_PRODUCTS_BY_ID, {
@@ -49,12 +50,6 @@ function AddOrder() {
         },
     });
 
-   
-
-    
-    
-    
-
     if (error) {
         return <h1> error</h1>;
     } else if (loading) {
@@ -71,7 +66,6 @@ function AddOrder() {
                 image: data.getUser.cart[i].image,
                 price: data.getUser.cart[i].price,
             });
-            <RemoveProduct id={data.getUser.cart[i]._id} quantity={data.getUser.cart[i].quantity}/>
         }
         addOrder({
             variables: {
@@ -83,10 +77,10 @@ function AddOrder() {
                 total: total,
                 flag: getUserOrders.data.userOrders.length + 1,
                 zip: add.zip.val ? add.zip.val : add.zip,
-                state: add.state.val? add.state.val : add.state,
-                city: add.city.val? add.city.val : add.city,
-                apt: add.apt.val? add.apt.val : add.apt,
-                addressStreet: add.addressStreet.val ? add.addressStreet.val : add.addressStreet
+                state: add.state.val ? add.state.val : add.state,
+                city: add.city.val ? add.city.val : add.city,
+                apt: add.apt.val ? add.apt.val : add.apt,
+                addressStreet: add.addressStreet.val ? add.addressStreet.val : add.addressStreet,
             },
         });
 
@@ -97,6 +91,5 @@ function AddOrder() {
             },
         });
     }
-    
 }
 export default AddOrder;

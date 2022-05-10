@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 //import ChangePassword from "./ChangePassword";
 import { AuthContext } from "../Firebase/Auth";
 import { useNavigate, Link } from "react-router-dom";
-import { Card, Button, Alert, Container,Table } from "react-bootstrap";
+import { Card, Button, Alert, Container } from "react-bootstrap";
 import { dosignOut } from "../Firebase/FirebaseFunctions";
 import { useQuery } from "@apollo/client";
 import queries from "../queries";
@@ -20,8 +20,7 @@ function Account(props) {
         },
     });
 
-
-    if (data) {
+    if (data && data.getUser) {
         const { getUser } = data;
 
         async function handleLogout() {
@@ -43,8 +42,8 @@ function Account(props) {
             <div>
                 <>
                     <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "60vh" }}>
-                        <div className="w-100" style={{ maxWidth: "400px" }}>
-                            <Card>
+                        <div className="w-100">
+                            <Card style={{ marginBottom: "25px" }}>
                                 <Card.Body>
                                     <h1 className="text-center mb-4">Profile</h1>
                                     {error1 && <Alert variant="danger">{error1}</Alert>}
@@ -57,19 +56,20 @@ function Account(props) {
                                     <strong>Phone:</strong> {getUser && getUser.phoneNumber}
                                     <br />
                                     <br />
-                                    <strong>Address:</strong> {getUser.addressStreet+", "+getUser.apt+", "+getUser.city+", "+getUser.state+", "+getUser.zip}
+                                    <strong>Address:</strong>{" "}
+                                    {getUser.addressStreet + ", " + getUser.apt + ", " + getUser.city + ", " + getUser.state + ", " + getUser.zip}
                                     <Link to="/update-profile" className="btn btn-primary w-100 mt-3 ">
                                         Update Profile
                                     </Link>
                                 </Card.Body>
                             </Card>
-                            <div className="w-100" style={{ maxWidth: "400px" }}>
-                            <Card>
-                                <Card.Body>
-                                    <h1 className="text-center mb-4">Your Orders</h1>
-                                    <UserOrders />
-                                </Card.Body>
-                            </Card>
+                            <div className="w-100">
+                                <Card>
+                                    <Card.Body>
+                                        <h1 className="text-center mb-4">Your Orders</h1>
+                                        <UserOrders />
+                                    </Card.Body>
+                                </Card>
                             </div>
                             <div className="w-100 text-center mt-2">
                                 <Button variant="btn btn-danger" onClick={handleLogout}>

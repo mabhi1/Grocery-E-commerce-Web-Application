@@ -126,6 +126,18 @@ const ADD_REVIEW = gql`
     }
 `;
 
+const GET_PRODUCT_REVIEW = gql`
+    query Query($productId: String) {
+        productReview(productId: $productId) {
+            _id
+            userId
+            productId
+            review
+            rating
+        }
+    }
+`;
+
 const CREATE_USER = gql`
     mutation Mutation(
         $_id: String!
@@ -251,7 +263,6 @@ const GET_ALL_USERS = gql`
     }
 `;
 
-
 const EDIT_USER = gql`
     mutation Mutation(
         $_id: String!
@@ -263,16 +274,7 @@ const EDIT_USER = gql`
         $zip: String
         $phoneNumber: String
     ) {
-        editUser(
-            _id: $_id
-            name: $name
-            addressStreet: $addressStreet
-            apt: $apt
-            city: $city
-            state: $state
-            zip: $zip
-            phoneNumber: $phoneNumber
-        ) {
+        editUser(_id: $_id, name: $name, addressStreet: $addressStreet, apt: $apt, city: $city, state: $state, zip: $zip, phoneNumber: $phoneNumber) {
             _id
             name
             addressStreet
@@ -379,6 +381,8 @@ const GET_USER_ORDERS = gql`
             }
             status
             createdAt
+            flag
+            total
         }
     }
 `;
@@ -492,6 +496,7 @@ let exported = {
     DISPATCH_STATUS,
     COMPLETE_STATUS,
     GET_ORDER_BY_ID,
+    GET_PRODUCT_REVIEW,
 };
 
 export default exported;

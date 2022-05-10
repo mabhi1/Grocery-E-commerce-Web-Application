@@ -1,33 +1,29 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { AuthContext } from "../../Firebase/Auth";
 import queries from "../../queries";
-import { useContext } from "react";
 
-function RemoveProduct (props)  {
-  console.log(props)
-  const [editProduct] = useMutation(queries.EDIT_PRODUCT);
-       let { loading, error, data} = useQuery(queries.GET_PRODUCTS_BY_ID, {
-         fetchPolicy: "network-only",
-         variables: {
-           _id : props.id
-         },
-       });
-       if (error) {
+function RemoveProduct(props) {
+    console.log(props);
+    const [editProduct] = useMutation(queries.EDIT_PRODUCT);
+    let { loading, error, data } = useQuery(queries.GET_PRODUCTS_BY_ID, {
+        fetchPolicy: "network-only",
+        variables: {
+            _id: props.id,
+        },
+    });
+    if (error) {
         return <h1> error</h1>;
     } else if (loading) {
         return <h1> loading</h1>;
-    } else if(data){
-      
-       let a = data.quantity - props.quantity
-       console.log(a)
-       editProduct({
-         variables: {
-           _id : props.id,
-           quantity: a
-         },
-      });
-       
+    } else if (data) {
+        let a = data.quantity - props.quantity;
+        console.log(a);
+        editProduct({
+            variables: {
+                _id: props.id,
+                quantity: a,
+            },
+        });
     }
-   }
-  
-export default RemoveProduct
+}
+
+export default RemoveProduct;

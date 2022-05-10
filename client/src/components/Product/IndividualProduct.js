@@ -10,7 +10,8 @@ import Toast from "react-bootstrap/Toast";
 import { useDispatch } from "react-redux";
 import actions from "../../actions";
 import { AuthContext } from "../../Firebase/Auth";
-import PostRating from "../Ratings";
+import PostRating from "./Ratings";
+import Reviews from "./Reviews";
 
 function IndividualProduct() {
     let navigate = useNavigate();
@@ -139,7 +140,8 @@ function IndividualProduct() {
                         </Card>
                     </Col>
                 </Row>
-                <PostRating />
+                <PostRating product={product} />
+                <Reviews product={product} />
                 <Toast onClose={() => setToast(false)} show={toast} delay={2000} autohide>
                     <Toast.Header>
                         <img
