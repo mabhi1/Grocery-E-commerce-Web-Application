@@ -312,6 +312,11 @@ const GET_ALL_ORDERS = gql`
             flag
             status
             createdAt
+            zip
+            state
+            city
+            apt
+            addressStreet
         }
     }
 `;

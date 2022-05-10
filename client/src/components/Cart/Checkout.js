@@ -13,7 +13,7 @@ function Checkout() {
     const { currentUser } = useContext(AuthContext);
     const [addSession] = useMutation(queries.ADD_SESSION);
     let secret = uuid();
-    
+
     const { data } = useQuery(queries.GET_USER_BY_ID, {
         fetchPolicy: "cache-and-network",
         variables: {
@@ -64,6 +64,12 @@ function Checkout() {
     };
     return (
         <Row>
+            <div className="jumbotron jumbotron-fluid" style={{ backgroundColor: "#F0F8FF", borderRadius: "20px", color: "black", marginBottom: "30px" }}>
+                <div className="container">
+                    <h1 className="display-4">Order Details</h1>
+                
+                </div>
+            </div> 
             <Col>
           
                                     
@@ -92,15 +98,9 @@ function Checkout() {
                                     <input defaultValue={data.getUser.zip} placeholder="Enter Zip" /> */}
                                     <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "80vh" }}>
                 <div className="w-75" style={{ maxWidth: "600px" }}>
-                    <Form>
+                    <Form style={{textAlign: "left"}}>
                         {/* <p>{JSON.stringify(currentUser.displayName)}</p> */}
                         {/* //!Jumbotron for user Detail */}
-                        <div className="jumbotron jumbotron-fluid" style={{ backgroundColor: "#F0F8FF", borderRadius: "20px", color: "black" }}>
-                            <div className="container">
-                                <h1 className="display-4">Order Details</h1>
-                            
-                            </div>
-                        </div> 
 
                         <Form.Group className="mb-3">
                             <Form.Label>Name</Form.Label>
