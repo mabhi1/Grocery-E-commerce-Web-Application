@@ -21,7 +21,7 @@ function Account(props) {
 
     console.log(data);
 
-    if (data) {
+    if (data && data.getUser) {
         const { getUser } = data;
 
         async function handleLogout() {

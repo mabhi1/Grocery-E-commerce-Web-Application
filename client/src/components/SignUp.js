@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
-import { Navigate, useNavigate, Link } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { createUser } from "../Firebase/FirebaseFunctions";
 import { AuthContext } from "../Firebase/Auth";
 import { Alert, Container } from "react-bootstrap";
