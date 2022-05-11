@@ -88,7 +88,6 @@ const resolvers = {
             const review = await reviewData.getReviewByProductId(args);
             return review;
         },
-        
         orderStatus: async (_, args) => {
             const orders = await ordersData.getStatusOrders(args);
             return orders;
@@ -115,6 +114,14 @@ const resolvers = {
         addReview: async (_, args) => {
             const newReview = await reviewData.createReview(args);
             return newReview;
+        },
+        deleteReview: async (_, args) => {
+            const delReview = await reviewData.deleteReview(args);
+            return delReview;
+        },
+        flagReview: async (_, args) => {
+            const flagdata = await reviewData.flagReview(args);
+            return flagdata;
         },
         addSession: async (_, args) => {
             const newSession = await sessionData.createSession(args);

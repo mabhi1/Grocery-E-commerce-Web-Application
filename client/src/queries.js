@@ -124,8 +124,8 @@ const ADD_REVIEW = gql`
             review
             rating
         }
-    }
-`;
+    }`
+;
 
 const GET_PRODUCT_REVIEW = gql`
     query Query($productId: String) {
@@ -140,6 +140,22 @@ const GET_PRODUCT_REVIEW = gql`
     }
 `;
 
+const DEL_REVIEW = gql`
+mutation Mutation($id: String!) {
+    deleteReview(_id: $id) {
+      acknowledged
+      deletedCount
+    }
+}`;
+
+const FLAG_REVIEW = gql`
+mutation Mutation($id: String, $userId: String) {
+    flagReview(_id: $id, userId: $userId) {
+      review_id
+      flagCount
+    }
+  }
+`;
 const CREATE_USER = gql`
     mutation Mutation(
         $_id: String!
@@ -505,6 +521,8 @@ let exported = {
     DELETE_PRODUCT,
     EDIT_PRODUCT,
     ADD_REVIEW,
+    DEL_REVIEW,
+    FLAG_REVIEW,
     REVIEW_BY_ID,
     REVIEW_BY_USERID,
     ALL_REVIEWS_PRODUCT,
