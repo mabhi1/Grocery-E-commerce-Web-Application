@@ -24,7 +24,7 @@ function OrderCard(props) {
     return (
         <Card className="mb-4" style={{ display: filter === order.status || filter === "all" ? "flex" : "none" }}>
             <Card.Header style={{ padding: 0 }}>
-                <Row style={{ lineHeight: "2.5em", textAlign: "center", "--bs-gutter-x": "0" }} xs={1} className={order.status}>
+                <Row style={{ lineHeight: "2.5em", textAlign: "center", "--bs-gutter-x": "0" }} xs={1} md={3} lg={4} className={order.status}>
                     <Col>User : {order.userEmail}</Col>
                     <Col>Total Price : ${order.total}.00</Col>
                     <Col style={{ textTransform: "capitalize" }}>Status : {order.status}</Col>
@@ -42,10 +42,11 @@ function OrderCard(props) {
                     </Col>
                 </Row>
             </Card.Header>
-            <ListGroup>
+
+            <ListGroup style={{ borderRadius: "0" }}>
                 {order.products.map((product) => {
                     return (
-                        <ListGroupItem key={product._id}>
+                        <ListGroupItem key={product._id} style={{ border: "0", borderBottom: "1px solid #e9e9e9" }}>
                             <Row>
                                 <Col sm="3" md="2" lg="2" style={{ textAlign: "center" }}>
                                     <Card.Img src={product.image} alt={product.name} style={{ height: "72px", width: "auto" }} />
@@ -62,6 +63,11 @@ function OrderCard(props) {
                     );
                 })}
             </ListGroup>
+            <Card.Body style={{ padding: "0px 0px 0px 10px", color: "#6f6f6f" }}>
+                <Card.Text>
+                    <i>Address : {order.apt + " " + order.addressStreet + " " + order.city + " " + order.state + " " + order.zip}</i>
+                </Card.Text>
+            </Card.Body>
         </Card>
     );
 }

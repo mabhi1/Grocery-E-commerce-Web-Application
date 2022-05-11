@@ -1,46 +1,55 @@
-import { useMutation, useQuery } from "@apollo/client";
-import { AuthContext } from "../../Firebase/Auth";
+import React, { useContext } from "react";
+import { useQuery } from "@apollo/client";
+import { Table } from "react-bootstrap";
 import queries from "../../queries";
+import { AuthContext } from "../../Firebase/Auth";
 
-import { useContext } from "react";
+const UserOrders = () => {
+    const { currentUser } = useContext(AuthContext);
 
+    const { loading, error, data } = useQuery(queries.GET_USER_ORDERS, {
+        fetchPolicy: "cache-and-network",
+        variables: {
+            userId: currentUser.uid,
+        },
+    });
+    console.log(data);
+    if (!data) {
+        return null;
+    } else if (data) {
+        return (
+            <Table striped bordered hover size="sm">
+                <thead>
+                    <tr>
+                        <th>Order No</th>
+                        <th>Ordered Items</th>
+                        <th>Total Price</th>
+                        <th>Order Date</th>
+                        <th>Order Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data.userOrders.map((x) => {
+                        return (
+                            <tr key={x._id}>
+                                <td>{x.flag}</td>
+                                <td>
+                                    {x.products.map((y) => {
+                                        return <div key={y.name}>{y.name}</div>;
+                                    })}
+                                </td>
 
-
-function UserOrders() {
-  
-  const { currentUser } = useContext(AuthContext);
-  const { loading, error, data } = useQuery(queries.GET_ORDERS_BY_USERID , { variables: { userId: currentUser.uid } });
-
-  if(error) {
-    return <h1> error</h1>;
-   }
-   
-   if(loading) {
-    return <h1> loading</h1>;
-   }
-  
- 
-  return (
-    <div className="App">
-      
-      {data.userOrders.map((data) => (
-        <>
-          
-			<p>{data._id}</p>	
-            <p>{data.status}</p>	
-            <p>{data.createdAt}</p>	
-            <br/>
-            <br/>
-            
-			
-          
-          </>
-        
-      ))}
-      
-    
-    </div>
-  );
-}
+                                <td>{x.total}</td>
+                                <td>{x.createdAt.split("G")[0]}</td>
+                                <td>{x.status}</td>
+                            </tr>
+                        );
+                    })}
+                </tbody>
+            </Table>
+        );
+    } else if (loading) return <div>Loading</div>;
+    else if (error) return <div>error</div>;
+};
 
 export default UserOrders;

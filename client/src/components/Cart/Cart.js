@@ -1,13 +1,15 @@
 import { useQuery, useMutation } from "@apollo/client";
 import React, { useContext } from "react";
+
 import { Button } from "react-bootstrap";
+
 import { useDispatch, useSelector } from "react-redux";
 import actions from "../../actions";
 import { AuthContext } from "../../Firebase/Auth";
 import queries from "../../queries";
-import { v4 as uuid } from "uuid";
 import CartCards from "./CartCards";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const styles = {
     totalPrice: {
@@ -23,9 +25,10 @@ const styles = {
         fontSize: "large",
     },
 };
+
 function Cart() {
     let totalPrice = 0;
-    let secret = uuid();
+    let navigate = useNavigate();
     const { currentUser } = useContext(AuthContext);
     const { data } = useQuery(queries.GET_USER_BY_ID, {
         fetchPolicy: "cache-and-network",
@@ -33,12 +36,13 @@ function Cart() {
             id: currentUser ? currentUser.uid : "none",
         },
     });
+
     const [error, setError] = useState(false);
-    const [addSession] = useMutation(queries.ADD_SESSION);
+
     const [editUser] = useMutation(queries.EDIT_USER_CART);
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
-    const handleClick = (id, err) => {
+    const handleClick = (id) => {
         if (currentUser) {
             const { getUser } = data;
             let newCart = [];
@@ -63,45 +67,25 @@ function Cart() {
         totalPrice += product.price * product.quantity;
         return <CartCards product={product} handleClick={handleClick} key={product._id} setError={setError} />;
     };
-    const handleCheckout = () => {
-        fetch("http://localhost:5000/create-checkout-session", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                items: data?.getUser ? data.getUser.cart : cart,
-                email: currentUser ? currentUser.email : undefined,
-                secret: secret,
-            }),
-        })
-            .then(async (res) => {
-                if (res.ok) return res.json();
-                const json = await res.json();
-                return await Promise.reject(json);
-            })
-            .then(({ url }) => {
-                window.location = url;
-            })
-            .catch((e) => {
-                console.error(e.error);
-            });
-        addSession({
-            variables: {
-                id: secret,
-            },
-        });
-    };
+
     return (
         <div>
-            <div className="page-header">Cart</div>
+            <div
+                className="jumbotron jumbotron-fluid"
+                style={{ backgroundColor: "#F0F8FF", borderRadius: "20px", color: "black", marginBottom: "30px" }}
+            >
+                <div className="container">
+                    <h1 className="display-4">Cart</h1>
+                </div>
+            </div>
             {cart.length > 0 || (data?.getUser && data.getUser.cart.length > 0) ? (
                 <div>
                     <div style={{ marginBottom: "25px" }}>
                         {data?.getUser ? data.getUser.cart.map((product) => buildCard(product)) : cart.map((product) => buildCard(product))}
                     </div>
+
                     <div style={styles.totalPrice}>Total Price : {totalPrice}</div>
-                    {error ? <Button disabled>Checkout</Button> : <Button onClick={handleCheckout}>Checkout</Button>}
+                    {error ? <Button disabled>Checkout</Button> : <Button onClick={() => navigate("/checkout")}>Checkout</Button>}
                 </div>
             ) : (
                 <div style={{ margin: "50px", fontSize: "x-large", fontFamily: "initial" }}>Your cart is empty</div>

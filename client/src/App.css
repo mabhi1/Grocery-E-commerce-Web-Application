@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   margin-top: 100px;
+  min-height: 90vh;
 }
 
 .banner-text{
@@ -73,9 +74,6 @@
   box-shadow: 2px 2px 6px -2px black;
 }
 
-input[type="radio"] {
-  display: none;
-}
 .search-div{
   display: flex;
   padding-left: 20px;
@@ -100,7 +98,7 @@ input[type="radio"] {
   font-family: auto;
   width: 30%;
   padding-right: 25px;
-  text-align: end;
+  text-align: center;
 }
 
 .filter-value{
@@ -172,6 +170,10 @@ input[type="radio"] {
   border-radius: 8px;
 }
 
+th{
+  font-weight: 400;
+}
+
 @media (max-width:720px) {
   .product-header{
     display: block;
@@ -203,13 +205,19 @@ input[type="radio"] {
 }
 
 @media (max-width:1024px) {
+  .product-header{
+    display: block;
+  }
   .search-div{
-    width: 45%;
+    justify-content: center;
+    width: 100%;
   }
   .filter-value{
-    width: 30%;
+    justify-content: center;
+    width: 100%;
   }
   .sort-product{
-    width: 25%;
+    text-align: center;
+    width: 100%;
   }
 }

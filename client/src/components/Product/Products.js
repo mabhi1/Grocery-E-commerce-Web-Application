@@ -39,7 +39,7 @@ function Products() {
         dispatch(actions.showProducts(searchResults));
         return (
             <div>
-                <div className="page-header">Products</div>
+                <div className="page-header">Search Results</div>
                 <div className="product-header">
                     <div className="search-div">
                         <input ref={(node) => (name = node)} type="text" placeholder="Search Products" />
@@ -74,7 +74,7 @@ function Products() {
                         </Form.Select>
                     </div>
                     <div className="sort-product">
-                        <Form.Check type="checkbox" name="sortByPrice" id="sortByPrice" onChange={handleChange} /> Sort by Price
+                        <input type="checkbox" name="sortByPrice" id="sortByPrice" onChange={handleChange} /> Sort by Price
                     </div>
                 </div>
 
@@ -84,11 +84,10 @@ function Products() {
     }
     if (data) {
         let { products } = data;
-        console.log(productByCategory, products)
+        console.log(productByCategory, products);
         dispatch(actions.showProducts(productByCategory?.length > 0 ? productByCategory : products));
         return (
             <div>
-                <div className="page-header">Products</div>
                 <div className="product-header">
                     <div className="search-div">
                         <input ref={(node) => (name = node)} type="text" placeholder="Search Products" />
@@ -121,7 +120,7 @@ function Products() {
                     <ReactPaginate
                         previousLabel={"Previous"}
                         nextLabel={"Next"}
-                        pageCount={numberOfProducts / 18}
+                        pageCount={Math.ceil(numberOfProducts / 18)}
                         onPageChange={handlePageChange}
                         forcePage={parseInt(pageNum) - 1}
                         containerClassName={"pagination justify-content-center"}

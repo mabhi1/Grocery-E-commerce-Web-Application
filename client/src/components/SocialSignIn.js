@@ -1,10 +1,14 @@
 import React from "react";
 import { socialSignIn } from "../Firebase/FirebaseFunctions";
+import { useNavigate } from "react-router-dom";
 
 const SocialSignIn = () => {
+    const navigate = useNavigate();
+
     const socialSignOn = async (provider) => {
         try {
             await socialSignIn(provider);
+            navigate("/userDetail");
         } catch (error) {
             alert(error);
         }
