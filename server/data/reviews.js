@@ -87,6 +87,7 @@ module.exports = {
         newReview.productId = productId;
         newReview.review = review;
         newReview.rating = rating;
+        newReview.flags = [];
         newReview.createdAt = date;
 
         await reviews.insertOne(newReview);
@@ -204,5 +205,100 @@ module.exports = {
             throw "ERROR! No review found for the product with the given product id";
         }
         return productReviews;
+    },
+
+    async deleteReview (args){
+
+        let id = "";
+
+        if(typeof(args) == "object"){
+            id = args._id;
+        }else{
+            id = args;
+        }
+        
+        if(!id)
+        {
+            throw "ERROR! The id is not provided";
+        }
+
+        if(typeof(id) !== "string")
+        {
+            throw "ERROR! The id parameter should be a string";
+        }
+
+        if(id.length == 0 || id.trim().length == 0)
+        {
+            throw "ERROR! The id parameter cannot be empty";
+        }
+
+        const reviews = await reviewCollection();
+        const reviewInfo = await reviews.findOne({_id: id});
+
+        if (reviewInfo === null){
+            throw "ERROR! No review found with the given id";
+        }
+
+        const deletionInfo = await reviews.deleteOne({ _id: id });
+        
+        if (deletionInfo.deletedCount>0) {
+            return deletionInfo;
+        }
+    },
+
+    async flagReview (args){
+
+        let reviewId = args._id;
+        let userId = args.userId;
+
+        if(!reviewId)
+        {
+            throw "ERROR! The reviewId is not provided";
+        }
+
+        if(typeof(reviewId) !== "string")
+        {
+            throw "ERROR! The reviewId parameter should be a string";
+        }
+
+        if(reviewId.length == 0 || reviewId.trim().length == 0)
+        {
+            throw "ERROR! The reviewId parameter cannot be empty";
+        }
+
+        if(!userId)
+        {
+            throw "ERROR! The userId is not provided";
+        }
+
+        if(typeof(userId) !== "string")
+        {
+            throw "ERROR! The userId parameter should be a string";
+        }
+
+        if(userId.length == 0 || userId.trim().length == 0)
+        {
+            throw "ERROR! The userId parameter cannot be empty";
+        }
+
+        const reviews = await reviewCollection();
+
+        const review_data = await reviews.updateOne(
+            {
+                _id: reviewId,
+            },
+            {
+                $push: {flags : userId}
+            }
+         )
+
+        const reviewInfo = await this.getReviewById(reviewId);
+        
+        const flagInfo = {};
+
+        flagInfo.review_id = reviewInfo._id;
+        flagInfo.flagCount = reviewInfo.flags.length;
+
+        return flagInfo;
     }
 }

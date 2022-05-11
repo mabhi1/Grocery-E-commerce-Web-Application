@@ -7,7 +7,7 @@ const main = async () => {
  //----------------------CREATE A REVIEW FOR A PRODUCT-----------------//
 
     // try{
-    //     const review1 = await reviews.createReview("gaQir7iPWFcNMQibWnBja7BZavJ2","75f1e57d-1648-4ce3-b87d-d7c8edb2ca7b","Fresh and sweet fruits",4);
+    //     const review1 = await reviews.createReview({"userId":"gaQir7iPWFcNMQibWnBja7BZavJ2","productId":"75f1e57d-1648-4ce3-b87d-d7c8edb2ca7b","review":"Not so good fruits", "rating":1});
     //     console.log(review1);
     //     return review1;
     // }catch(e){
@@ -43,13 +43,31 @@ const main = async () => {
 
     //-------------------------GET ALL REVIEWS FOR A SINGLE PRODUCT---------------------//
     
+    // try{
+    //     const product_review_details = await reviews.getAllReviews_Product({"_id":"75f1e57d-1648-4ce3-b87d-d7c8edb2ca7b"});
+    //     console.log(product_review_details);
+    // }catch(e){
+    //     console.log(e)
+    // }
+
+    //------------------------DELETE A REVIEW------------------------------//
+
+    // try{
+    //     const delete_review = await reviews.deleteReview("0e825abf-4783-4472-b4c8-d9cb1b4757b4");
+    //     console.log(delete_review);
+    // }catch(e){
+    //     console.log(e);
+    // }
+    
+    //-------------------------FLAG A REVIEW-------------------------------//
+
     try{
-        const product_review_details = await reviews.getAllReviews_Product({"_id":"75f1e57d-1648-4ce3-b87d-d7c8edb2ca7b"});
-        console.log(product_review_details);
+        const flag_review = await reviews.flagReview({"_id": "3ae5f008-4cdd-45ec-85da-4409453ecb8d","userId": "AsPZl19VnyfFAQo0hmjinx4uvYx1"});
+        console.log(flag_review);
     }catch(e){
-        console.log(e)
+        console.log(e);
     }
-    //---------------------------CREATE A USER--------------------------------//
+    //---------------------------CREATE A USER-----------------------------//
 
     // try{
   //     const user1 = await users.createUser({

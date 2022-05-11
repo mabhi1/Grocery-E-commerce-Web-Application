@@ -123,8 +123,24 @@ mutation Mutation($userId: String!, $productId: String!, $review: String!, $rati
       review
       rating
     }
-  }`;
+}`;
 
+const DEL_REVIEW = gql`
+mutation Mutation($id: String!) {
+    deleteReview(_id: $id) {
+      acknowledged
+      deletedCount
+    }
+}`;
+
+const FLAG_REVIEW = gql`
+mutation Mutation($id: String, $userId: String) {
+    flagReview(_id: $id, userId: $userId) {
+      review_id
+      flagCount
+    }
+  }
+`;
 const CREATE_USER = gql`
     mutation Mutation($_id: String!, $name: String!, $email: String!, $address: String!, $phoneNumber: String!) {
         addUser(_id: $_id, name: $name, email: $email, address: $address, phoneNumber: $phoneNumber) {
@@ -372,6 +388,8 @@ let exported = {
     DELETE_PRODUCT,
     EDIT_PRODUCT,
     ADD_REVIEW,
+    DEL_REVIEW,
+    FLAG_REVIEW,
     REVIEW_BY_ID,
     REVIEW_BY_USERID,
     ALL_REVIEWS_PRODUCT,
