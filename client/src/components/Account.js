@@ -24,6 +24,8 @@ function Account(props) {
         },
     });
 
+    console.log(data);
+
     if (data && data.getUser) {
         const { getUser } = data;
 
