@@ -250,6 +250,7 @@ const GET_USER_BY_ID = gql`
     }
 `;
 
+
 const GET_ALL_USERS = gql`
     query {
         getAllUsers {

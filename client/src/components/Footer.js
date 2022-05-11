@@ -1,12 +1,13 @@
 import React from "react";
-import { Navbar, Nav } from "react-bootstrap";
-
 function Footer() {
-    return (
-        <Navbar expand="lg" bg="dark" variant="dark" style={{ justifyContent: "center", fontFamily: "ui-rounded", marginTop: "70px" }}>
-            <Nav style={{ color: "#9e9e9e" }}>All Rights Reserved © 2022 - Asian Mart </Nav>
-        </Navbar>
-    );
+  return (
+    <footer className="footer">
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", background: "black", padding: "10px" }}>
+        <p style={{ color: "#9e9e9e" }}>All Rights Reserved © 2022 - Asian Mart </p>
+        <br />
+      </div>
+    </footer>
+  );
 }
 
 export default Footer;

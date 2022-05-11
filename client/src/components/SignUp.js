@@ -3,6 +3,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { createUser } from "../Firebase/FirebaseFunctions";
 import { AuthContext } from "../Firebase/Auth";
 import { Alert, Container } from "react-bootstrap";
+import {BsFillEyeFill} from "react-icons/bs";
 //import { useMutation } from "@apollo/client";
 //import queries from "../queries";
 import Toast from "react-bootstrap/Toast";
@@ -40,6 +41,16 @@ function SignUp() {
         let displayName = name.current.value;
         console.log(displayName);
         //const { email, passwordOne, passwordTwo } = e.target.elements;
+        if(name.current.value.trim() === ""){
+            setPwMatch("Please enter a name");
+            return;
+        }
+
+        if(passRef.current.value.length < 6 || confPassRef.current.value.length < 6){
+            setPwMatch("Password must be at least 6 characters");
+            return;
+        }
+
         if (passRef.current.value !== confPassRef.current.value) {
             setPwMatch("Passwords do not match");
             return false;
@@ -98,7 +109,14 @@ function SignUp() {
                                 placeholder="Password"
                                 autoComplete="off"
                                 required
+                                
                             />
+                            <span>
+                            <BsFillEyeFill className="icon" onClick={() => {
+                                passRef.current.type = passRef.current.type === "password" ? "text" : "password";
+                                confPassRef.current.type = confPassRef.current.type === "password" ? "text" : "password";
+                            }} />
+                            </span>
                         </div>
                         <div className="form-group">
                             <label>Confirm Password:</label>
@@ -111,9 +129,14 @@ function SignUp() {
                                 autoComplete="off"
                                 required
                             />
+                            <span>
+                            <BsFillEyeFill className="icon" onClick={() => {
+                                confPassRef.current.type = confPassRef.current.type === "password" ? "text" : "password";
+                            }} />
+                            </span>
                         </div>
 
-                        {/* //TODO Sumbit Button */}
+
                         <button id="submitButton" type="submit" name="submitButton" className="btn btn-warning">
                             Sign Up
                         </button>
