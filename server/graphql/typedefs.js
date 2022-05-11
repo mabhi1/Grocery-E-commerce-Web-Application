@@ -2,7 +2,6 @@ const { gql } = require("apollo-server");
 
 const typeDefs = gql`
     type Query {
-        
         products(page: Int): [Product]
         product(_id: String): Product
         category(category: String): [Product]
@@ -12,7 +11,7 @@ const typeDefs = gql`
         adminProducts: [Product]
 
         reviewbyId(_id: String): Review
-        
+
         reviews: [Review]
         userReview(userId: String): [Review]
         productReview(productId: String): [Review]
@@ -36,17 +35,19 @@ const typeDefs = gql`
 
     type Review {
         _id: String
+        userName: String
         userId: String
         productId: String
         review: String
         rating: Int
+        createdAt: String
     }
 
-    type productReview{
-        review : String
+    type productReview {
+        review: String
         rating: Int
     }
-    
+
     type Order {
         _id: String
         userId: String
@@ -56,6 +57,11 @@ const typeDefs = gql`
         flag: Int
         status: String
         createdAt: String
+        addressStreet: String
+        zip: String
+        apt: String
+        city: String
+        state: String
     }
 
     type Prod {
@@ -87,7 +93,7 @@ const typeDefs = gql`
         category: String
         quantity: Int
     }
-    
+
     type User {
         _id: String
         name: String
@@ -125,21 +131,56 @@ const typeDefs = gql`
     type Mutation {
         addProduct(name: String!, image: String, description: String, price: Int!, category: String!, quantity: Int!): Product
 
-        addReview(userId: String!, productId: String!, review: String!, rating: Int!): Review
+        addReview(userId: String!, userName: String!, productId: String!, review: String!, rating: Int!): Review
 
         editProduct(_id: String!, image: String, name: String, price: Int, quantity: Int, description: String, category: String): Product
 
         deleteProduct(_id: String!): Product
-        
+
         deleteSession(_id: String!): Deleted
 
-        addUser(_id: String!, name: String!, email: String!, addressStreet: String!, apt : String!,city: String! ,state: String!, zip: String!,phoneNumber: String!, createdAt: String): User
+        addUser(
+            _id: String!
+            name: String!
+            email: String!
+            addressStreet: String!
+            apt: String!
+            city: String!
+            state: String!
+            zip: String!
+            phoneNumber: String!
+            createdAt: String
+        ): User
 
-        addOrder(userId: String!, userEmail: String!, total: Int!, products: [Pro], status: String, createdAt: String, flag: Int): Order
+        addOrder(
+            userId: String!
+            userEmail: String!
+            total: Int!
+            products: [Pro]
+            status: String
+            createdAt: String
+            flag: Int
+            addressStreet: String
+            zip: String
+            apt: String
+            state: String
+            city: String
+        ): Order
 
         deleteOrder(_id: String!): Order
 
-        editUser(_id: String!, name: String, email: String, addressStreet: String, apt: String, city:String, state:String, zip:String ,phoneNumber: String, cart: [Cart]): User
+        editUser(
+            _id: String!
+            name: String
+            email: String
+            addressStreet: String
+            apt: String
+            city: String
+            state: String
+            zip: String
+            phoneNumber: String
+            cart: [Cart]
+        ): User
 
         addSession(_id: String!): Session
 

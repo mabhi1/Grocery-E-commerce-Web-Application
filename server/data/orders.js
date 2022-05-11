@@ -13,6 +13,11 @@ const createOrder = async (args) => {
     newOrder.createdAt = args.createdAt;
     newOrder.products = args.products;
     newOrder.flag = args.flag;
+    newOrder.addressStreet = args.addressStreet;
+    newOrder.zip = args.zip;
+    newOrder.state = args.state;
+    newOrder.city = args.city;
+    newOrder.apt = args.apt;
     await orders.insertOne(newOrder);
     return newOrder;
 };
@@ -34,6 +39,12 @@ const filterOrders = async (args) => {
                 createdAt: userOrder.createdAt,
                 products: userOrder.products,
                 flag: userOrder.flag,
+                zip: userOrder.zip,
+                state: userOrder.state,
+                city: userOrder.city,
+                apt: userOrder.apt,
+                addressStreet: userOrder.addressStreet
+                
             };
             if (deleted.deletedCount !== 0) await orders.insertOne(order);
         }

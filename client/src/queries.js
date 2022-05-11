@@ -115,9 +115,23 @@ const EDIT_PRODUCT = gql`
 `;
 
 const ADD_REVIEW = gql`
-    mutation Mutation($userId: String!, $productId: String!, $review: String!, $rating: Int!) {
-        addReview(userId: $userId, productId: $productId, review: $review, rating: $rating) {
+    mutation Mutation($userId: String!, $userName: String!, $productId: String!, $review: String!, $rating: Int!) {
+        addReview(userId: $userId, userName: $userName, productId: $productId, review: $review, rating: $rating) {
             _id
+            userId
+            userName
+            productId
+            review
+            rating
+        }
+    }
+`;
+
+const GET_PRODUCT_REVIEW = gql`
+    query Query($productId: String) {
+        productReview(productId: $productId) {
+            _id
+            userName
             userId
             productId
             review
@@ -175,13 +189,15 @@ const REVIEW_BY_ID = gql`
 `;
 
 const REVIEW_BY_USERID = gql`
-    query UserReview($userId: String) {
+    query Query($userId: String) {
         userReview(userId: $userId) {
             _id
+            userName
             userId
             productId
             review
             rating
+            createdAt
         }
     }
 `;
@@ -234,6 +250,7 @@ const GET_USER_BY_ID = gql`
     }
 `;
 
+
 const GET_ALL_USERS = gql`
     query {
         getAllUsers {
@@ -251,7 +268,6 @@ const GET_ALL_USERS = gql`
     }
 `;
 
-
 const EDIT_USER = gql`
     mutation Mutation(
         $_id: String!
@@ -263,16 +279,7 @@ const EDIT_USER = gql`
         $zip: String
         $phoneNumber: String
     ) {
-        editUser(
-            _id: $_id
-            name: $name
-            addressStreet: $addressStreet
-            apt: $apt
-            city: $city
-            state: $state
-            zip: $zip
-            phoneNumber: $phoneNumber
-        ) {
+        editUser(_id: $_id, name: $name, addressStreet: $addressStreet, apt: $apt, city: $city, state: $state, zip: $zip, phoneNumber: $phoneNumber) {
             _id
             name
             addressStreet
@@ -312,6 +319,11 @@ const GET_ALL_ORDERS = gql`
             flag
             status
             createdAt
+            zip
+            state
+            city
+            apt
+            addressStreet
         }
     }
 `;
@@ -332,8 +344,34 @@ const EDIT_USER_CART = gql`
 `;
 
 const ADD_ORDER = gql`
-    mutation Mutation($userId: String!, $userEmail: String!, $total: Int!, $products: [Pro], $status: String, $createdAt: String, $flag: Int) {
-        addOrder(userId: $userId, userEmail: $userEmail, total: $total, products: $products, status: $status, createdAt: $createdAt, flag: $flag) {
+    mutation Mutation(
+        $userId: String!
+        $userEmail: String!
+        $total: Int!
+        $state: String
+        $zip: String
+        $apt: String
+        $city: String
+        $products: [Pro]
+        $status: String
+        $createdAt: String
+        $flag: Int
+        $addressStreet: String
+    ) {
+        addOrder(
+            userId: $userId
+            userEmail: $userEmail
+            total: $total
+            state: $state
+            zip: $zip
+            apt: $apt
+            city: $city
+            products: $products
+            status: $status
+            createdAt: $createdAt
+            flag: $flag
+            addressStreet: $addressStreet
+        ) {
             _id
             userId
             userEmail
@@ -347,8 +385,14 @@ const ADD_ORDER = gql`
                 category
                 orderedQuantity
             }
+            flag
             status
             createdAt
+            addressStreet
+            zip
+            apt
+            city
+            state
         }
     }
 `;
@@ -368,6 +412,8 @@ const GET_USER_ORDERS = gql`
             }
             status
             createdAt
+            flag
+            total
         }
     }
 `;
@@ -481,6 +527,7 @@ let exported = {
     DISPATCH_STATUS,
     COMPLETE_STATUS,
     GET_ORDER_BY_ID,
+    GET_PRODUCT_REVIEW,
 };
 
 export default exported;

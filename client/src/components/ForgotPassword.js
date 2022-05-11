@@ -1,8 +1,10 @@
 import React, { useRef, useState } from "react";
-import { Card, Form, Button, Alert, Container} from "react-bootstrap";
+import { Card, Form, Button, Alert, Container } from "react-bootstrap";
 // import { resetPassword } from "../Firebase/FirebaseFunctions";
+
 import { passwordReset } from "../Firebase/FirebaseFunctions";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
+
 
 const ForgotPassword = () => {
   const emailRef = useRef();
@@ -10,7 +12,7 @@ const ForgotPassword = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  // const navigate = useNavigate();
+   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,8 +24,8 @@ const ForgotPassword = () => {
       setLoading(true);
       // await signUp(email, password);  // signUp is a function from useAuth
       await passwordReset(email);
-      setMessage("Check your email for a password reset link");
-      //navigate("/");
+      alert("Check your email for a password reset link");
+      navigate("/signin");
     } catch {
       setError("Fail to reset password");
     }
@@ -42,7 +44,7 @@ const ForgotPassword = () => {
           <h1 className="text-center mb-4">Forgot Password</h1>
           {/* {currentUser && currentUser.email} */}
           {error && <Alert variant="danger">{error}</Alert>}
-          {message && <Alert variant="success">{message}</Alert>}
+          {message && <Alert autohide delay={3000} variant="success">{message}</Alert>}
         </Card.Body>
         <Form onSubmit={handleSubmit}>
           <Form.Group id="formBasicEmail">

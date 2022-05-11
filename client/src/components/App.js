@@ -21,6 +21,7 @@ import Failed from "./Cart/Failed";
 import "../App.css";
 import NotFound from "./NotFound";
 import Checkout from "./Cart/Checkout";
+import Footer from "./Footer";
 
 const client = new ApolloClient({
     cache: new InMemoryCache(),
@@ -43,12 +44,12 @@ function App() {
                             <Route path="/products/:pageNum" element={<Products />} />
                             <Route path="/notfound" element={<NotFound />} />
                             <Route path="/product/:id" element={<IndividualProduct />} />
+                            <Route path="/forgot-password" element={<ForgotPassword />} />
                             <Route element={<PrivateRoute />}>
                                 <Route path="/update-profile" element={<UpdateProfile />} />
                                 <Route path="/paymentsuccess" element={<Success />} />
                                 <Route path="/paymentsuccess/:secret" element={<Success />} />
                                 <Route path="/paymentfailed/:secret" element={<Failed />} />
-                                <Route path="/forgot-password" element={<ForgotPassword />} />
                                 <Route path="/cart" element={<Cart />} />
                                 {/* <Route path="/home" element={<Home />} /> */}
                                 <Route path="/userDetail" element={<UserDetailPage />} />
@@ -58,6 +59,7 @@ function App() {
                             </Route>
                         </Routes>
                     </div>
+                    <Footer />
                 </Router>
             </ApolloProvider>
         </AuthProvider>

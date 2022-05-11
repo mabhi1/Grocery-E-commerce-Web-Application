@@ -7,7 +7,12 @@ import { Card, Button, Alert, Container } from "react-bootstrap";
 import { dosignOut } from "../Firebase/FirebaseFunctions";
 import { useQuery } from "@apollo/client";
 import queries from "../queries";
+import UserOrders from "./orders/UserOrders";
+import UserReviews from "./UserReviews";
 
+const styles = {
+    header: { fontSize: "xx-large", fontWeight: "300" },
+};
 function Account(props) {
     const { currentUser } = useContext(AuthContext);
     const [error1, setError] = useState("");
@@ -43,10 +48,14 @@ function Account(props) {
             <div>
                 <>
                     <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "60vh" }}>
-                        <div className="w-100" style={{ maxWidth: "400px" }}>
-                            <Card>
+                        <div className="w-100">
+                            <Card style={{ marginBottom: "25px" }}>
+                                <Card.Header>
+                                    <Card.Text className="text-center" style={styles.header}>
+                                        Profile
+                                    </Card.Text>
+                                </Card.Header>
                                 <Card.Body>
-                                    <h1 className="text-center mb-4">Profile</h1>
                                     {error1 && <Alert variant="danger">{error1}</Alert>}
                                     <strong>Name:</strong> {currentUser && currentUser.displayName}
                                     <br />
@@ -57,21 +66,41 @@ function Account(props) {
                                     <strong>Phone:</strong> {getUser && getUser.phoneNumber}
                                     <br />
                                     <br />
-                                    <strong>Address:</strong> {getUser.addressStreet+", "+getUser.apt+", "+getUser.city+", "+getUser.state+", "+getUser.zip}
+                                    <strong>Address:</strong>{" "}
+                                    {getUser.addressStreet + ", " + getUser.apt + ", " + getUser.city + ", " + getUser.state + ", " + getUser.zip}
                                     <Link to="/update-profile" className="btn btn-primary w-100 mt-3 ">
                                         Update Profile
                                     </Link>
                                 </Card.Body>
                             </Card>
-
+                            <div className="w-100">
+                                <Card style={{ marginBottom: "25px" }}>
+                                    <Card.Header>
+                                        <Card.Text className="text-center" style={styles.header}>
+                                            Your Orders
+                                        </Card.Text>
+                                    </Card.Header>
+                                    <Card.Body>
+                                        <UserOrders />
+                                    </Card.Body>
+                                </Card>
+                            </div>
+                            <div className="w-100">
+                                <Card>
+                                    <Card.Header>
+                                        <Card.Text className="text-center" style={styles.header}>
+                                            Your Reviews
+                                        </Card.Text>
+                                    </Card.Header>
+                                    <Card.Body>
+                                        <UserReviews />
+                                    </Card.Body>
+                                </Card>
+                            </div>
                             <div className="w-100 text-center mt-2">
                                 <Button variant="btn btn-danger" onClick={handleLogout}>
                                     Log Out
                                 </Button>
-                                {/* <div className="w-100 text-center mt-3">
-              UserDetailPage <Link to="/userDetail">Click Here</Link>
-            </div> */}
-                                {/* <SignOutButton /> */}
                             </div>
                         </div>
                     </Container>

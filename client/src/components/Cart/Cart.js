@@ -1,6 +1,8 @@
 import { useQuery, useMutation } from "@apollo/client";
 import React, { useContext } from "react";
+
 import { Button } from "react-bootstrap";
+
 import { useDispatch, useSelector } from "react-redux";
 import actions from "../../actions";
 import { AuthContext } from "../../Firebase/Auth";
@@ -23,6 +25,7 @@ const styles = {
         fontSize: "large",
     },
 };
+
 function Cart() {
     let totalPrice = 0;
     let navigate = useNavigate();
@@ -33,7 +36,9 @@ function Cart() {
             id: currentUser ? currentUser.uid : "none",
         },
     });
+
     const [error, setError] = useState(false);
+
     const [editUser] = useMutation(queries.EDIT_USER_CART);
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
@@ -65,12 +70,20 @@ function Cart() {
 
     return (
         <div>
-            <div className="page-header">Cart</div>
+            <div
+                className="jumbotron jumbotron-fluid"
+                style={{ backgroundColor: "#F0F8FF", borderRadius: "20px", color: "black", marginBottom: "30px" }}
+            >
+                <div className="container">
+                    <h1 className="display-4">Cart</h1>
+                </div>
+            </div>
             {cart.length > 0 || (data?.getUser && data.getUser.cart.length > 0) ? (
                 <div>
                     <div style={{ marginBottom: "25px" }}>
                         {data?.getUser ? data.getUser.cart.map((product) => buildCard(product)) : cart.map((product) => buildCard(product))}
                     </div>
+
                     <div style={styles.totalPrice}>Total Price : {totalPrice}</div>
                     {error ? <Button disabled>Checkout</Button> : <Button onClick={() => navigate("/checkout")}>Checkout</Button>}
                 </div>
