@@ -10,9 +10,6 @@ const UserDetailPage = () => {
     const { currentUser } = useContext(AuthContext);
     const [state, setState] = useState("");
     const [name] = useState(currentUser.displayName);
-    //const { data } = useQuery(queries.GET_USER_BY_ID, { variables: { id: currentUser.uid } });
-   // console.log(data);
-    // const [email, setEmail] = useState("");
     const [address1, setAddress1] = useState("");
     const [address2, setAddress2] = useState("");
     const [city, setCity] = useState("");
@@ -35,16 +32,12 @@ const UserDetailPage = () => {
     //let address;
     //let phoneNumber;
 
-    // if (currentUser) {
-    //     return <Navigate to="/" />;
-    // }
 
     return (
         <>
             <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
                 <div className="w-100" style={{ maxWidth: "600px" }}>
                     <Form>
-                        {/* <p>{JSON.stringify(currentUser.displayName)}</p> */}
                         {/* //!Jumbotron for user Detail */}
                         <div className="jumbotron jumbotron-fluid" style={{ backgroundColor: "#F0F8FF", borderRadius: "20px", color: "black" }}>
                             <div className="container">
@@ -52,18 +45,6 @@ const UserDetailPage = () => {
                                 <p className="lead">Please provide additional detalis so we can serve you better</p>
                             </div>
                         </div>
-                        {/* <Row className="mb-3">
-            
-              <Form.Group as={Col} controlId="formGridEmail">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
-              </Form.Group>
-
-              <Form.Group as={Col} controlId="formGridPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
-              </Form.Group>
-            </Row> */}
                         <FormLabel>Phone Number</FormLabel>
                         <InputGroup className="mb-3">
                             <InputGroup.Text id="basic-addon1">+1</InputGroup.Text>
