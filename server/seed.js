@@ -4,12 +4,12 @@ const reviews = require("./data/reviews");
 const connection = require("./config/mongoConnection");
 
 const main = async () => {
-  try {
-    const getUser = await users.getUser("123123123");
-    console.log(getUser);
-  } catch (e) {
-    console.log(e);
-  }
+  // try {
+  //   const getUser = await users.getUser("123123123");
+  //   console.log(getUser);
+  // } catch (e) {
+  //   console.log(e);
+  // }
 
 //   const getAllUsers = await users.getAllUsers();
 //     console.log(getAllUsers);
@@ -57,8 +57,17 @@ const main = async () => {
   //     const product_review_details = await reviews.getAllReviews_Product({"_id":"75f1e57d-1648-4ce3-b87d-d7c8edb2ca7b"});
   //     console.log(product_review_details);
   // }catch(e){
-  //     console.log(e)
+  //     console.log(e);
   // }
+
+  //----------------------------FLAG A REVIEW-----------------------------//
+
+  try{
+    const flag_rev = await reviews.flagReview({"_id":"83ce4ec6-adf8-42a1-80e0-925ba7ecdeb7","userId":"YwDXrNCT6dMBUt4MTg3lCPPyOh92"});
+    console.log(flag_rev);
+  }catch(e){
+    console.log(e);
+  }
   //---------------------------CREATE A USER--------------------------------//
 
   // try{
