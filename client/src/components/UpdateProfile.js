@@ -182,6 +182,18 @@ const UserDetailPage = () => {
                                 type="submit"
                                 name="submitButton"
                                 onClick={async (e) => {
+                                    if(phoneNumber.current.value.length !== 10){
+                                        alert("Please enter a valid phone number");
+                                        return;
+                                    }
+                                    if(!name.current.value){
+                                        alert("Please enter a valid name");
+                                        return;
+                                    }
+                                    if(zip.current.value.length !== 5){
+                                        alert("Please enter a valid zip code");
+                                        return;
+                                    }
                                     e.preventDefault();
                                     try {
                                         await updateName(name.current.value);
