@@ -68,9 +68,12 @@ function Products() {
                             style={{ width: "50%" }}
                         >
                             <option value="all">Show All</option>
-                            <option value="value1">value 1</option>
-                            <option value="value2">value 2</option>
-                            <option value="value3">value 3</option>
+                            <option value="fruits & vegetables">Fruits & Vegetables</option>
+                            <option value="dairy & eggs">Dairy & Eggs</option>
+                            <option value="frozen foods">Frozen Foods</option>
+                            <option value="snacks & beverages">Snacks & Beverages</option>
+                            <option value="ready to eat">Ready to Eat</option>
+                            <option value="dry fruits">Dry Fruits</option>
                         </Form.Select>
                     </div>
                     <div className="sort-product">
@@ -106,9 +109,12 @@ function Products() {
                             style={{ width: "50%" }}
                         >
                             <option value="all">Show All</option>
-                            <option value="value1">value 1</option>
-                            <option value="value2">value 2</option>
-                            <option value="value3">value 3</option>
+                            <option value="dairy & eggs">Dairy & Eggs</option>
+                            <option value="fruits & vegetables">Fruits & Vegtables</option>
+                            <option value="snacks & beverages">Snacks & Beverages</option>
+                            <option value="frozen foods">Frozen Foods</option>
+                            <option value="dry fruits">Dry Fruits</option>
+                            <option value="ready to eat">Ready To Eat</option>
                         </Form.Select>
                     </div>
                     <div className="sort-product">

@@ -29,6 +29,7 @@ const GET_PRODUCT_BY_CATEGORY = gql`
             price
             category
             quantity
+            image
         }
     }
 `;
