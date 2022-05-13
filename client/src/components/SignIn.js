@@ -78,13 +78,13 @@ function SignIn() {
                 <div className="form-group">
                     <label>
                         Email:
-                        <input className="form-control" name="email" id="email" type="email" placeholder="Email" required />
+                        <input className="form-control" name="email" id="email" type="email" placeholder="Email" required style={{width:"350px"}} />
                     </label>
                 </div>
                 <div className="form-group">
                     <label>
                         Password:
-                        <input className="form-control" name="password" type="password" placeholder="Password" autoComplete="off" required />
+                        <input className="form-control" name="password" type="password" placeholder="Password" autoComplete="off" required style={{width:"350px"}} />
                     </label>
                 </div>
                 <button type="submit" className="btn btn-info">
@@ -97,6 +97,8 @@ function SignIn() {
                 <div className="w-100 text-center mt-3">
                     Forgot Password? <Link to="/forgot-password">Click Here</Link>
                 </div>
+                <br />
+            <SocialSignIn />
             </form>
             <Toast onClose={() => setError(false)} show={error} style={styles.toastBody} position={"top-end"} autohide delay={3000}>
                 <Toast.Header>
@@ -110,8 +112,7 @@ function SignIn() {
                 </Toast.Header>
                 <Toast.Body>Username or Password Incorrect</Toast.Body>
             </Toast>
-            <br />
-            <SocialSignIn />
+            
         </div>
     );
 }
