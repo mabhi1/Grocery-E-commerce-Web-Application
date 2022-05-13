@@ -27,6 +27,20 @@ function SignIn() {
         event.preventDefault();
         let { email, password } = event.target.elements;
 
+        if(email.value.trim() === ""){
+            alert("Please enter an email");
+            return;
+        }
+
+        if(password.value.trim() === ""){
+            alert("Please enter a password");
+            return;
+        }
+        if(password.value.length < 6){
+            alert("Password must be at least 6 characters");
+            password.value = "";
+            return;
+        }
         try {
             await signIn(email.value, password.value);
             console.log(currentUser);
