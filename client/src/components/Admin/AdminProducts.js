@@ -168,9 +168,13 @@ function AdminProducts() {
                     <Form.Label></Form.Label>
                     <Form.Select ref={(node) => (category = node)} type="text" style={styles.input} required>
                         <option>Select Category</option>
+                        <option value="all">Show All</option>
+                        <option value="fruits & vegetables">Fruits & Vegetables</option>
+                        <option value="dairy & eggs">Dairy & Eggs</option>
+                        <option value="frozen foods">Frozen Foods</option>
                         <option value="snacks & beverages">Snacks & Beverages</option>
-                        <option value="value2">value 2</option>
-                        <option value="value3">value 3</option>
+                        <option value="ready to eat">Ready to Eat</option>
+                        <option value="dry fruits">Dry Fruits</option>
                     </Form.Select>
 
                     <Form.Label></Form.Label>
