@@ -1,9 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Container, Form, Button, Row, Col, InputGroup, FormLabel } from "react-bootstrap";
 import { AuthContext } from "../Firebase/Auth";
 import { useMutation } from "@apollo/client";
 import queries from "../queries";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@apollo/client";
 
 const UserDetailPage = () => {
     let navigate = useNavigate();
@@ -15,6 +16,20 @@ const UserDetailPage = () => {
     const [city, setCity] = useState("");
     const [zip, setZip] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
+
+    const {data} = useQuery(queries.GET_USER_BY_ID, {
+        fetchPolicy: "cache-and-network",
+        variables: {
+            id: currentUser?.uid,
+        }
+    });
+    console.log(data?.getUser);
+
+    useEffect(() => {
+        if (data?.getUser) {
+            navigate("/account");
+        }
+    }, [data, navigate]);
 
     const [addUser] = useMutation(queries.CREATE_USER, {
         //refetchQueries: [{ query: queries.GET_USERS }],
@@ -177,6 +192,15 @@ const UserDetailPage = () => {
                             onClick={(e) => {
                                 e.preventDefault();
                                 try {
+                                    if(phoneNumber.length !== 10){
+                                        alert("Please enter a valid phone number");
+                                        return;
+                                    }
+                                    if(zip.length !== 5){
+                                        alert("Please enter a valid zip code");
+                                        return;
+                                    }
+
                                     if (address1 && address2 && city && state && zip && phoneNumber) {
                                         addUser({
                                             variables: {

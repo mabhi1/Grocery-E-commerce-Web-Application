@@ -7,6 +7,7 @@ import { BsFillEyeFill } from "react-icons/bs";
 //import { useMutation } from "@apollo/client";
 //import queries from "../queries";
 import Toast from "react-bootstrap/Toast";
+import SocialSignIn from "./SocialSignIn";
 
 const styles = {
     toast: {
@@ -90,17 +91,25 @@ function SignUp() {
                     <form onSubmit={handleSignUp} className="signup-form">
                         <div className="form-row">
                             <div className="form-group">
-                                <label> Name:</label>
-                                <input className="form-control" required name="displayName" type="text" placeholder="Name" ref={name} />
+                                <label for="displayName"> Name:</label>
+                                <input
+                                    id="dispalyName"
+                                    className="form-control"
+                                    required
+                                    name="displayName"
+                                    type="text"
+                                    placeholder="Name"
+                                    ref={name}
+                                />
                             </div>
                         </div>
                         <div className="form-group">
-                            <label>Email:</label>
-                            <input className="form-control" required name="email" type="email" placeholder="Email" ref={email} />
+                            <label for="email">Email:</label>
+                            <input id="email" className="form-control" required name="email" type="email" placeholder="Email" ref={email} />
                         </div>
                         <div className="form-group">
-                            <label>Password:</label>
-                            <div>
+                            <label for="passwordOne">Password:</label>
+                            <div style={{ display: "flex" }}>
                                 <input
                                     ref={passRef}
                                     className="form-control"
@@ -111,41 +120,46 @@ function SignUp() {
                                     autoComplete="off"
                                     required
                                 />
-                                <span>
+                                <span style={{ marginLeft: "-20px", marginTop: "5px" }}>
                                     <BsFillEyeFill
                                         className="icon"
                                         onClick={() => {
                                             passRef.current.type = passRef.current.type === "password" ? "text" : "password";
-                                            confPassRef.current.type = confPassRef.current.type === "password" ? "text" : "password";
                                         }}
                                     />
                                 </span>
                             </div>
                         </div>
                         <div className="form-group">
-                            <label>Confirm Password:</label>
-                            <input
-                                ref={confPassRef}
-                                className="form-control"
-                                name="passwordTwo"
-                                type="password"
-                                placeholder="Confirm Password"
-                                autoComplete="off"
-                                required
-                            />
-                            <span>
-                                <BsFillEyeFill
-                                    className="icon"
-                                    onClick={() => {
-                                        confPassRef.current.type = confPassRef.current.type === "password" ? "text" : "password";
-                                    }}
+                            <label for="passwordTwo">Confirm Password:</label>
+                            <div style={{ display: "flex" }}>
+                                <input
+                                    ref={confPassRef}
+                                    className="form-control"
+                                    id="passwordTwo"
+                                    name="passwordTwo"
+                                    type="password"
+                                    placeholder="Confirm Password"
+                                    autoComplete="off"
+                                    required
                                 />
-                            </span>
+                                <span style={{ marginLeft: "-20px", marginTop: "5px" }}>
+                                    <BsFillEyeFill
+                                        className="icon"
+                                        onClick={() => {
+                                            confPassRef.current.type = confPassRef.current.type === "password" ? "text" : "password";
+                                        }}
+                                    />
+                                </span>
+                            </div>
                         </div>
 
                         <button id="submitButton" type="submit" name="submitButton" className="btn btn-warning">
                             Sign Up
                         </button>
+                        <div style={{ marginTop: "20px" }}>
+                            <SocialSignIn />
+                        </div>
                     </form>
                     <br />
                     <Toast onClose={() => setError(false)} show={error} style={styles.toastBody} position={"top-end"} autohide delay={3000}>
