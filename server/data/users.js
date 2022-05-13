@@ -91,21 +91,21 @@ const getUser = async (args) => {
 
 const editUser = async (args) => {
   if (
-    typeof args.name !== "string" ||
-    typeof args.phoneNumber !== "string" ||
-    typeof args.addressStreet !== "string" ||
-    typeof args.apt !== "string" ||
-    typeof args.city !== "string" ||
-    typeof args.state !== "string" ||
-    typeof args.zip !== "string"
+    args.name && typeof args.name !== "string" ||
+    args.phoneNumber && typeof args.phoneNumber !== "string" ||
+    args.addressStreet && typeof args.addressStreet !== "string" ||
+    args.apt && typeof args.apt !== "string" ||
+    args.city && typeof args.city !== "string" ||
+    args.state && typeof args.state !== "string" ||
+    args.zip && typeof args.zip !== "string"
   ) {
     throw "Type of name, phoneNumber, addressStreet, apt, city, state, zip must be string";
   }
 
-  if (args.phoneNumber.length !== 10) {
+  if (args.phoneNumber && args.phoneNumber.length !== 10) {
     throw "Phone number must be 10 digits";
   }
-  if (args.zip.length !== 5) {
+  if (args.zip && args.zip.length !== 5) {
     throw "Zip code must be 5 digits";
   }
 
