@@ -113,6 +113,7 @@ function ProductCard(props) {
                     <Button size="sm" className="btn btn-light" onClick={() => setQuantity(quantity + 1)}>
                         +
                     </Button>
+                    <br />
                     {quantity > 0 ? (
                         <Button className="btn btn-primary" size="sm" onClick={handleClick}>
                             Add to Cart

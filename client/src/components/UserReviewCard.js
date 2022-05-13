@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import Card from "react-bootstrap/Card";
 import queries from "../queries";
 import { Button, Col, Row } from "react-bootstrap";
@@ -20,8 +20,24 @@ const styles = {
         width: "85%",
     },
 };
-function UserReviewCard({ review, rating }) {
+function UserReviewCard({ review, rating, userId }) {
     let { data } = useQuery(queries.GET_PRODUCTS_BY_ID, { variables: { id: review.productId } });
+    let [deleteReview] = useMutation(queries.DEL_REVIEW, {
+        update(cache, { data: { deleteReview } }) {
+            let userReview = [];
+            if (cache.readQuery({ query: queries.REVIEW_BY_USERID, variables: { userId: userId } }))
+                userReview = cache.readQuery({ query: queries.REVIEW_BY_USERID, variables: { userId: userId } }).userReview;
+            cache.writeQuery({
+                query: queries.REVIEW_BY_USERID,
+                variables: { userId: userId },
+                data: {
+                    userReview: userReview.filter((review) => {
+                        return review._id !== deleteReview._id;
+                    }),
+                },
+            });
+        },
+    });
     const product = data?.product;
     return (
         <Card style={styles.card}>
@@ -40,7 +56,17 @@ function UserReviewCard({ review, rating }) {
             <Card.Header>
                 <i>
                     Posted On : {review.createdAt}
-                    <Button variant="outline-danger" size="sm">
+                    <Button
+                        variant="outline-danger"
+                        size="sm"
+                        onClick={() => {
+                            deleteReview({
+                                variables: {
+                                    id: review._id,
+                                },
+                            });
+                        }}
+                    >
                         Delete
                     </Button>
                 </i>

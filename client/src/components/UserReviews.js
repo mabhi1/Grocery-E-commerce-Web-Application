@@ -16,7 +16,7 @@ const styles = {
 };
 function UserReviews() {
     const { currentUser } = useContext(AuthContext);
-    const { data } = useQuery(queries.REVIEW_BY_USERID, { variables: { userId: currentUser.uid } });
+    const { data } = useQuery(queries.REVIEW_BY_USERID, { variables: { userId: currentUser.uid }, fetchPolicy: "cache-and-network" });
     if (data && data.userReview) {
         const { userReview } = data;
         const buildCard = (review) => {
@@ -34,7 +34,7 @@ function UserReviews() {
                     />
                 );
             }
-            return <UserReviewCard key={review._id} rating={rating} review={review} />;
+            return <UserReviewCard key={review._id} rating={rating} review={review} userId={currentUser.uid} />;
         };
         return (
             <Container fluid="true">

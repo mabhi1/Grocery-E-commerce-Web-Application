@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { createUser } from "../Firebase/FirebaseFunctions";
 import { AuthContext } from "../Firebase/Auth";
 import { Alert, Container } from "react-bootstrap";
-import {BsFillEyeFill} from "react-icons/bs";
+import { BsFillEyeFill } from "react-icons/bs";
 //import { useMutation } from "@apollo/client";
 //import queries from "../queries";
 import Toast from "react-bootstrap/Toast";
@@ -41,12 +41,12 @@ function SignUp() {
         let displayName = name.current.value;
         console.log(displayName);
         //const { email, passwordOne, passwordTwo } = e.target.elements;
-        if(name.current.value.trim() === ""){
+        if (name.current.value.trim() === "") {
             setPwMatch("Please enter a name");
             return;
         }
 
-        if(passRef.current.value.length < 6 || confPassRef.current.value.length < 6){
+        if (passRef.current.value.length < 6 || confPassRef.current.value.length < 6) {
             setPwMatch("Password must be at least 6 characters");
             return;
         }
@@ -100,23 +100,27 @@ function SignUp() {
                         </div>
                         <div className="form-group">
                             <label>Password:</label>
-                            <input
-                                ref={passRef}
-                                className="form-control"
-                                id="passwordOne"
-                                name="passwordOne"
-                                type="password"
-                                placeholder="Password"
-                                autoComplete="off"
-                                required
-                                
-                            />
-                            <span>
-                            <BsFillEyeFill className="icon" onClick={() => {
-                                passRef.current.type = passRef.current.type === "password" ? "text" : "password";
-                                confPassRef.current.type = confPassRef.current.type === "password" ? "text" : "password";
-                            }} />
-                            </span>
+                            <div>
+                                <input
+                                    ref={passRef}
+                                    className="form-control"
+                                    id="passwordOne"
+                                    name="passwordOne"
+                                    type="password"
+                                    placeholder="Password"
+                                    autoComplete="off"
+                                    required
+                                />
+                                <span>
+                                    <BsFillEyeFill
+                                        className="icon"
+                                        onClick={() => {
+                                            passRef.current.type = passRef.current.type === "password" ? "text" : "password";
+                                            confPassRef.current.type = confPassRef.current.type === "password" ? "text" : "password";
+                                        }}
+                                    />
+                                </span>
+                            </div>
                         </div>
                         <div className="form-group">
                             <label>Confirm Password:</label>
@@ -130,12 +134,14 @@ function SignUp() {
                                 required
                             />
                             <span>
-                            <BsFillEyeFill className="icon" onClick={() => {
-                                confPassRef.current.type = confPassRef.current.type === "password" ? "text" : "password";
-                            }} />
+                                <BsFillEyeFill
+                                    className="icon"
+                                    onClick={() => {
+                                        confPassRef.current.type = confPassRef.current.type === "password" ? "text" : "password";
+                                    }}
+                                />
                             </span>
                         </div>
-
 
                         <button id="submitButton" type="submit" name="submitButton" className="btn btn-warning">
                             Sign Up
