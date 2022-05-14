@@ -39,7 +39,6 @@ const UserDetailPage = () => {
             navigate("/account");
         }
     }, [data, navigate]);
-    });
 
     if (data) {
         return (
