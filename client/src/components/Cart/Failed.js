@@ -2,10 +2,10 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import queries from "../../queries";
-import { Button, Alert } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 function Failed() {
-    const logo = require("../../assets/fail.gif"); 
+    const logo = require("../../assets/fail.gif");
     const navigate = useNavigate();
     const { secret } = useParams();
     const { loading, error, data } = useQuery(queries.GET_SESSION, { variables: { id: secret } });
@@ -22,12 +22,13 @@ function Failed() {
         });
         return (
             <div>
-                
-                <img alt="Success Image" id="logo" src={logo} style={{ width: "45%", height: "45%" , marginTop: "30px"}} />
+                <img alt="order failed" id="logo" src={logo} style={{ width: "45%", height: "45%", marginTop: "30px" }} />
                 <br />
-                <br/>
-                
-                <Button style={{marginBottom: "20px"}} onClick={() => navigate("/")}>Home</Button>
+                <br />
+
+                <Button style={{ marginBottom: "20px" }} onClick={() => navigate("/")}>
+                    Home
+                </Button>
             </div>
         );
     } else {

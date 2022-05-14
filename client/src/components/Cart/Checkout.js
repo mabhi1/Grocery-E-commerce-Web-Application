@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../Firebase/Auth";
 import { useQuery, useMutation } from "@apollo/client";
 import queries from "../../queries";
@@ -6,8 +6,10 @@ import { Col, Row, Button, Alert, Form, Container } from "react-bootstrap";
 import { v4 as uuid } from "uuid";
 import CartCards from "./CartCards";
 import { reactLocalStorage } from "reactjs-localstorage";
+import { useNavigate } from "react-router-dom";
 
 function Checkout() {
+    let navigate = useNavigate();
     let totalPrice = 0;
     const { currentUser } = useContext(AuthContext);
     const [addSession] = useMutation(queries.ADD_SESSION);
@@ -20,11 +22,17 @@ function Checkout() {
         },
     });
 
-    const [zip, setZip] = useState(data.getUser.zip);
-    const [city, setCity] = useState(data.getUser.city);
-    const [state, setState] = useState(data.getUser.state);
-    const [apt, setApt] = useState(data.getUser.apt);
-    const [addressStreet, setAddressStreet] = useState(data.getUser.addressStreet);
+    useEffect(() => {
+        if (!data?.getUser) {
+            navigate("/userDetail");
+        }
+    }, [data, navigate]);
+
+    const [zip, setZip] = useState(data?.getUser.zip);
+    const [city, setCity] = useState(data?.getUser.city);
+    const [state, setState] = useState(data?.getUser.state);
+    const [apt, setApt] = useState(data?.getUser.apt);
+    const [addressStreet, setAddressStreet] = useState(data?.getUser.addressStreet);
 
     const handleCheckout = () => {
         reactLocalStorage.setObject("addressDetails", { addressStreet: addressStreet, zip: zip, state: state, city: city, apt: apt });

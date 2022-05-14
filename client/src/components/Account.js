@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 //import SignOutButton from "./SignOut";
 //import ChangePassword from "./ChangePassword";
 import { AuthContext } from "../Firebase/Auth";
@@ -25,6 +25,11 @@ function Account(props) {
     });
 
     console.log(data);
+    useEffect(() => {
+        if (!data?.getUser) {
+            navigate("/userDetail");
+        }
+    }, [data, navigate]);
 
     if (data && data.getUser) {
         const { getUser } = data;
