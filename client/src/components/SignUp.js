@@ -9,6 +9,7 @@ import {BsFillEyeFill} from "react-icons/bs";
 import Toast from "react-bootstrap/Toast";
 import SocialSignIn from "./SocialSignIn";
 
+const regex_name = /^[a-z ,.'-]+$/i;
 const styles = {
     toast: {
         marginLeft: "auto",
@@ -41,12 +42,18 @@ function SignUp() {
         //const displayName = e.target.elements.displayName.value;
         let displayName = name.current.value;
         console.log(displayName);
+
+
         //const { email, passwordOne, passwordTwo } = e.target.elements;
         if(name.current.value.trim() === ""){
             setPwMatch("Please enter a name");
             return;
         }
-
+        
+        if(displayName.match(regex_name) === null){
+            setPwMatch("Please enter a valid name");
+            return;
+        }
         if(passRef.current.value.length < 6 || confPassRef.current.value.length < 6){
             setPwMatch("Password must be at least 6 characters");
             return;
