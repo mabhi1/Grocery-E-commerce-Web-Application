@@ -201,7 +201,7 @@ function Checkout() {
                     {data?.getUser.cart.map((product) => buildCard(product))}
                     <div style={{ margin: "25px" }}>
                         <Alert variant="info" style={{ lineHeight: "0.1em" }}>
-                            Total Price : {totalPrice}
+                            Total Price : ${totalPrice}.00
                         </Alert>
                         <Button onClick={handleCheckout} style={{ width: "100%", margin: "0" }}>
                             Pay Now
