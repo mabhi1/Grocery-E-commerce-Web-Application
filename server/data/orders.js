@@ -3,6 +3,23 @@ const ordersCollection = mongoCollections.orders;
 const uuid = require("uuid");
 
 const createOrder = async (args) => {
+
+    if (
+        args.status && typeof args.status !== "string" ||
+        args.userId && typeof args.userId !== "string" ||
+        args.addressStreet && typeof args.addressStreet !== "string" ||
+        args.apt && typeof args.apt !== "string" ||
+        args.city && typeof args.city !== "string" ||
+        args.state && typeof args.state !== "string" ||
+        args.zip && typeof args.zip !== "string" || 
+        args.createdAt && typeof args.createdAt !== "string" ||
+        args.userEmail && typeof args.userEmail !== "string" ||
+        args.zip && typeof args.zip !== "string" ||
+        args.products && typeof args.products !== "object" ||
+        args.total && typeof args.total !== "number"
+      ) {
+        throw "Invalid Type of status, userId, address, email, products or total";
+      }
     const orders = await ordersCollection();
     const newOrder = {};
     newOrder._id = uuid.v4();
@@ -23,6 +40,24 @@ const createOrder = async (args) => {
 };
 
 const filterOrders = async (args) => {
+
+    if (
+        args.status && typeof args.status !== "string" ||
+        args.userId && typeof args.userId !== "string" ||
+        args.addressStreet && typeof args.addressStreet !== "string" ||
+        args.apt && typeof args.apt !== "string" ||
+        args.city && typeof args.city !== "string" ||
+        args.state && typeof args.state !== "string" ||
+        args.zip && typeof args.zip !== "string" || 
+        args.createdAt && typeof args.createdAt !== "string" ||
+        args.userEmail && typeof args.userEmail !== "string" ||
+        args.zip && typeof args.zip !== "string" ||
+        args.products && typeof args.products !== "object" ||
+        args.total && typeof args.total !== "number"
+      ) {
+        throw "Invalid Type of status, userId, address, email, products or total";
+    }
+
     let flags = [];
     const orders = await ordersCollection();
     const userOrders = await orders.find({ userId: args.userId }).toArray();
@@ -52,6 +87,13 @@ const filterOrders = async (args) => {
 };
 
 const deleteOrder = async (args) => {
+
+    if (
+        args._id && typeof args._id !== "string" 
+      ) {
+        throw "Type of id must be string";
+    }
+
     const orders = await ordersCollection();
     const order = await orders.findOne({ _id: args._id });
     await orders.deleteOne({ _id: args._id });
@@ -59,18 +101,39 @@ const deleteOrder = async (args) => {
 };
 
 const getStatusOrders = async (args) => {
+
+    if (
+        args.status && typeof args.status !== "string" 
+      ) {
+        throw "Type of status must be string";
+    }
+
     const orders = await ordersCollection();
     const recievedOrders = await orders.find({ status: args.status }).toArray();
     return recievedOrders;
 };
 
 const getOrderById = async (args) => {
+
+    if (
+        args._id && typeof args._id !== "string" 
+      ) {
+        throw "Type of id be string";
+    }
+
     const orders = await ordersCollection();
     const order = await orders.findOne({ _id: args._id });
     return order;
 };
 
 const changeStatusToCompleted = async (args) => {
+
+    if (
+        args._id && typeof args._id !== "string" 
+      ) {
+        throw "Type of id be string";
+    }
+
     const orders = await ordersCollection();
     await orders.updateOne({ _id: args._id }, { $set: { status: "completed" } });
     const order = await orders.findOne({ _id: args._id });
@@ -78,6 +141,13 @@ const changeStatusToCompleted = async (args) => {
 };
 
 const changeStatusToDispatched = async (args) => {
+
+    if (
+        args._id && typeof args._id !== "string" 
+      ) {
+        throw "Type of id be string";
+    }
+
     const orders = await ordersCollection();
     await orders.updateOne({ _id: args._id }, { $set: { status: "dispatched" } });
     const order = await orders.findOne({ _id: args._id });
@@ -85,12 +155,20 @@ const changeStatusToDispatched = async (args) => {
 };
 
 const getOrdersByUserId = async (args) => {
+
+    if (
+        args.userId && typeof args.userId !== "string" 
+      ) {
+        throw "Type of id be string";
+    }
+
     const orders = await ordersCollection();
     const order = await orders.find({ userId: args.userId }).toArray();
     return order;
 };
 
 const getAllOrders = async () => {
+    
     const orders = await ordersCollection();
     const order = await orders.find({}).toArray();
     return order;
