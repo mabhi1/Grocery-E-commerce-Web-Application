@@ -77,7 +77,7 @@ function App({ product, totalRating, best }) {
         }
         totalRating -= 1;
     }
-    console.log(totalRating);
+    
     const [rating, setRating] = useState(undefined);
     const [hoverValue, setHoverValue] = useState(undefined);
     const [addReview] = useMutation(queries.ADD_REVIEW, {

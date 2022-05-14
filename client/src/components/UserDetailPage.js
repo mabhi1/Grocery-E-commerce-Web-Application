@@ -23,7 +23,6 @@ const UserDetailPage = () => {
             id: currentUser?.uid,
         }
     });
-    console.log(data?.getUser);
 
     useEffect(() => {
         if (data?.getUser) {
@@ -32,28 +31,15 @@ const UserDetailPage = () => {
     }, [data, navigate]);
 
     const [addUser] = useMutation(queries.CREATE_USER, {
-        //refetchQueries: [{ query: queries.GET_USERS }],
         fetchPolicy: "network-only",
     });
-
-    // function alertBox() {
-    //   //alert("user added successfully" + name + address1 + address2 + city + zip + phoneNumber + state + currentUser.email);
-    //   alert("user added successfully "+ name + " address "+ address1 + " city "+ city + " zip "+ zip + " phoneNumber "+ phoneNumber + " state "+ state + " email "+ currentUser.email);
-    // }
-
-    //let _id;
-    //let name;
-    //let email;
-    //let address;
-    //let phoneNumber;
-
 
     return (
         <>
             <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
                 <div className="w-100" style={{ maxWidth: "600px" }}>
                     <Form>
-                        {/* //!Jumbotron for user Detail */}
+                        
                         <div className="jumbotron jumbotron-fluid" style={{ backgroundColor: "#F0F8FF", borderRadius: "20px", color: "black" }}>
                             <div className="container">
                                 <h1 className="display-4">Welcome, {currentUser.displayName} </h1>
@@ -229,11 +215,6 @@ const UserDetailPage = () => {
                                     console.log(err);
                                 }
                             }}
-
-                            // onClick={(e) => {
-                            //   e.preventDefault();
-                            //   alertBox();
-                            // }}
                         >
                             Submit
                         </Button>

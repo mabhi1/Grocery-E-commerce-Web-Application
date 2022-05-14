@@ -109,8 +109,6 @@ module.exports = {
 
         await reviews.insertOne(newReview);
 
-        // let parsedProductId = ObjectId(productId);
-
         await products.updateOne(
             {
                 _id: productId,
@@ -119,8 +117,6 @@ module.exports = {
                 $push: { reviews: newReview._id },
             }
         );
-
-        // let parsedUserId = ObjectId(userid);
 
         await users.updateOne(
             {
@@ -294,15 +290,6 @@ module.exports = {
         );
 
         const reviewInfo = await this.getReviewById(reviewId);
-
-        // const flagInfo = {};
-
-        // flagInfo.review_id = reviewInfo._id;
-
-        // flagInfo.userIds = [];
-
-        // flagInfo.userIds = reviewInfo.flags;
-        // flagInfo.flagCount = reviewInfo.flags.length;
 
         return reviewInfo;
     },

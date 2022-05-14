@@ -21,7 +21,7 @@ function Products() {
     const numberOfProductsData = useQuery(queries.NUMBER_OF_PRODUCTS).data;
     const numberOfProducts = numberOfProductsData?.numberOfProducts;
     const { loading, error, data } = useQuery(queries.GET_ALL_PRODUCTS, { variables: { page: parseInt(pageNum) } });
-    console.log(data);
+    
     const searchData = useQuery(queries.SEARCH_PRODUCTS, { variables: { name: searchTerm } });
     let searchResults = searchData.data && searchData.data.searchProducts;
     const productByCategoryData = useQuery(queries.GET_PRODUCT_BY_CATEGORY, {
@@ -87,7 +87,7 @@ function Products() {
     }
     if (data) {
         let { products } = data;
-        console.log(productByCategory, products);
+        
         dispatch(actions.showProducts(productByCategory?.length > 0 ? productByCategory : products));
         return (
             <div>

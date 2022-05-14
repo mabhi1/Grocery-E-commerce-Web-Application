@@ -80,33 +80,10 @@ function Checkout() {
             </div>
             <Row xs={1} md={2}>
                 <Col>
-                    {/* <strong>Name:</strong> {data.getUser && data.getUser.name}
-                                    <br />
-                                    <br />
-                                    <strong>Email:</strong> {data.getUser && data.getUser.email}
-                                    <br />
-                                    <br />
-                                    <strong>Phone:</strong> {data.getUser && data.getUser.phoneNumber}
-                                    <br />
-                                    <br />
-                                    <input defaultValue={data.getUser.addressStreet} placeholder="Enter Street" />
-                                    <br />
-                                    <br />
-                                    <input defaultValue={data.getUser.apt} placeholder="Enter Apt" />
-                                    <br />
-                                    <br />
-                                    <input defaultValue={data.getUser.city} placeholder="Enter City" />
-                                    <br />
-                                    <br />
-                                    <input defaultValue={data.getUser.state} placeholder="Enter State" />
-                                    <br />
-                                    <br />
-                                    <input defaultValue={data.getUser.zip} placeholder="Enter Zip" /> */}
+                    
                     <Container className="d-flex align-items-center justify-content-center">
                         <div className="w-75" style={{ maxWidth: "600px" }}>
                             <Form style={{ textAlign: "left" }}>
-                                {/* <p>{JSON.stringify(currentUser.displayName)}</p> */}
-                                {/* //!Jumbotron for user Detail */}
 
                                 <Form.Group className="mb-3">
                                     <Form.Label>Name</Form.Label>

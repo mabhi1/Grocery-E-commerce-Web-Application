@@ -8,7 +8,7 @@ import { Button } from "react-bootstrap";
 
 function AdminOrders() {
     const { data, loading, error } = useQuery(queries.GET_ALL_ORDERS);
-    console.log(data);
+    
     const [filterValue, setFilterValue] = useState("all");
     if (error) {
         return <div>{error.message}</div>;
