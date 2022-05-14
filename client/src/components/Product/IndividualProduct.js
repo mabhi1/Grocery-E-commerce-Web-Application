@@ -33,6 +33,9 @@ function IndividualProduct() {
                 navigate("/notfound");
             }
         }
+        if (!data?.getUser) {
+            navigate("/userDetail");
+        }
     }, [data, navigate]);
     if (loading) {
         return <div>Loading...</div>;
