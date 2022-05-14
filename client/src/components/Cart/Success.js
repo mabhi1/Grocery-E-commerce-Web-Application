@@ -27,7 +27,7 @@ function Success() {
             <div>
                 <AddOrder />
                 <Alert variant="success" style={{fontSize: "25px"}}>Order Placed Successfully</Alert>
-                <img alt="Success Image" id="logo" src={logo} style={{ width: "70%", height: "70%" , marginTop: "30px"}} />
+                <img alt="Success" id="logo" src={logo} style={{ width: "70%", height: "70%" , marginTop: "30px"}} />
                 <br />
                 <br/>
                 <Button onClick={() => navigate("/")}>Home</Button>
