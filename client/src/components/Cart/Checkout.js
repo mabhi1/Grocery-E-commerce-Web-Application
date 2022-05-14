@@ -20,11 +20,11 @@ function Checkout() {
         },
     });
 
-    const [zip, setZip] = useState(data.getUser.zip);
-    const [city, setCity] = useState(data.getUser.city);
-    const [state, setState] = useState(data.getUser.state);
-    const [apt, setApt] = useState(data.getUser.apt);
-    const [addressStreet, setAddressStreet] = useState(data.getUser.addressStreet);
+    const [zip, setZip] = useState(data?.getUser.zip);
+    const [city, setCity] = useState(data?.getUser.city);
+    const [state, setState] = useState(data?.getUser.state);
+    const [apt, setApt] = useState(data?.getUser.apt);
+    const [addressStreet, setAddressStreet] = useState(data?.getUser.addressStreet);
 
     const handleCheckout = () => {
         reactLocalStorage.setObject("addressDetails", { addressStreet: addressStreet, zip: zip, state: state, city: city, apt: apt });

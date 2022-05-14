@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import queries from "../../queries";
-import { Button, Alert } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 function Failed() {
     const logo = require("../../assets/fail.gif"); 
