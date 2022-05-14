@@ -32,10 +32,14 @@ const UserDetailPage = () => {
         },
     });
     useEffect(() => {
-        if (!data?.getUser) {
-            navigate("/userDetail");
+        if (data) {
+            if (!data.getUser) {
+                navigate("/userDetail");
+            }
+        } else {
+            navigate("/account");
         }
-    }, [data, navigate]);
+    });
     console.log(data);
 
     if (data) {

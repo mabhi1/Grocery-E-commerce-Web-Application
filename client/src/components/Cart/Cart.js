@@ -30,17 +30,21 @@ function Cart() {
     let totalPrice = 0;
     let navigate = useNavigate();
     const { currentUser } = useContext(AuthContext);
-    const { data } = useQuery(queries.GET_USER_BY_ID, {
+    const { data, loading } = useQuery(queries.GET_USER_BY_ID, {
         fetchPolicy: "cache-and-network",
         variables: {
             id: currentUser ? currentUser.uid : "none",
         },
     });
     useEffect(() => {
-        if (!data?.getUser) {
+        if (data) {
+            if (!data.getUser) {
+                navigate("/userDetail");
+            }
+        } else if (!loading) {
             navigate("/userDetail");
         }
-    }, [data, navigate]);
+    });
     const [error, setError] = useState(false);
 
     const [editUser] = useMutation(queries.EDIT_USER_CART);
