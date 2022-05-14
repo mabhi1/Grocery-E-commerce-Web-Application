@@ -40,6 +40,7 @@ const typeDefs = gql`
         productId: String
         review: String
         rating: Int
+        flags: [ID]
         createdAt: String
     }
 
@@ -51,8 +52,12 @@ const typeDefs = gql`
     type flagInfo{
         review_id: String
         flagCount: Int
+        userIds: [ID]
     }
 
+    type ID{
+        id: String
+    }
     type Order {
         _id: String
         userId: String
@@ -140,7 +145,7 @@ const typeDefs = gql`
 
         deleteReview(_id: String!): DeleteReview
 
-        flagReview(_id: String, userId: String): flagInfo
+        flagReview(_id: String, userid: String): Review
 
         editProduct(_id: String!, image: String, name: String, price: Int, quantity: Int, description: String, category: String): Product
 

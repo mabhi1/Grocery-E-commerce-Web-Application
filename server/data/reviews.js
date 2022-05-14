@@ -245,7 +245,7 @@ module.exports = {
     async flagReview (args){
 
         let reviewId = args._id;
-        let userId = args.userId;
+        let userId = args.userid;
 
         if(!reviewId)
         {
@@ -290,11 +290,16 @@ module.exports = {
 
         const reviewInfo = await this.getReviewById(reviewId);
         
-        const flagInfo = {};
+        // const flagInfo = {};
+        
 
-        flagInfo.review_id = reviewInfo._id;
-        flagInfo.flagCount = reviewInfo.flags.length;
+        // flagInfo.review_id = reviewInfo._id;
+        
+        // flagInfo.userIds = [];
 
-        return flagInfo;
+        // flagInfo.userIds = reviewInfo.flags;
+        // flagInfo.flagCount = reviewInfo.flags.length;
+
+        return reviewInfo;
     }
 }
