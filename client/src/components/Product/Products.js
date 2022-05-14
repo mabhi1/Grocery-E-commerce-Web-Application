@@ -6,6 +6,7 @@ import ProductList from "./ProductList";
 import { useDispatch } from "react-redux";
 import actions from "../../actions";
 import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
 import { useNavigate, useParams } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 
@@ -146,7 +147,7 @@ function Products() {
     } else if (loading) {
         return <div>Loading...</div>;
     } else if (error) {
-        return <div>{error.message}</div>;
+        return <Alert variant="danger">{error.message}</Alert>;
     }
 }
 

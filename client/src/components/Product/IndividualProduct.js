@@ -7,6 +7,7 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Toast from "react-bootstrap/Toast";
+import Alert from "react-bootstrap/Alert";
 import { useDispatch } from "react-redux";
 import actions from "../../actions";
 import { AuthContext } from "../../Firebase/Auth";
@@ -31,16 +32,15 @@ function IndividualProduct() {
         if (data) {
             if (!data.product) {
                 navigate("/notfound");
+            } else if (userData) {
+                if (!userData.data?.getUser) navigate("/userDetail");
             }
         }
-        if (!data?.getUser) {
-            navigate("/userDetail");
-        }
-    }, [data, navigate]);
+    });
     if (loading) {
         return <div>Loading...</div>;
     } else if (error) {
-        return <div>{error.message}</div>;
+        return <Alert variant="danger">{error.message}</Alert>;
     } else if (data && data.product) {
         const { product } = data;
         const handleClick = () => {

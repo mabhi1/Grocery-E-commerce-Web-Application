@@ -23,10 +23,14 @@ function Checkout() {
     });
 
     useEffect(() => {
-        if (!data?.getUser) {
-            navigate("/userDetail");
+        if (data) {
+            if (!data.getUser) {
+                navigate("/userDetail");
+            }
+        } else {
+            navigate("/cart");
         }
-    }, [data, navigate]);
+    });
 
     const [zip, setZip] = useState(data?.getUser.zip);
     const [city, setCity] = useState(data?.getUser.city);
