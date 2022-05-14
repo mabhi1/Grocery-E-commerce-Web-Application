@@ -13,7 +13,7 @@ const UserOrders = () => {
             userId: currentUser.uid,
         },
     });
-    console.log(data);
+    
     if (!data) {
         return null;
     } else if (data) {

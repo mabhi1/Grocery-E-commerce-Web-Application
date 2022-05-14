@@ -24,7 +24,6 @@ const UserDetailPage = () => {
         fetchPolicy: "network-only",
     });
 
-    console.log(currentUser.uid);
     const { data, error, loading } = useQuery(queries.GET_USER_BY_ID, {
         fetchPolicy: "cache-and-network",
         variables: {
@@ -39,8 +38,8 @@ const UserDetailPage = () => {
         } else {
             navigate("/account");
         }
+    }, [data, navigate]);
     });
-    console.log(data);
 
     if (data) {
         return (

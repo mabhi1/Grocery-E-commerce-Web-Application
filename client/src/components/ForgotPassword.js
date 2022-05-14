@@ -1,13 +1,12 @@
 import React, { useRef, useState } from "react";
 import { Card, Form, Button, Alert, Container } from "react-bootstrap";
-// import { resetPassword } from "../Firebase/FirebaseFunctions";
 
 import { passwordReset } from "../Firebase/FirebaseFunctions";
 import { Link, useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
     const emailRef = useRef();
-    //   const { resetPassword } = useAuth();
+    
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
@@ -21,7 +20,7 @@ const ForgotPassword = () => {
             setMessage("");
             setError("");
             setLoading(true);
-            // await signUp(email, password);  // signUp is a function from useAuth
+            
             await passwordReset(email);
             alert("Check your email for a password reset link");
             navigate("/signin");
@@ -45,7 +44,7 @@ const ForgotPassword = () => {
                 <div className="w-100" style={{ maxWidth: "400px" }}>
                     <Card>
                         <Card.Body>
-                            {/* {currentUser && currentUser.email} */}
+                            
                             {error && <Alert variant="danger">{error}</Alert>}
                             {message && (
                                 <Alert autohide delay={3000} variant="success">

@@ -62,12 +62,12 @@ const main = async () => {
 
   //----------------------------FLAG A REVIEW-----------------------------//
 
-  try{
-    const flag_rev = await reviews.flagReview({"_id":"83ce4ec6-adf8-42a1-80e0-925ba7ecdeb7","userId":"YwDXrNCT6dMBUt4MTg3lCPPyOh92"});
-    console.log(flag_rev);
-  }catch(e){
-    console.log(e);
-  }
+  // try{
+  //   const flag_rev = await reviews.flagReview({"_id":"83ce4ec6-adf8-42a1-80e0-925ba7ecdeb7","userId":"YwDXrNCT6dMBUt4MTg3lCPPyOh92"});
+  //   console.log(flag_rev);
+  // }catch(e){
+  //   console.log(e);
+  // }
   //---------------------------CREATE A USER--------------------------------//
 
   // try{

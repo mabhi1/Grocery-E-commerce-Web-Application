@@ -4,8 +4,6 @@ import { createUser } from "../Firebase/FirebaseFunctions";
 import { AuthContext } from "../Firebase/Auth";
 import { Alert, Container } from "react-bootstrap";
 import { BsFillEyeFill } from "react-icons/bs";
-//import { useMutation } from "@apollo/client";
-//import queries from "../queries";
 import Toast from "react-bootstrap/Toast";
 import SocialSignIn from "./SocialSignIn";
 
@@ -29,22 +27,17 @@ function SignUp() {
     let navigate = useNavigate();
 
     let name = useRef();
-    // let phoneNumber;
     let email = useRef();
     let passRef = useRef();
     let confPassRef = useRef();
     const { currentUser } = useContext(AuthContext);
     const [pwMatch, setPwMatch] = useState("");
-    //this is for toggling state of usa
-    //const [state, setState] = useState("");
+    
     const handleSignUp = async (e) => {
         e.preventDefault();
-        //const displayName = e.target.elements.displayName.value;
+        
         let displayName = name.current.value;
-        console.log(displayName);
 
-
-        //const { email, passwordOne, passwordTwo } = e.target.elements;
         if (name.current.value.trim() === "") {
             setPwMatch("Please enter a name");
             return;
@@ -70,8 +63,6 @@ function SignUp() {
             setError(true);
         }
     };
-
-    console.log(currentUser);
 
     if (currentUser) {
         return <Navigate to="/" />;

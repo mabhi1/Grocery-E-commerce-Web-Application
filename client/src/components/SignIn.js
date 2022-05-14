@@ -42,24 +42,11 @@ function SignIn() {
             return;
         }
         try {
-            await signIn(email.value, password.value);
-            console.log(currentUser);
+            await signIn(email.value, password.value);    
         } catch (error) {
             setError(true);
-            console.log(error.message.split(":")[1]);
         }
     };
-
-    // const handlePasswordReset = (event) => {
-    //     event.preventDefault();
-    //     let email = document.getElementById("email").value;
-    //     if (email) {
-    //         passwordReset(email);
-    //         alert("Password reset email was sent");
-    //     } else {
-    //         alert("Please enter an email address below before you click the forgot password link");
-    //     }
-    // };
 
     if (currentUser) {
         return <Navigate to="/" />;
