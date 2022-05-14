@@ -33,10 +33,12 @@ function IndividualProduct() {
                 navigate("/notfound");
             }
         }
-        if (!data?.getUser) {
-            navigate("/userDetail");
-        }
     }, [data, navigate]);
+    useEffect(() => {
+        if (userData) {
+            if (!userData.data?.getUser) navigate("/userDetail");
+        }
+    }, [userData, navigate]);
     if (loading) {
         return <div>Loading...</div>;
     } else if (error) {
