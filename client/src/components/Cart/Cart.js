@@ -84,7 +84,7 @@ function Cart() {
                         {data?.getUser ? data.getUser.cart.map((product) => buildCard(product)) : cart.map((product) => buildCard(product))}
                     </div>
 
-                    <div style={styles.totalPrice}>Total Price : {totalPrice}</div>
+                    <div style={styles.totalPrice}>Total Price : ${totalPrice}.00 </div>
                     {error ? <Button disabled>Checkout</Button> : <Button onClick={() => navigate("/checkout")}>Checkout</Button>}
                 </div>
             ) : (
