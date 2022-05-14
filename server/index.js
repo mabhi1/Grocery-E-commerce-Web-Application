@@ -6,7 +6,7 @@ const resolvers = require("./graphql/resolvers");
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
-server.listen().then(({ url }) => {
+server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
     console.log(`🚀 Apollo Server ready at ${url} 🚀`);
 });
 
@@ -50,6 +50,6 @@ app.post("/create-checkout-session", async (req, res) => {
     }
 });
 
-app.listen(5001, () => {
+app.listen({ port: process.env.PORT || 5001 }, () => {
     console.log("🚀 Express server ready at http://localhost:5001 🚀");
 });
