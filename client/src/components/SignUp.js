@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { createUser } from "../Firebase/FirebaseFunctions";
 import { AuthContext } from "../Firebase/Auth";
 import { Alert, Container } from "react-bootstrap";
-import {BsFillEyeFill} from "react-icons/bs";
+import { BsFillEyeFill } from "react-icons/bs";
 //import { useMutation } from "@apollo/client";
 //import queries from "../queries";
 import Toast from "react-bootstrap/Toast";
@@ -45,11 +45,10 @@ function SignUp() {
 
 
         //const { email, passwordOne, passwordTwo } = e.target.elements;
-        if(name.current.value.trim() === ""){
+        if (name.current.value.trim() === "") {
             setPwMatch("Please enter a name");
             return;
-        }
-        
+        }        
         if(displayName.match(regex_name) === null){
             setPwMatch("Please enter a valid name");
             return;
@@ -99,63 +98,74 @@ function SignUp() {
                         <div className="form-row">
                             <div className="form-group">
                                 <label for="displayName"> Name:</label>
-                                <input id="dispalyName" className="form-control" required name="displayName" type="text" placeholder="Name" ref={name} />
+                                <input
+                                    id="dispalyName"
+                                    className="form-control"
+                                    required
+                                    name="displayName"
+                                    type="text"
+                                    placeholder="Name"
+                                    ref={name}
+                                />
                             </div>
                         </div>
                         <div className="form-group">
                             <label for="email">Email:</label>
                             <input id="email" className="form-control" required name="email" type="email" placeholder="Email" ref={email} />
-                        </div >
+                        </div>
                         <div className="form-group">
                             <label for="passwordOne">Password:</label>
-                            <div style={{display:"flex"}}>
-                            <input
-                                ref={passRef}
-                                className="form-control"
-                                id="passwordOne"
-                                name="passwordOne"
-                                type="password"
-                                placeholder="Password"
-                                autoComplete="off"
-                                required
-                                
-                            />
-                            <span style={{marginLeft:"-20px", marginTop:"5px"}}>
-                            <BsFillEyeFill className="icon" onClick={() => {
-                                passRef.current.type = passRef.current.type === "password" ? "text" : "password";
-                            }} />
-                            </span>
-                        </div>
+                            <div style={{ display: "flex" }}>
+                                <input
+                                    ref={passRef}
+                                    className="form-control"
+                                    id="passwordOne"
+                                    name="passwordOne"
+                                    type="password"
+                                    placeholder="Password"
+                                    autoComplete="off"
+                                    required
+                                />
+                                <span style={{ marginLeft: "-20px", marginTop: "5px" }}>
+                                    <BsFillEyeFill
+                                        className="icon"
+                                        onClick={() => {
+                                            passRef.current.type = passRef.current.type === "password" ? "text" : "password";
+                                        }}
+                                    />
+                                </span>
+                            </div>
                         </div>
                         <div className="form-group">
                             <label for="passwordTwo">Confirm Password:</label>
-                        <div style={{display:"flex"}}>
-                            <input
-                                ref={confPassRef}
-                                className="form-control"
-                                id="passwordTwo"
-                                name="passwordTwo"
-                                type="password"
-                                placeholder="Confirm Password"
-                                autoComplete="off"
-                                required
-                            />
-                            <span style={{marginLeft:"-20px", marginTop:"5px"}}>
-                            <BsFillEyeFill className="icon" onClick={() => {
-                                confPassRef.current.type = confPassRef.current.type === "password" ? "text" : "password";
-                            }} />
-                            </span>
+                            <div style={{ display: "flex" }}>
+                                <input
+                                    ref={confPassRef}
+                                    className="form-control"
+                                    id="passwordTwo"
+                                    name="passwordTwo"
+                                    type="password"
+                                    placeholder="Confirm Password"
+                                    autoComplete="off"
+                                    required
+                                />
+                                <span style={{ marginLeft: "-20px", marginTop: "5px" }}>
+                                    <BsFillEyeFill
+                                        className="icon"
+                                        onClick={() => {
+                                            confPassRef.current.type = confPassRef.current.type === "password" ? "text" : "password";
+                                        }}
+                                    />
+                                </span>
+                            </div>
                         </div>
-                        </div>
-
 
                         <button id="submitButton" type="submit" name="submitButton" className="btn btn-warning">
                             Sign Up
                         </button>
-                        <div style={{marginTop:"20px"}}>
-                        <SocialSignIn/>
+                        <div style={{ marginTop: "20px" }}>
+                            <SocialSignIn />
                         </div>
-                        
                     </form>
                     <br />
                     <Toast onClose={() => setError(false)} show={error} style={styles.toastBody} position={"top-end"} autohide delay={3000}>

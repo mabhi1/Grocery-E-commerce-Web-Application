@@ -3,6 +3,7 @@ import AdminProducts from "./AdminProducts";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import AdminOrders from "./AdminOrders";
+import AdminReviews from "./AdminReviews";
 
 function Admin() {
     return (
@@ -22,8 +23,8 @@ function Admin() {
                 <Tab eventKey="products" title="Products">
                     <AdminProducts />
                 </Tab>
-                <Tab eventKey="users" title="Users">
-                    <div>Users</div>
+                <Tab eventKey="reviews" title="Reviews">
+                    <AdminReviews />
                 </Tab>
             </Tabs>
         </div>

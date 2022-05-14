@@ -16,25 +16,25 @@ const styles = {
 };
 function UserReviews() {
     const { currentUser } = useContext(AuthContext);
-    const { data } = useQuery(queries.REVIEW_BY_USERID, { variables: { userId: currentUser.uid } });
+    const { data } = useQuery(queries.REVIEW_BY_USERID, { variables: { userId: currentUser.uid }, fetchPolicy: "cache-and-network" });
     if (data && data.userReview) {
         const { userReview } = data;
         const buildCard = (review) => {
             console.log(review);
             let rating = [];
-            for (let i = 1; i < review.rating + 1; i++) {
+            for (let i = 1; i < 6; i++) {
                 rating.push(
                     <FaStar
                         key={i}
                         size={18}
-                        color={"rgb(252, 186, 3)"}
+                        color={review.rating >= i ? "rgb(252, 186, 3)" : "rgb(169, 169, 169)"}
                         style={{
                             marginRight: 10,
                         }}
                     />
                 );
             }
-            return <UserReviewCard key={review._id} rating={rating} review={review} />;
+            return <UserReviewCard key={review._id} rating={rating} review={review} userId={currentUser.uid} />;
         };
         return (
             <Container fluid="true">

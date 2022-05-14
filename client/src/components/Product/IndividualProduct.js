@@ -10,7 +10,6 @@ import Toast from "react-bootstrap/Toast";
 import { useDispatch } from "react-redux";
 import actions from "../../actions";
 import { AuthContext } from "../../Firebase/Auth";
-import PostRating from "./Ratings";
 import Reviews from "./Reviews";
 
 function IndividualProduct() {
@@ -104,6 +103,14 @@ function IndividualProduct() {
                         }}
                     >
                         <img src={product.image} alt="No_Image" style={{ width: "100%", height: "auto" }} />
+                        {product.quantity > 0 ? null : (
+                            <Card.Text
+                                className="p-1 bg-danger text-white rounded"
+                                style={{ marginTop: "-120px", marginBottom: "120px", opacity: "0.9" }}
+                            >
+                                Out of stock
+                            </Card.Text>
+                        )}
                     </Col>
                     <Col style={{ width: "60%", minHeight: "270px", padding: "0" }}>
                         <Card style={{ border: "0" }}>
@@ -112,7 +119,11 @@ function IndividualProduct() {
                                 <Card.Text>Price : ${product.price}.00</Card.Text>
                                 <Card.Text>Description : {product.description}</Card.Text>
                                 <Card.Text>Category : {product.category}</Card.Text>
-                                <Card.Text>Quantity in stock : {product.quantity}</Card.Text>
+                                {product.quantity > 0 ? (
+                                    <Card.Text>Quantity in stock : {product.quantity}</Card.Text>
+                                ) : (
+                                    <Card.Text>Out of Stock</Card.Text>
+                                )}
                             </Card.Body>
                             <Card.Text>
                                 <Button
@@ -123,12 +134,12 @@ function IndividualProduct() {
                                 >
                                     -
                                 </Button>
-                                <span>{quantity}</span>
+                                <span>{product.quantity > 0 ? quantity : "0"}</span>
                                 <Button className="btn btn-light" onClick={() => setQuantity(quantity + 1)}>
                                     +
                                 </Button>
                             </Card.Text>
-                            {quantity > 0 ? (
+                            {quantity > 0 && product.quantity > 0 ? (
                                 <Button className="btn btn-primary" onClick={handleClick}>
                                     Add to Cart
                                 </Button>
@@ -140,7 +151,6 @@ function IndividualProduct() {
                         </Card>
                     </Col>
                 </Row>
-                <PostRating product={product} />
                 <Reviews product={product} />
                 <Toast onClose={() => setToast(false)} show={toast} delay={2000} autohide>
                     <Toast.Header>

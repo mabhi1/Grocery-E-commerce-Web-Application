@@ -5,7 +5,6 @@ const sessionData = require("../data/orderSession");
 const ordersData = require("../data/orders");
 const resolvers = {
     Query: {
-        
         product: async (_, args) => {
             const products = await productData.getProductById(args);
             return products;
@@ -13,12 +12,12 @@ const resolvers = {
 
         products: async (_, args) => {
             const numberOfProducts = await productData.totalNumberOfProducts();
-            if (args.page > Math.ceil(numberOfProducts / 2) || args.page < 1) return new Error("Not Found");
+            if (args.page > Math.ceil(numberOfProducts / 18) || args.page < 1) return new Error("Not Found");
             const products = await productData.getAllProducts(args);
             return products;
         },
 
-        numberOfProducts: async() => {
+        numberOfProducts: async () => {
             const numberOfProducts = await productData.totalNumberOfProducts();
             return numberOfProducts;
         },
@@ -52,7 +51,7 @@ const resolvers = {
             const products = await productData.sortAscByCategory(args);
             return products;
         },
-        
+
         desCategory: async (_, args) => {
             const products = await productData.sortDesByCategory(args);
             return products;
@@ -67,11 +66,11 @@ const resolvers = {
             const user = await userData.getUser(args);
             return user;
         },
-        getAllUsers : async () => {
+        getAllUsers: async () => {
             const users = await userData.getAllUsers();
             return users;
-        },  
-        
+        },
+
         reviews: async () => {
             const reviews = await reviewData.getAllReviews();
             return reviews;
