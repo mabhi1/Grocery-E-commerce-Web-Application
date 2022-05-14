@@ -24,6 +24,7 @@ function Success() {
         return (
             <div>
                 <AddOrder />
+
                 <Alert variant="success" style={{ fontSize: "25px" }}>
                     Order Placed Successfully
                 </Alert>
