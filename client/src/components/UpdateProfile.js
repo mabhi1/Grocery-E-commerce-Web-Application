@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import { Container, Form, Button, Row, Col, InputGroup, FormLabel } from "react-bootstrap";
 import { AuthContext } from "../Firebase/Auth";
 import { useMutation } from "@apollo/client";
@@ -31,7 +31,11 @@ const UserDetailPage = () => {
             id: userId,
         },
     });
-
+    useEffect(() => {
+        if (!data?.getUser) {
+            navigate("/userDetail");
+        }
+    }, [data, navigate]);
     console.log(data);
 
     if (data) {
