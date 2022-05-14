@@ -17,6 +17,10 @@ module.exports = {
             throw "ERROR! The userid field should have valid value";
         }
 
+        if (!userName) {
+            throw "ERROR! The userName field should have valid value";
+        }
+
         if (!productId) {
             throw "ERROR! The productId field should have valid value";
         }
@@ -33,6 +37,10 @@ module.exports = {
             throw "ERROR! The userid parameter should be a string";
         }
 
+        if (typeof userName !== "string") {
+            throw "ERROR! The userName parameter should be a string";
+        }
+
         if (typeof productId !== "string") {
             throw "ERROR! The productId parameter should be a string";
         }
@@ -47,6 +55,10 @@ module.exports = {
 
         if (userId.length == 0 || userId.trim().length == 0) {
             throw "ERROR! The userid parameter cannot be empty";
+        }
+
+        if (userName.length == 0 || userName.trim().length == 0) {
+            throw "ERROR! The userName parameter cannot be empty";
         }
 
         if (productId.length == 0 || productId.trim().length == 0) {
@@ -170,6 +182,10 @@ module.exports = {
 
         const reviews = await reviewCollection();
         const userReviews = await reviews.find({ userId: userid }).sort({ createdAt: -1 }).toArray();
+
+        if (userReviews == null) {
+            throw "ERROR! No reviews found for the user with the given user id";
+        }
         return userReviews;
     },
 
