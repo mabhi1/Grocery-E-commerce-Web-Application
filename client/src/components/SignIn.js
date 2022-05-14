@@ -95,7 +95,7 @@ function SignIn() {
                     Forgot Password
                 </button> */}
                 <div className="w-100 text-center mt-3">
-                    Forgot Password? <Link to="/forgot-password">Click Here</Link>
+                     <Link to="/forgot-password">Forgot Password?</Link>
                 </div>
                 <br />
             <SocialSignIn />
