@@ -30,8 +30,9 @@ function Landing() {
           <div style={{ fontFamily: "'Bebas Neue', cursive" }} className="col-md-6">
             <h1 style={{ fontSize: "64px" }}>Asian Mart's Promise</h1>
             <p style={{ fontSize: "25px" }}>Spice up your lives with some Traditional produce straight from Asia.</p>
-            <p style={{ fontSize: "25px" }}>All Our products are 100% asian so you can get the authentic taste.</p>
-            <p style={{ fontSize: "25px" }}>24 hour Free Home Delivery right at your doorstep.</p>
+            <p style={{ fontSize: "25px" }}>All Our products are 100% asian so you can get the authentic taste and product just like you used to get while shopping with your mom.
+            you can also get the best price for your products. We have a wide variety of products from different regions of asia. 
+            </p>
           </div>
           <div className="col-md-6" style={{ paddingTop: "20px" }}>
             <img
@@ -52,7 +53,7 @@ function Landing() {
           <div style={{ fontFamily: "'Bebas Neue', cursive" }} className="col-md-6">
             <h1 style={{ fontSize: "64px" }}>About Asian Mart</h1>
             <p style={{ fontSize: "22px", lineBreak:"auto"}}>
-              Asian Mart opened up in the Fall of 2021, with one goal and purpose in mind to give peoples tastebud's what have have missed most about
+              Asian Mart opened up in the Fall of 2021, with one goal and purpose in mind to give peoples tastebud's what they have missed most about
               their home country or to encourage people to explore the various produce which are offerd by the south Asian Countries. We appreaciate
               every single member that has supported us and we thank all of them for their love and supprt. We hope you enjoy our products and we look forward to seeing you soon.</p>
           </div>

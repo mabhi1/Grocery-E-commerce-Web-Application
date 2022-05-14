@@ -15,7 +15,7 @@ const typeDefs = gql`
         reviews: [Review]
         userReview(userId: String): [Review]
         productReview(productId: String): [Review]
-        
+
         numberOfProducts: Int
 
         getUser(_id: String): User
@@ -44,12 +44,11 @@ const typeDefs = gql`
         createdAt: String
     }
 
-    type DeleteReview{
-       acknowledged: Boolean
-       deletedCount: Int
+    type DeleteReview {
+        _id: String
     }
-    
-    type flagInfo{
+
+    type flagInfo {
         review_id: String
         flagCount: Int
         userIds: [ID]
