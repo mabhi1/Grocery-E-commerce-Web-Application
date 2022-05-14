@@ -38,6 +38,9 @@ function ProductCard(props) {
     const dispatch = useDispatch();
     const product = props.product;
     const handleClick = () => {
+        if (!data) {
+            navigate("/userDetail");
+        }
         if (quantity > product.quantity) {
             alert(`Only ${product.quantity} quantity of ${product.name} is left in stock. Please choose a smaller value.`);
             setQuantity(0);

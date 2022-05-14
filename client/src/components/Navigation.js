@@ -12,23 +12,9 @@ const Navigation = () => {
 
 const NavigationAuth = () => {
     const { currentUser } = useContext(AuthContext);
-    console.log(currentUser);
 
     return (
-        // <div>
-        //   <div>
-        //     <Link to="/">Landing</Link>
-        //   </div>
-        //   <div>
-        //     <Link to="/home">Home</Link>
-        //   </div>
-        //   <div>
-        //     <Link to="/account">Account</Link>
-        //   </div>
-        //   <div>
-        //     <SignOutButton />
-        //   </div>
-        // </div>
+        
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top" style={{ boxShadow: "0px 5px 10px 0px black" }}>
             <Container>
                 <Navbar.Brand href="/">
@@ -49,7 +35,7 @@ const NavigationAuth = () => {
                         )}
                     </Nav>
                     <Nav>
-                        {/* <Nav.Link href="/home">Home</Nav.Link> */}
+                        
                         <p style={{ color: "white", paddingTop: "13px", fontWeight: "bold" }}>Hi, {currentUser.email.split("@")[0]}</p>
                         <Link className="btn btn-dark" to="/products/1" role="button">
                             Products
@@ -70,17 +56,6 @@ const NavigationAuth = () => {
 
 const NavigationNonAuth = () => {
     return (
-        // <div>
-        //     <div>
-        //         <Link to="/">Landing</Link>
-        //     </div>
-        //     <div>
-        //         <Link to="/signup">Sign Up</Link>
-        //     </div>
-        //     <div>
-        //         <Link to="/signin">Sign In</Link>
-        //     </div>
-        // </div>
 
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top" style={{ boxShadow: "0px 5px 10px 0px black" }}>
             <Container>

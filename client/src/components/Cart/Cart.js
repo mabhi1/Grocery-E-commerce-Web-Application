@@ -1,5 +1,5 @@
 import { useQuery, useMutation } from "@apollo/client";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 import { Button } from "react-bootstrap";
 
@@ -30,13 +30,21 @@ function Cart() {
     let totalPrice = 0;
     let navigate = useNavigate();
     const { currentUser } = useContext(AuthContext);
-    const { data } = useQuery(queries.GET_USER_BY_ID, {
+    const { data, loading } = useQuery(queries.GET_USER_BY_ID, {
         fetchPolicy: "cache-and-network",
         variables: {
             id: currentUser ? currentUser.uid : "none",
         },
     });
-
+    useEffect(() => {
+        if (data) {
+            if (!data.getUser) {
+                navigate("/userDetail");
+            }
+        } else if (!loading) {
+            navigate("/userDetail");
+        }
+    });
     const [error, setError] = useState(false);
 
     const [editUser] = useMutation(queries.EDIT_USER_CART);

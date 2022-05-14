@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import { Container, Form, Button, Row, Col, InputGroup, FormLabel } from "react-bootstrap";
 import { AuthContext } from "../Firebase/Auth";
 import { useMutation } from "@apollo/client";
@@ -24,15 +24,21 @@ const UserDetailPage = () => {
         fetchPolicy: "network-only",
     });
 
-    console.log(currentUser.uid);
     const { data, error, loading } = useQuery(queries.GET_USER_BY_ID, {
         fetchPolicy: "cache-and-network",
         variables: {
             id: userId,
         },
     });
-
-    console.log(data);
+    useEffect(() => {
+        if (data) {
+            if (!data.getUser) {
+                navigate("/userDetail");
+            }
+        } else {
+            navigate("/account");
+        }
+    }, [data, navigate]);
 
     if (data) {
         return (

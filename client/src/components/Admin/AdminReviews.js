@@ -41,7 +41,7 @@ function AdminReviews() {
             }
         };
         const buildCard = (review) => {
-            console.log(review);
+            
             let rating = [];
             for (let i = 1; i < 6; i++) {
                 rating.push(

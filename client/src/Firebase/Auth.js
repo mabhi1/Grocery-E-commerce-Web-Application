@@ -5,8 +5,7 @@ import "./Firebase";
 const auth = getAuth();
 console.log(auth.currentUser);
 export const AuthContext = React.createContext(null);
-
-//new code 
+ 
 export function useAuth() {
     return useContext(AuthContext);
   }
@@ -14,11 +13,9 @@ export function useAuth() {
 export const AuthProvider = ({ children }) => {
     const [pending, setPending] = useState(true);
     const [currentUser, setCurrentUser] = useState(null);
-   // const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // onAuthStateChanged(auth, setCurrentUser);
-        // setCurrentUser(auth._currentUser);
+        
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setPending(false);
             setCurrentUser(user);

@@ -45,7 +45,7 @@ function EditModal(props) {
                 <Form
                     onSubmit={(e) => {
                         e.preventDefault();
-                        console.log(image.value.toString());
+                        
                         editProduct({
                             variables: {
                                 id: product._id.toString(),

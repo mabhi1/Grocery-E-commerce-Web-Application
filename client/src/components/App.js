@@ -1,7 +1,5 @@
 import Navigation from "./Navigation";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import Landing from "./Landing";
-//import Home from "./Home";
 import UserDetailPage from "./UserDetailPage";
 import ForgotPassword from "./ForgotPassword";
 import Account from "./Account";
@@ -49,9 +47,9 @@ function App() {
                                 <Route path="/update-profile" element={<UpdateProfile />} />
                                 <Route path="/paymentsuccess" element={<Success />} />
                                 <Route path="/paymentsuccess/:secret" element={<Success />} />
+                                <Route path="/paymentfailed" element={<Failed />} />
                                 <Route path="/paymentfailed/:secret" element={<Failed />} />
                                 <Route path="/cart" element={<Cart />} />
-                                {/* <Route path="/home" element={<Home />} /> */}
                                 <Route path="/userDetail" element={<UserDetailPage />} />
                                 <Route path="/account" element={<Account />} />
                                 <Route path="/admin" element={<Admin />} />

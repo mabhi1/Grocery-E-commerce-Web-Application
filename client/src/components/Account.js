@@ -1,6 +1,4 @@
-import React, { useContext, useState } from "react";
-//import SignOutButton from "./SignOut";
-//import ChangePassword from "./ChangePassword";
+import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../Firebase/Auth";
 import { useNavigate, Link } from "react-router-dom";
 import { Card, Button, Alert, Container } from "react-bootstrap";
@@ -24,14 +22,17 @@ function Account(props) {
         },
     });
 
-    console.log(data);
+    useEffect(() => {
+        if (!data?.getUser) {
+            navigate("/userDetail");
+        }
+    }, [data, navigate]);
 
     if (data && data.getUser) {
         const { getUser } = data;
 
         async function handleLogout() {
-            // localStorage.removeItem('token');
-            // window.location.reload();
+            
             setError("");
 
             try {
@@ -41,8 +42,6 @@ function Account(props) {
                 setError("Error logging out");
             }
         }
-
-        console.log(currentUser);
 
         return (
             <div>
@@ -105,10 +104,7 @@ function Account(props) {
                         </div>
                     </Container>
                 </>
-                {/* Account */}
-                {/* {JSON.stringify(currentUser)} */}
-                {/* <ChangePassword /> */}
-                {/* <SignOutButton /> */}
+                
             </div>
         );
     } else if (loadiing) {
