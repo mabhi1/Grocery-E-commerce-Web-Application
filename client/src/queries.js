@@ -124,6 +124,7 @@ const ADD_REVIEW = gql`
             productId
             review
             rating
+            flags
         }
     }
 `;
@@ -136,6 +137,7 @@ const GET_PRODUCT_REVIEW = gql`
             productId
             review
             rating
+            flags
         }
     }
 `;
@@ -149,10 +151,16 @@ const DEL_REVIEW = gql`
 `;
 
 const FLAG_REVIEW = gql`
-    mutation Mutation($id: String, $userId: String) {
-        flagReview(_id: $id, userId: $userId) {
-            review_id
-            flagCount
+    mutation Mutation($id: String, $userid: String) {
+        flagReview(_id: $id, userid: $userid) {
+            _id
+            userName
+            userId
+            productId
+            review
+            rating
+            flags
+            createdAt
         }
     }
 `;
@@ -226,6 +234,7 @@ const ALL_REVIEWS_PRODUCT = gql`
             productId
             review
             rating
+            flags
         }
     }
 `;
@@ -239,6 +248,7 @@ const ALL_REVIEWS = gql`
             productId
             review
             rating
+            flags
             createdAt
         }
     }

@@ -1,11 +1,11 @@
 import { useState, useContext } from "react";
 import "../../App.css";
-import { FaStar } from "react-icons/fa";
+import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import "../../queries";
 import { useMutation } from "@apollo/client";
 import { AuthContext } from "../../Firebase/Auth";
 import queries from "../../queries";
-import { Button } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 
 const styles = {
     container: {
@@ -38,7 +38,46 @@ const colors = {
     grey: "#a9a9a9",
 };
 
-function App({ product }) {
+function App({ product, totalRating, best }) {
+    let ratings = [];
+    for (let i = 1; i < 6; i++) {
+        if (totalRating >= 1) {
+            ratings.push(
+                <FaStar
+                    key={i}
+                    size={18}
+                    color={colors.yellow}
+                    style={{
+                        marginRight: 10,
+                    }}
+                />
+            );
+        } else if (totalRating < 1 && totalRating > 0) {
+            ratings.push(
+                <FaStarHalfAlt
+                    key={i}
+                    size={18}
+                    color={colors.yellow}
+                    style={{
+                        marginRight: 10,
+                    }}
+                />
+            );
+        } else {
+            ratings.push(
+                <FaStar
+                    key={i}
+                    size={18}
+                    color={colors.grey}
+                    style={{
+                        marginRight: 10,
+                    }}
+                />
+            );
+        }
+        totalRating -= 1;
+    }
+    console.log(totalRating);
     const [rating, setRating] = useState(undefined);
     const [hoverValue, setHoverValue] = useState(undefined);
     const [addReview] = useMutation(queries.ADD_REVIEW, {
@@ -85,44 +124,70 @@ function App({ product }) {
     };
     if (currentUser) {
         return (
-            <div style={styles.container}>
-                <h2
-                    style={{
-                        margin: "20px",
-                        fontFamily: "monospace",
-                        fontSize: "larger",
-                        textAlign: "left",
-                    }}
-                >
-                    Post a review for the product
-                </h2>
-                <div style={styles.stars}>
-                    {stars.map((_, index) => {
-                        return (
-                            <label key={index}>
-                                <input type="radio" name="rating" value={rating} onClick={() => setRating(rating)} style={{ display: "none" }} />
+            <Row style={{ justifyContent: "center" }}>
+                <Col md="auto" style={styles.container}>
+                    <h2
+                        style={{
+                            margin: "20px",
+                            fontFamily: "monospace",
+                            fontSize: "larger",
+                            textAlign: "left",
+                        }}
+                    >
+                        Customer Ratings
+                    </h2>
+                    <span>{ratings}</span>
+                    <h3
+                        style={{
+                            margin: "20px",
+                            fontFamily: "monospace",
+                            fontSize: "larger",
+                            textAlign: "left",
+                        }}
+                    >
+                        Best Review
+                    </h3>
+                    {best ? best : <i>No reviews</i>}
+                </Col>
+                <Col md="auto" style={styles.container}>
+                    <h2
+                        style={{
+                            margin: "20px",
+                            fontFamily: "monospace",
+                            fontSize: "larger",
+                            textAlign: "left",
+                        }}
+                    >
+                        Post a review for the product
+                    </h2>
+                    <div style={styles.stars}>
+                        {stars.map((_, index) => {
+                            return (
+                                <label key={index}>
+                                    <input type="radio" name="rating" value={rating} onClick={() => setRating(rating)} style={{ display: "none" }} />
 
-                                <FaStar
-                                    size={24}
-                                    onClick={() => handleClick(index + 1)}
-                                    onMouseOver={() => handleMouseOver(index + 1)}
-                                    onMouseLeave={handleMouseLeave}
-                                    color={(hoverValue || rating) > index ? colors.yellow : colors.grey}
-                                    style={{
-                                        marginRight: 10,
-                                        cursor: "pointer",
-                                    }}
-                                />
-                            </label>
-                        );
-                    })}
-                </div>
-                <textarea placeholder="How was your experience?" style={styles.textarea} id="review" />
+                                    <FaStar
+                                        size={24}
+                                        onClick={() => handleClick(index + 1)}
+                                        onMouseOver={() => handleMouseOver(index + 1)}
+                                        onMouseLeave={handleMouseLeave}
+                                        color={(hoverValue || rating) > index ? colors.yellow : colors.grey}
+                                        style={{
+                                            marginRight: 10,
+                                            cursor: "pointer",
+                                        }}
+                                    />
+                                </label>
+                            );
+                        })}
+                    </div>
+                    <textarea placeholder="How was your experience?" style={styles.textarea} id="review" />
 
-                <Button style={styles.button} onClick={handleSubmit}>
-                    Submit
-                </Button>
-            </div>
+                    <Button style={styles.button} onClick={handleSubmit}>
+                        Submit
+                    </Button>
+                </Col>
+            </Row>
         );
     } else {
         return (

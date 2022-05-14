@@ -36,13 +36,17 @@ const NavigationAuth = () => {
                         src="https://icons-for-free.com/download-icon-shop+shopping+trolley+icon-1320191097483113693_512.png"
                         alt="asian_mart"
                         style={{ width: "40px" }}
-                    />{" "}
+                    />
                     Asian Mart
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
-                       
+                        {currentUser && currentUser.uid === "wWhJlb03YaaAnFQjlRKDsUJh0le2" && (
+                            <Link className="btn btn-dark" to="/admin" role="button">
+                                Dashboard
+                            </Link>
+                        )}
                     </Nav>
                     <Nav>
                         {/* <Nav.Link href="/home">Home</Nav.Link> */}
@@ -90,9 +94,7 @@ const NavigationNonAuth = () => {
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="me-auto">
-                       
-                    </Nav>
+                    <Nav className="me-auto"></Nav>
                     <Nav>
                         <Link className="btn btn-dark" to="/products/1" role="button">
                             Products

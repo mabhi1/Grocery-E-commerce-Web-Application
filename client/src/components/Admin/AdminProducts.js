@@ -5,6 +5,7 @@ import { AuthContext } from "../../Firebase/Auth";
 import queries from "../../queries";
 import { Card, Button, Col, Form, Row, Container } from "react-bootstrap";
 import EditModal from "./EditModal";
+import SearchProducts from "./SearchProducts";
 
 const styles = {
     pageHeader: {
@@ -57,6 +58,8 @@ function AdminProducts() {
             });
         },
     });
+    const [searchTerm, setSearchTerm] = useState("");
+    const [searchList, setSearchList] = useState(null);
     const [editModal, setEditModal] = useState(false);
     const [selectedProduct, setSelecetedProduct] = useState(null);
     let { loading, data, error } = useQuery(queries.GET_PRODUCTS_FOR_ADMIN, { fetchPolicy: "cache-and-network" });
@@ -67,6 +70,18 @@ function AdminProducts() {
             navigate("/");
         }
     });
+    useEffect(() => {
+        let products = [];
+        if (searchTerm) {
+            for (let product of data?.adminProducts) {
+                let name = product.name.toLowerCase();
+                if (name.startsWith(searchTerm.toLowerCase())) {
+                    products.push(product);
+                }
+            }
+        }
+        setSearchList(products);
+    }, [searchTerm, data]);
     if (error) {
         return <div>{error.message}</div>;
     } else if (loading) {
@@ -96,6 +111,7 @@ function AdminProducts() {
                                 onClick={() => {
                                     setEditModal(true);
                                     setSelecetedProduct(product);
+                                    setSearchTerm("");
                                 }}
                             >
                                 Edit
@@ -117,12 +133,19 @@ function AdminProducts() {
                 </Col>
             );
         };
-        const cards = adminProducts.map((product) => {
-            return createCard(product);
-        });
+        const cards =
+            searchTerm || searchTerm !== ""
+                ? searchList.map((product) => {
+                      return createCard(product);
+                  })
+                : adminProducts.map((product) => {
+                      return createCard(product);
+                  });
         const showForm = () => {
             const form = document.getElementById("product-form");
             form.style.display === "block" ? (form.style.display = "none") : (form.style.display = "block");
+            setSearchTerm("");
+            document.getElementById("search-term").value = "";
         };
         let name;
         let image;
@@ -132,6 +155,7 @@ function AdminProducts() {
         let description;
         return (
             <div>
+                <SearchProducts setSearchTerm={setSearchTerm} />
                 <Button style={{ width: "99%", marginBottom: "15px" }} onClick={showForm}>
                     Add Products
                 </Button>

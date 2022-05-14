@@ -20,18 +20,28 @@ const styles = {
         width: "85%",
     },
 };
-function UserReviewCard({ review, rating, userId }) {
+function UserReviewCard({ review, rating, userId, admin }) {
     let { data } = useQuery(queries.GET_PRODUCTS_BY_ID, { variables: { id: review.productId } });
     let [deleteReview] = useMutation(queries.DEL_REVIEW, {
         update(cache, { data: { deleteReview } }) {
             let userReview = [];
+            let reviews = [];
             if (cache.readQuery({ query: queries.REVIEW_BY_USERID, variables: { userId: userId } }))
                 userReview = cache.readQuery({ query: queries.REVIEW_BY_USERID, variables: { userId: userId } }).userReview;
+            if (cache.readQuery({ query: queries.ALL_REVIEWS })) reviews = cache.readQuery({ query: queries.ALL_REVIEWS }).reviews;
             cache.writeQuery({
                 query: queries.REVIEW_BY_USERID,
                 variables: { userId: userId },
                 data: {
                     userReview: userReview.filter((review) => {
+                        return review._id !== deleteReview._id;
+                    }),
+                },
+            });
+            cache.writeQuery({
+                query: queries.ALL_REVIEWS,
+                data: {
+                    reviews: reviews.filter((review) => {
                         return review._id !== deleteReview._id;
                     }),
                 },
@@ -50,6 +60,11 @@ function UserReviewCard({ review, rating, userId }) {
                         <Card.Text>{product?.name}</Card.Text>
                         <Card.Text>{rating}</Card.Text>
                         <Card.Text>{review.review}</Card.Text>
+                        {admin && (
+                            <Card.Text className="p-2 mb-2 bg-danger text-white" style={{ width: "fit-content" }}>
+                                Flags : {review.flags.length}
+                            </Card.Text>
+                        )}
                     </Col>
                 </Row>
             </Card.Body>

@@ -22,12 +22,12 @@ function UserReviews() {
         const buildCard = (review) => {
             console.log(review);
             let rating = [];
-            for (let i = 1; i < review.rating + 1; i++) {
+            for (let i = 1; i < 6; i++) {
                 rating.push(
                     <FaStar
                         key={i}
                         size={18}
-                        color={"rgb(252, 186, 3)"}
+                        color={review.rating >= i ? "rgb(252, 186, 3)" : "rgb(169, 169, 169)"}
                         style={{
                             marginRight: 10,
                         }}

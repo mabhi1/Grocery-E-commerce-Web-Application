@@ -34,7 +34,6 @@ function ProductCard(props) {
             id: currentUser ? currentUser.uid : "none",
         },
     });
-    console.log(data);
     const [editUser] = useMutation(queries.EDIT_USER_CART);
     const dispatch = useDispatch();
     const product = props.product;
@@ -96,10 +95,16 @@ function ProductCard(props) {
                     <Card.Img src={product.image} alt={product.name} style={styles.Image} />
                 </Container>
                 <Card.Body>
+                    {product.quantity > 0 ? null : (
+                        <Card.Text className="p-1 bg-danger text-white rounded" style={{ marginTop: "-108px", marginBottom: "76px", opacity: "0.9" }}>
+                            Out of stock
+                        </Card.Text>
+                    )}
                     <Link className="btn btn-light" to={`/product/${product._id}`} role="button">
                         {product.name}
                     </Link>
                     <Card.Text>Price : ${product.price}.00</Card.Text>
+
                     <Button
                         size="sm"
                         className="btn btn-light"
@@ -109,12 +114,13 @@ function ProductCard(props) {
                     >
                         -
                     </Button>
-                    <span>{quantity}</span>
+                    <span>{product.quantity > 0 ? quantity : "0"}</span>
                     <Button size="sm" className="btn btn-light" onClick={() => setQuantity(quantity + 1)}>
                         +
                     </Button>
+
                     <br />
-                    {quantity > 0 ? (
+                    {quantity > 0 && product.quantity > 0 ? (
                         <Button className="btn btn-primary" size="sm" onClick={handleClick}>
                             Add to Cart
                         </Button>

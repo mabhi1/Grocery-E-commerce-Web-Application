@@ -1,5 +1,6 @@
 const mongoCollections = require("../config/mongoCollection");
 const ordersCollection = mongoCollections.orders;
+const productCollection = mongoCollections.products;
 const uuid = require("uuid");
 
 const createOrder = async (args) => {
@@ -25,7 +26,8 @@ const createOrder = async (args) => {
 const filterOrders = async (args) => {
     let flags = [];
     const orders = await ordersCollection();
-    const userOrders = await orders.find({ userId: args.userId }).toArray();
+    const products = await productCollection();
+    const userOrders = await orders.find({ userId: args.userId, flag: args.flag }).toArray();
     for (let userOrder of userOrders) {
         const deleted = await orders.deleteOne({ _id: userOrder._id });
         if (!flags.includes(userOrder.flag)) {
@@ -43,10 +45,16 @@ const filterOrders = async (args) => {
                 state: userOrder.state,
                 city: userOrder.city,
                 apt: userOrder.apt,
-                addressStreet: userOrder.addressStreet
-                
+                addressStreet: userOrder.addressStreet,
             };
-            if (deleted.deletedCount !== 0) await orders.insertOne(order);
+            if (deleted.deletedCount !== 0) {
+                await orders.insertOne(order);
+                for (let product of userOrder.products) {
+                    let oldProduct = await products.findOne({ _id: product._id });
+                    let quantity = oldProduct.quantity - product.orderedQuantity;
+                    products.updateOne({ _id: product._id }, { $set: { quantity: quantity } });
+                }
+            }
         }
     }
 };
