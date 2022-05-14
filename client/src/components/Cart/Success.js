@@ -5,10 +5,8 @@ import { useMutation, useQuery } from "@apollo/client";
 import queries from "../../queries";
 import { Alert, Button } from "react-bootstrap";
 
-
-
 function Success() {
-    const logo = require("../../assets/delivery-package.gif"); 
+    const logo = require("../../assets/delivery-package.gif");
     const navigate = useNavigate();
     const { secret } = useParams();
     const { loading, error, data } = useQuery(queries.GET_SESSION, { variables: { id: secret } });
@@ -26,10 +24,13 @@ function Success() {
         return (
             <div>
                 <AddOrder />
-                <Alert variant="success" style={{fontSize: "25px"}}>Order Placed Successfully</Alert>
-                <img alt="Success" id="logo" src={logo} style={{ width: "70%", height: "70%" , marginTop: "30px"}} />
+
+                <Alert variant="success" style={{ fontSize: "25px" }}>
+                    Order Placed Successfully
+                </Alert>
+                <img alt="order success" id="logo" src={logo} style={{ width: "70%", height: "70%", marginTop: "30px" }} />
                 <br />
-                <br/>
+                <br />
                 <Button onClick={() => navigate("/")}>Home</Button>
             </div>
         );

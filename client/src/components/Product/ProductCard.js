@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Toast, Col, Card, Button, Container } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -34,6 +34,11 @@ function ProductCard(props) {
             id: currentUser ? currentUser.uid : "none",
         },
     });
+    useEffect(() => {
+        if (!data?.getUser) {
+            navigate("/userDetail");
+        }
+    }, [data, navigate]);
     const [editUser] = useMutation(queries.EDIT_USER_CART);
     const dispatch = useDispatch();
     const product = props.product;
