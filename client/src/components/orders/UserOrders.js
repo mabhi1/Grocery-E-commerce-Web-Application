@@ -16,7 +16,8 @@ const UserOrders = () => {
     if (loading) return <div>Loading</div>;
     else if (error) return <div>error</div>;
     else if (data) {
-        console.log(data.userOrders)
+        
+        let realData = data.userOrders.sort((a, b) => (a.flag > b.flag) ? 1 : -1)
         return (
             <Table striped bordered hover size="sm">
                 <thead>
@@ -29,7 +30,7 @@ const UserOrders = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.userOrders.map((x) => {
+                    {realData.map((x) => {
                         
                         return (
                             <>
