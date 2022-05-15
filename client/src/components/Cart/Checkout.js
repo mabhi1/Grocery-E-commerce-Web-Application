@@ -40,7 +40,7 @@ function Checkout() {
 
     const handleCheckout = () => {
         reactLocalStorage.setObject("addressDetails", { addressStreet: addressStreet, zip: zip, state: state, city: city, apt: apt });
-        fetch("http://localhost:5001/create-checkout-session", {
+        fetch("https://asian-mart-express.herokuapp.com/create-checkout-session", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -84,11 +84,9 @@ function Checkout() {
             </div>
             <Row xs={1} md={2}>
                 <Col>
-                    
                     <Container className="d-flex align-items-center justify-content-center">
                         <div className="w-75" style={{ maxWidth: "600px" }}>
                             <Form style={{ textAlign: "left" }}>
-
                                 <Form.Group className="mb-3">
                                     <Form.Label>Name</Form.Label>
                                     <Form.Control
