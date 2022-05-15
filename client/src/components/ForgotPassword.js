@@ -55,8 +55,8 @@ const ForgotPassword = () => {
                         </Card.Body>
                         <Form onSubmit={handleSubmit}>
                             <Form.Group id="formBasicEmail">
-                                <Form.Label>Email address</Form.Label>
-                                <Form.Control type="email" placeholder="Enter email" required ref={emailRef} />
+                                <Form.Label htmlFor="email">Email address</Form.Label>
+                                <Form.Control type="email" id="email" placeholder="Enter email" required ref={emailRef} />
                             </Form.Group>
                             <Button disabled={loading} variant="primary" type="submit" className="w-100">
                                 Reset Password
@@ -64,7 +64,7 @@ const ForgotPassword = () => {
                         </Form>
                     </Card>
                     <div className="w-100 text-center mt-2">
-                        Remember what you were looking for. <Link to="/signin">Go Back?</Link>
+                        Remember what you were looking for. <Link className="btn btn-dark" to="/signin">Go Back?</Link>
                     </div>
                 </div>
             </Container>
