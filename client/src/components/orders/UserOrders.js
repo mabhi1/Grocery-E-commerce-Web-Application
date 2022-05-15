@@ -8,15 +8,15 @@ const UserOrders = () => {
     const { currentUser } = useContext(AuthContext);
 
     const { loading, error, data } = useQuery(queries.GET_USER_ORDERS, {
-        fetchPolicy: "cache-and-network",
+        fetchPolicy: "no-cache",
         variables: {
             userId: currentUser.uid,
         },
     });
-
-    if (!data) {
-        return null;
-    } else if (data) {
+    if (loading) return <div>Loading</div>;
+    else if (error) return <div>error</div>;
+    else if (data) {
+        console.log(data.userOrders)
         return (
             <Table striped bordered hover size="sm">
                 <thead>
@@ -30,15 +30,18 @@ const UserOrders = () => {
                 </thead>
                 <tbody>
                     {data.userOrders.map((x) => {
+                        
                         return (
                             <>
-                                <tr key={x._id}>
-                                    <td>{x.flag}</td>
-                                    <td>
-                                        {x.products.map((y) => {
-                                            return <div key={y.name}>{y.name}</div>;
-                                        })}
-                                    </td>
+                            <tr key={x._id}>
+                                <td>{x.flag}</td>
+                                <td>
+                                    
+                                    {x.products.map((y) => {
+                                        
+                                        return <div>{y.name} - {y.orderedQuantity}</div>;
+                                    })}
+                                </td>
 
                                     <td>{x.total}</td>
                                     <td>{x.createdAt.split("G")[0]}</td>
@@ -50,8 +53,8 @@ const UserOrders = () => {
                 </tbody>
             </Table>
         );
-    } else if (loading) return <div>Loading</div>;
-    else if (error) return <div>error</div>;
+    } 
+    
 };
 
 export default UserOrders;
