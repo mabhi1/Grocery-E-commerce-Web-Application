@@ -18,8 +18,12 @@ function Landing() {
             top: "50%",
             left: " 50%",
             transform: "translate(-50%, -50%)",
-            fontSize: "64px",
+            fontSize: "90px",
             fontFamily: "'Bebas Neue', cursive",
+            color: "white",
+            backgroundColor:"Black",
+            padding: "5px",
+            opacity: "0.8",
           }}
         >
           Welcome To, Asian Mart
@@ -27,7 +31,7 @@ function Landing() {
       </header>
       <Container>
         <Row>
-          <div style={{ fontFamily: "'Bebas Neue', cursive" }} className="col-md-6">
+          <div style={{ fontFamily: "'Bebas Neue', cursive", paddingTop:"30px" }} className="col-md-6">
             <h1 style={{ fontSize: "64px" }}>Asian Mart's Promise</h1>
             <p style={{ fontSize: "25px" }}>Spice up your lives with some Traditional produce straight from Asia.</p>
             <p style={{ fontSize: "25px" }}>All Our products are 100% asian so you can get the authentic taste and product just like you used to get while shopping with your mom.

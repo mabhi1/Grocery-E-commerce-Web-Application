@@ -126,7 +126,7 @@ function App({ product, totalRating, best }) {
         return (
             <Row style={{ justifyContent: "center" }}>
                 <Col md="auto" style={styles.container}>
-                    <h2
+                    <h1
                         style={{
                             margin: "20px",
                             fontFamily: "monospace",
@@ -135,9 +135,9 @@ function App({ product, totalRating, best }) {
                         }}
                     >
                         Customer Ratings
-                    </h2>
+                    </h1>
                     <span>{ratings}</span>
-                    <h3
+                    <h2
                         style={{
                             margin: "20px",
                             fontFamily: "monospace",
@@ -146,7 +146,7 @@ function App({ product, totalRating, best }) {
                         }}
                     >
                         Best Review
-                    </h3>
+                    </h2>
                     {best ? best : <i>No reviews</i>}
                 </Col>
                 <Col md="auto" style={styles.container}>
@@ -181,8 +181,9 @@ function App({ product, totalRating, best }) {
                             );
                         })}
                     </div>
+                    <label htmlFor="review"></label>
                     <textarea placeholder="How was your experience?" style={styles.textarea} id="review" />
-
+                    
                     <Button style={styles.button} onClick={handleSubmit}>
                         Submit
                     </Button>

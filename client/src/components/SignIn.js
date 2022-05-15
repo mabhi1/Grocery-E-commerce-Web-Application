@@ -82,7 +82,7 @@ function SignIn() {
                     Forgot Password
                 </button> */}
                 <div className="w-100 text-center mt-3">
-                     <Link to="/forgot-password">Forgot Password?</Link>
+                     <Link className="btn btn-dark" to="/forgot-password">Forgot Password?</Link>
                 </div>
                 <br />
             <SocialSignIn />
