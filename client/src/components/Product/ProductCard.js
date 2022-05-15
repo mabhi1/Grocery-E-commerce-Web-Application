@@ -37,7 +37,6 @@ function ProductCard(props) {
     const [editUser] = useMutation(queries.EDIT_USER_CART);
     const dispatch = useDispatch();
     const product = props.product;
-    console.log(product);
     const handleClick = () => {
         if (!data) {
             navigate("/userDetail");
