@@ -90,11 +90,11 @@ function Checkout() {
                             <Form style={{ textAlign: "left" }}>
 
                                 <Form.Group className="mb-3">
-                                    <Form.Label>Name</Form.Label>
+                                    <Form.Label htmlFor="name">Name</Form.Label>
                                     <Form.Control
                                         type="text"
                                         className="form-control"
-                                        id="inputAddress2"
+                                        id="name"
                                         defaultValue={data?.getUser.name}
                                         disabled
                                         readOnly
@@ -102,11 +102,11 @@ function Checkout() {
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
-                                    <Form.Label>Email</Form.Label>
+                                    <Form.Label htmlFor="email">Email</Form.Label>
                                     <Form.Control
                                         type="text"
                                         className="form-control"
-                                        id="inputAddress2"
+                                        id="email"
                                         defaultValue={data?.getUser.email}
                                         disabled
                                         readOnly
@@ -114,22 +114,22 @@ function Checkout() {
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
-                                    <Form.Label>Phone Number</Form.Label>
+                                    <Form.Label htmlFor="phone">Phone Number</Form.Label>
                                     <Form.Control
                                         type="text"
                                         className="form-control"
-                                        id="inputAddress2"
+                                        id="phone"
                                         placeholder="Enter Phone Number"
                                         defaultValue={data?.getUser.phoneNumber}
                                     />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
-                                    <Form.Label>Address</Form.Label>
+                                    <Form.Label htmlFor="inputAddress1">Address</Form.Label>
                                     <Form.Control
                                         type="text"
                                         className="form-control"
-                                        id="inputAddress2"
+                                        id="inputAddress1"
                                         placeholder="Enter Address"
                                         defaultValue={data?.getUser.addressStreet}
                                         onChange={(e) => setAddressStreet({ val: e.target.value })}
@@ -137,11 +137,11 @@ function Checkout() {
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
-                                    <Form.Label>Apt</Form.Label>
+                                    <Form.Label htmlFor="apt" >Apt</Form.Label>
                                     <Form.Control
                                         type="text"
                                         className="form-control"
-                                        id="inputAddress2"
+                                        id="apt"
                                         placeholder="Enter Apt"
                                         defaultValue={data?.getUser.apt}
                                         onChange={(e) => setApt({ val: e.target.value })}
@@ -149,11 +149,11 @@ function Checkout() {
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
-                                    <Form.Label>State</Form.Label>
+                                    <Form.Label htmlFor="state">State</Form.Label>
                                     <Form.Control
                                         type="text"
                                         className="form-control"
-                                        id="inputAddress2"
+                                        id="state"
                                         placeholder="Enter State"
                                         defaultValue={data?.getUser.state}
                                         onChange={(e) => setState({ val: e.target.value })}
@@ -161,22 +161,22 @@ function Checkout() {
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
-                                    <Form.Label>City</Form.Label>
+                                    <Form.Label htmlFor="city">City</Form.Label>
                                     <Form.Control
                                         type="text"
                                         className="form-control"
-                                        id="inputAddress2"
+                                        id="city"
                                         placeholder="Enter City"
                                         defaultValue={data?.getUser.city}
                                         onChange={(e) => setCity({ val: e.target.value })}
                                     />
                                 </Form.Group>
                                 <Form.Group className="mb-3">
-                                    <Form.Label>Zip</Form.Label>
+                                    <Form.Label htmlFor="zip">Zip</Form.Label>
                                     <Form.Control
                                         type="text"
                                         className="form-control"
-                                        id="inputAddress2"
+                                        id="zip"
                                         placeholder="Enter Zip"
                                         defaultValue={data?.getUser.zip}
                                         onChange={(e) => setZip({ val: e.target.value })}

@@ -88,7 +88,7 @@ function SignUp() {
                     <form onSubmit={handleSignUp} className="signup-form">
                         <div className="form-row">
                             <div className="form-group">
-                                <label for="displayName"> Name:</label>
+                                <label htmlFor="dispalyName"> Name:</label>
                                 <input
                                     id="dispalyName"
                                     className="form-control"
@@ -101,11 +101,11 @@ function SignUp() {
                             </div>
                         </div>
                         <div className="form-group">
-                            <label for="email">Email:</label>
+                            <label htmlFor="email">Email:</label>
                             <input id="email" className="form-control" required name="email" type="email" placeholder="Email" ref={email} />
                         </div>
                         <div className="form-group">
-                            <label for="passwordOne">Password:</label>
+                            <label htmlFor="passwordOne">Password:</label>
                             <div style={{ display: "flex" }}>
                                 <input
                                     ref={passRef}
@@ -128,7 +128,7 @@ function SignUp() {
                             </div>
                         </div>
                         <div className="form-group">
-                            <label for="passwordTwo">Confirm Password:</label>
+                            <label htmlFor="passwordTwo">Confirm Password:</label>
                             <div style={{ display: "flex" }}>
                                 <input
                                     ref={confPassRef}
