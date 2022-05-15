@@ -14,10 +14,8 @@ const SocialSignIn = () => {
         }
     };
 
-    
-
     return (
-        <div>
+        <div className="social-login-container">
             <img
                 onClick={() => socialSignOn("google")}
                 alt="google signin"

@@ -13,14 +13,12 @@ const UserOrders = () => {
             userId: currentUser.uid,
         },
     });
-    
+
     if (!data) {
         return null;
     } else if (data) {
-        
         return (
             <Table striped bordered hover size="sm">
-                
                 <thead>
                     <tr>
                         <th>Order No</th>
@@ -34,25 +32,23 @@ const UserOrders = () => {
                     {data.userOrders.map((x) => {
                         return (
                             <>
-                            <tr key={x._id}>
-                                <td>{x.flag}</td>
-                                <td>
-                                    
-                                    {x.products.map((y) => {
-                                        return <div key={y.name}>{y.name} - {y.orderedQuantity  }</div>;
-                                    })}
-                                </td>
+                                <tr key={x._id}>
+                                    <td>{x.flag}</td>
+                                    <td>
+                                        {x.products.map((y) => {
+                                            return <div key={y.name}>{y.name}</div>;
+                                        })}
+                                    </td>
 
-                                <td>{x.total}</td>
-                                <td>{x.createdAt.split("G")[0]}</td>
-                                <td>{x.status}</td>
-                            </tr>
+                                    <td>{x.total}</td>
+                                    <td>{x.createdAt.split("G")[0]}</td>
+                                    <td>{x.status}</td>
+                                </tr>
                             </>
                         );
                     })}
                 </tbody>
             </Table>
-            
         );
     } else if (loading) return <div>Loading</div>;
     else if (error) return <div>error</div>;

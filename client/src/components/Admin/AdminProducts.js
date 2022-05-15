@@ -214,7 +214,7 @@ function AdminProducts() {
                         Submit
                     </Button>
                 </Form>
-                <Row xs={1} md={3} lg={6}>
+                <Row xs={2} md={3} lg={6}>
                     {cards}
                 </Row>
                 {editModal && <EditModal isOpen={editModal} handleClose={setEditModal} product={selectedProduct} />}

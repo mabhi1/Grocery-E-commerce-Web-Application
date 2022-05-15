@@ -86,7 +86,7 @@ function Cart() {
                     <h1 className="display-4">Cart</h1>
                 </div>
             </div>
-            {cart.length > 0 || (data?.getUser && data.getUser.cart.length > 0) ? (
+            {data?.getUser && data.getUser.cart.length > 0 ? (
                 <div>
                     <div style={{ marginBottom: "25px" }}>
                         {data?.getUser ? data.getUser.cart.map((product) => buildCard(product)) : cart.map((product) => buildCard(product))}
