@@ -7,8 +7,11 @@ import Form from "react-bootstrap/Form";
 import { Button } from "react-bootstrap";
 
 function AdminOrders() {
-    const { data, loading, error } = useQuery(queries.GET_ALL_ORDERS);
-    
+    /* const { data, loading, error } = useQuery(queries.GET_ALL_ORDERS); */
+    const { loading, error, data } = useQuery(queries.GET_ALL_ORDERS, {
+        fetchPolicy: "no-cache"
+        
+    });
     const [filterValue, setFilterValue] = useState("all");
     if (error) {
         return <div>{error.message}</div>;
