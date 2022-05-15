@@ -19,7 +19,6 @@ const UserOrders = () => {
         console.log(data.userOrders)
         return (
             <Table striped bordered hover size="sm">
-                
                 <thead>
                     <tr>
                         <th>Order No</th>
@@ -44,16 +43,15 @@ const UserOrders = () => {
                                     })}
                                 </td>
 
-                                <td>{x.total}</td>
-                                <td>{x.createdAt.split("G")[0]}</td>
-                                <td>{x.status}</td>
-                            </tr>
+                                    <td>{x.total}</td>
+                                    <td>{x.createdAt.split("G")[0]}</td>
+                                    <td>{x.status}</td>
+                                </tr>
                             </>
                         );
                     })}
                 </tbody>
             </Table>
-            
         );
     } 
     

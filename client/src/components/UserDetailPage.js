@@ -17,11 +17,11 @@ const UserDetailPage = () => {
     const [zip, setZip] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
 
-    const {data} = useQuery(queries.GET_USER_BY_ID, {
+    const { data } = useQuery(queries.GET_USER_BY_ID, {
         fetchPolicy: "cache-and-network",
         variables: {
             id: currentUser?.uid,
-        }
+        },
     });
 
     useEffect(() => {
@@ -36,10 +36,9 @@ const UserDetailPage = () => {
 
     return (
         <>
-            <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
+            <Container className="d-flex align-items-center justify-content-center">
                 <div className="w-100" style={{ maxWidth: "600px" }}>
                     <Form>
-                        
                         <div className="jumbotron jumbotron-fluid" style={{ backgroundColor: "#F0F8FF", borderRadius: "20px", color: "black" }}>
                             <div className="container">
                                 <h1 className="display-4">Welcome, {currentUser.displayName} </h1>
@@ -178,11 +177,11 @@ const UserDetailPage = () => {
                             onClick={(e) => {
                                 e.preventDefault();
                                 try {
-                                    if(phoneNumber.length !== 10){
+                                    if (phoneNumber.length !== 10) {
                                         alert("Please enter a valid phone number");
                                         return;
                                     }
-                                    if(zip.length !== 5){
+                                    if (zip.length !== 5) {
                                         alert("Please enter a valid zip code");
                                         return;
                                     }

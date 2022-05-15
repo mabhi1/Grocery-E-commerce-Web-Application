@@ -4,23 +4,22 @@ const productCollection = mongoCollections.products;
 const uuid = require("uuid");
 
 const createOrder = async (args) => {
-
     if (
-        args.status && typeof args.status !== "string" ||
-        args.userId && typeof args.userId !== "string" ||
-        args.addressStreet && typeof args.addressStreet !== "string" ||
-        args.apt && typeof args.apt !== "string" ||
-        args.city && typeof args.city !== "string" ||
-        args.state && typeof args.state !== "string" ||
-        args.zip && typeof args.zip !== "string" || 
-        args.createdAt && typeof args.createdAt !== "string" ||
-        args.userEmail && typeof args.userEmail !== "string" ||
-        args.zip && typeof args.zip !== "string" ||
-        args.products && typeof args.products !== "object" ||
-        args.total && typeof args.total !== "number"
-      ) {
+        (args.status && typeof args.status !== "string") ||
+        (args.userId && typeof args.userId !== "string") ||
+        (args.addressStreet && typeof args.addressStreet !== "string") ||
+        (args.apt && typeof args.apt !== "string") ||
+        (args.city && typeof args.city !== "string") ||
+        (args.state && typeof args.state !== "string") ||
+        (args.zip && typeof args.zip !== "string") ||
+        (args.createdAt && typeof args.createdAt !== "string") ||
+        (args.userEmail && typeof args.userEmail !== "string") ||
+        (args.zip && typeof args.zip !== "string") ||
+        (args.products && typeof args.products !== "object") ||
+        (args.total && typeof args.total !== "number")
+    ) {
         throw "Invalid Type of status, userId, address, email, products or total";
-      }
+    }
     const orders = await ordersCollection();
     const newOrder = {};
     newOrder._id = uuid.v4();
@@ -41,21 +40,20 @@ const createOrder = async (args) => {
 };
 
 const filterOrders = async (args) => {
-
     if (
-        args.status && typeof args.status !== "string" ||
-        args.userId && typeof args.userId !== "string" ||
-        args.addressStreet && typeof args.addressStreet !== "string" ||
-        args.apt && typeof args.apt !== "string" ||
-        args.city && typeof args.city !== "string" ||
-        args.state && typeof args.state !== "string" ||
-        args.zip && typeof args.zip !== "string" || 
-        args.createdAt && typeof args.createdAt !== "string" ||
-        args.userEmail && typeof args.userEmail !== "string" ||
-        args.zip && typeof args.zip !== "string" ||
-        args.products && typeof args.products !== "object" ||
-        args.total && typeof args.total !== "number"
-      ) {
+        (args.status && typeof args.status !== "string") ||
+        (args.userId && typeof args.userId !== "string") ||
+        (args.addressStreet && typeof args.addressStreet !== "string") ||
+        (args.apt && typeof args.apt !== "string") ||
+        (args.city && typeof args.city !== "string") ||
+        (args.state && typeof args.state !== "string") ||
+        (args.zip && typeof args.zip !== "string") ||
+        (args.createdAt && typeof args.createdAt !== "string") ||
+        (args.userEmail && typeof args.userEmail !== "string") ||
+        (args.zip && typeof args.zip !== "string") ||
+        (args.products && typeof args.products !== "object") ||
+        (args.total && typeof args.total !== "number")
+    ) {
         throw "Invalid Type of status, userId, address, email, products or total";
     }
 
@@ -84,10 +82,12 @@ const filterOrders = async (args) => {
             };
             if (deleted.deletedCount !== 0) {
                 await orders.insertOne(order);
-                for (let product of userOrder.products) {
-                    let oldProduct = await products.findOne({ _id: product._id });
-                    let quantity = oldProduct.quantity - product.orderedQuantity;
-                    products.updateOne({ _id: product._id }, { $set: { quantity: quantity } });
+                if (userOrders.length === 1) {
+                    for (let product of userOrder.products) {
+                        let oldProduct = await products.findOne({ _id: product._id });
+                        let quantity = oldProduct.quantity - product.orderedQuantity;
+                        products.updateOne({ _id: product._id }, { $set: { quantity: quantity } });
+                    }
                 }
             }
         }
@@ -95,10 +95,7 @@ const filterOrders = async (args) => {
 };
 
 const deleteOrder = async (args) => {
-
-    if (
-        args._id && typeof args._id !== "string" 
-      ) {
+    if (args._id && typeof args._id !== "string") {
         throw "Type of id must be string";
     }
 
@@ -109,10 +106,7 @@ const deleteOrder = async (args) => {
 };
 
 const getStatusOrders = async (args) => {
-
-    if (
-        args.status && typeof args.status !== "string" 
-      ) {
+    if (args.status && typeof args.status !== "string") {
         throw "Type of status must be string";
     }
 
@@ -122,10 +116,7 @@ const getStatusOrders = async (args) => {
 };
 
 const getOrderById = async (args) => {
-
-    if (
-        args._id && typeof args._id !== "string" 
-      ) {
+    if (args._id && typeof args._id !== "string") {
         throw "Type of id be string";
     }
 
@@ -135,10 +126,7 @@ const getOrderById = async (args) => {
 };
 
 const changeStatusToCompleted = async (args) => {
-
-    if (
-        args._id && typeof args._id !== "string" 
-      ) {
+    if (args._id && typeof args._id !== "string") {
         throw "Type of id be string";
     }
 
@@ -149,10 +137,7 @@ const changeStatusToCompleted = async (args) => {
 };
 
 const changeStatusToDispatched = async (args) => {
-
-    if (
-        args._id && typeof args._id !== "string" 
-      ) {
+    if (args._id && typeof args._id !== "string") {
         throw "Type of id be string";
     }
 
@@ -163,10 +148,7 @@ const changeStatusToDispatched = async (args) => {
 };
 
 const getOrdersByUserId = async (args) => {
-
-    if (
-        args.userId && typeof args.userId !== "string" 
-      ) {
+    if (args.userId && typeof args.userId !== "string") {
         throw "Type of id be string";
     }
 
@@ -176,7 +158,6 @@ const getOrdersByUserId = async (args) => {
 };
 
 const getAllOrders = async () => {
-    
     const orders = await ordersCollection();
     const order = await orders.find({}).toArray();
     return order;

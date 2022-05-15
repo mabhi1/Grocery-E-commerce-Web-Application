@@ -43,7 +43,7 @@ const UserDetailPage = () => {
     if (data) {
         return (
             <>
-                <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
+                <Container className="d-flex align-items-center justify-content-center">
                     <div className="w-100" style={{ maxWidth: "600px" }}>
                         <Form>
                             {/* //!Jumbotron for user Detail */}
