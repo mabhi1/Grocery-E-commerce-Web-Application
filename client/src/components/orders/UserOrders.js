@@ -8,16 +8,15 @@ const UserOrders = () => {
     const { currentUser } = useContext(AuthContext);
 
     const { loading, error, data } = useQuery(queries.GET_USER_ORDERS, {
-        fetchPolicy: "cache-and-network",
+        fetchPolicy: "no-cache",
         variables: {
             userId: currentUser.uid,
         },
     });
-    
-    if (!data) {
-        return null;
-    } else if (data) {
-        
+    if (loading) return <div>Loading</div>;
+    else if (error) return <div>error</div>;
+    else if (data) {
+        console.log(data.userOrders)
         return (
             <Table striped bordered hover size="sm">
                 
@@ -32,6 +31,7 @@ const UserOrders = () => {
                 </thead>
                 <tbody>
                     {data.userOrders.map((x) => {
+                        
                         return (
                             <>
                             <tr key={x._id}>
@@ -39,7 +39,8 @@ const UserOrders = () => {
                                 <td>
                                     
                                     {x.products.map((y) => {
-                                        return <div key={y.name}>{y.name} - {y.orderedQuantity  }</div>;
+                                        
+                                        return <div>{y.name} - {y.orderedQuantity}</div>;
                                     })}
                                 </td>
 
@@ -54,8 +55,8 @@ const UserOrders = () => {
             </Table>
             
         );
-    } else if (loading) return <div>Loading</div>;
-    else if (error) return <div>error</div>;
+    } 
+    
 };
 
 export default UserOrders;

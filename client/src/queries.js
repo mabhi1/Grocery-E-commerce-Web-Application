@@ -432,15 +432,14 @@ const GET_USER_ORDERS = gql`
             products {
                 _id
                 name
-                description
                 price
-                category
                 orderedQuantity
             }
             status
             createdAt
             flag
             total
+            
         }
     }
 `;
