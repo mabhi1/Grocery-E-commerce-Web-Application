@@ -70,6 +70,7 @@ const SEARCH_PRODUCTS = gql`
             image
             price
             category
+            quantity
         }
     }
 `;

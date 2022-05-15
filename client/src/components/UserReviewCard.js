@@ -61,7 +61,7 @@ function UserReviewCard({ review, rating, userId, admin }) {
                         <Card.Text>{rating}</Card.Text>
                         <Card.Text>{review.review}</Card.Text>
                         {admin && (
-                            <Card.Text className="p-2 mb-2 bg-danger text-white" style={{ width: "fit-content" }}>
+                            <Card.Text className="p-2 mb-2 bg-danger text-white flag" style={{ width: "fit-content", borderRadius: "5px" }}>
                                 Flags : {review.flags.length}
                             </Card.Text>
                         )}

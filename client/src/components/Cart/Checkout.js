@@ -39,6 +39,8 @@ function Checkout() {
     const [addressStreet, setAddressStreet] = useState(data?.getUser.addressStreet);
 
     const handleCheckout = () => {
+        document.getElementById("paynow").disabled = true;
+        document.getElementById("paynow").innerHTML = "Please wait...";
         reactLocalStorage.setObject("addressDetails", { addressStreet: addressStreet, zip: zip, state: state, city: city, apt: apt });
         fetch("https://asian-mart-express.herokuapp.com/create-checkout-session", {
             method: "POST",
@@ -135,7 +137,7 @@ function Checkout() {
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
-                                    <Form.Label htmlFor="apt" >Apt</Form.Label>
+                                    <Form.Label htmlFor="apt">Apt</Form.Label>
                                     <Form.Control
                                         type="text"
                                         className="form-control"
@@ -190,7 +192,7 @@ function Checkout() {
                         <Alert variant="info" style={{ lineHeight: "0.1em" }}>
                             Total Price : ${totalPrice}.00
                         </Alert>
-                        <Button onClick={handleCheckout} style={{ width: "100%", margin: "0" }}>
+                        <Button id="paynow" onClick={handleCheckout} style={{ width: "100%", margin: "0" }}>
                             Pay Now
                         </Button>
                     </div>
