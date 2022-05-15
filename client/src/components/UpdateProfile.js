@@ -54,10 +54,10 @@ const UserDetailPage = () => {
                                 </div>
                             </div>
                             <Form.Group as={Col} controlId="formGridEmail">
-                                <Form.Label>Name</Form.Label>
-                                <Form.Control type="text" ref={name} defaultValue={currentUser.displayName} placeholder="Enter Name" />
+                                <Form.Label htmlFor="name">Name</Form.Label>
+                                <Form.Control type="text" ref={name} defaultValue={currentUser.displayName} placeholder="Enter Name" id="name" />
                             </Form.Group>
-                            <FormLabel>Phone Number</FormLabel>
+                            <FormLabel htmlFor="inputPhone">Phone Number</FormLabel>
                             <InputGroup className="mb-3">
                                 <InputGroup.Text id="basic-addon1">+1</InputGroup.Text>
                                 <Form.Control
@@ -74,7 +74,7 @@ const UserDetailPage = () => {
                             </InputGroup>
 
                             <Form.Group className="mb-3">
-                                <Form.Label>Address</Form.Label>
+                                <Form.Label htmlFor="inputAddress">Address</Form.Label>
                                 <Form.Control
                                     placeholder="1234 Main St"
                                     defaultValue={data.getUser.addressStreet}
@@ -86,7 +86,7 @@ const UserDetailPage = () => {
                             </Form.Group>
 
                             <Form.Group className="mb-3">
-                                <Form.Label>Address 2</Form.Label>
+                                <Form.Label htmlFor="inputAddress2">Address 2</Form.Label>
                                 <Form.Control
                                     type="text"
                                     className="form-control"
@@ -99,7 +99,7 @@ const UserDetailPage = () => {
 
                             <Row className="mb-3">
                                 <Form.Group as={Col}>
-                                    <Form.Label>City</Form.Label>
+                                    <Form.Label htmlFor="inputCity">City</Form.Label>
                                     <Form.Control
                                         type="text"
                                         placeholder="Enter City"
@@ -170,7 +170,7 @@ const UserDetailPage = () => {
                                 </Form.Group>
 
                                 <Form.Group as={Col}>
-                                    <Form.Label>Zip</Form.Label>
+                                    <Form.Label htmlFor="inputZip">Zip</Form.Label>
                                     <Form.Control
                                         ref={zip}
                                         type="text"

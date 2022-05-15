@@ -76,7 +76,7 @@ function Reviews({ product }) {
                     <Card.Header>
                         <i>User : {review.userName}</i>
                         {verified && (
-                            <Badge bg="info" style={{ marginLeft: "5px" }}>
+                            <Badge bg="success" style={{ marginLeft: "5px" }}>
                                 Verified User
                             </Badge>
                         )}
@@ -114,7 +114,7 @@ function Reviews({ product }) {
                 <Container>
                     <div style={styles.reviews} variant="dark">
                         Reviews
-                        <Badge bg="info" style={{ marginLeft: "5px" }}>
+                        <Badge bg="dark" style={{ marginLeft: "5px" }}>
                             {productReview.length}
                         </Badge>
                     </div>

@@ -87,7 +87,7 @@ function CartCards({ product, handleClick, setError, checkout }) {
         <Card style={styles.card} className="out-of-stock">
             <Row xs={checkout === true ? 1 : 2} md={3} lg={checkout === true ? 3 : 5}>
                 <Col style={styles.col}>
-                    <Card.Img src={product.image} style={styles.cardImg} />
+                    <Card.Img src={product.image} alt={product.name} style={styles.cardImg} />
                 </Col>
                 <Col style={styles.col}>
                     <Link className="btn btn-light" to={`/product/${product._id}`} role="button">
