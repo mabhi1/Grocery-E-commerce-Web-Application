@@ -53,7 +53,7 @@ const UserDetailPage = () => {
                                     <p className="lead">Please choose fields you want to update</p>
                                 </div>
                             </div>
-                            <Form.Group as={Col} controlId="formGridEmail">
+                            <Form.Group as={Col}>
                                 <Form.Label htmlFor="name">Name</Form.Label>
                                 <Form.Control type="text" ref={name} defaultValue={currentUser.displayName} placeholder="Enter Name" id="name" />
                             </Form.Group>
