@@ -154,7 +154,7 @@ function SignUp() {
                         <button id="submitButton" type="submit" name="submitButton" className="btn btn-warning">
                             Sign Up
                         </button>
-                        <div style={{ marginTop: "20px" }}>
+                        <div  style={{ marginTop: "20px" }}>
                             <SocialSignIn />
                         </div>
                     </form>
