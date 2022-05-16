@@ -10,7 +10,7 @@ function Landing() {
                     className="d-block w-100"
                     src="https://food.ubc.ca/wp-content/uploads/2020/02/Save-Money-On-Groceries_UBC-Food-Services.jpg"
                     alt="banner"
-                    style={{ opacity: "0.8", marginTop: "-35px" }}
+                    style={{ opacity: "0.5", marginTop: "-35px" }}
                 />
                 <div className="site-title">Welcome To, Asian Mart</div>
             </header>
