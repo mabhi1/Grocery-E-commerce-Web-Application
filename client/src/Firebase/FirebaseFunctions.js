@@ -7,7 +7,6 @@ import {
     sendPasswordResetEmail,
     signInWithEmailAndPassword,
     GoogleAuthProvider,
-    FacebookAuthProvider,
     signInWithPopup,
 } from "firebase/auth";
 import "./Firebase";
@@ -27,9 +26,7 @@ async function socialSignIn(provider) {
     let socialProvider = null;
     if (provider === "google") {
         socialProvider = new GoogleAuthProvider();
-    } else if (provider === "facebook") {
-        socialProvider = new FacebookAuthProvider();
-    }
+    } 
     try{
         await signInWithPopup(auth, socialProvider);
     }catch(error){
