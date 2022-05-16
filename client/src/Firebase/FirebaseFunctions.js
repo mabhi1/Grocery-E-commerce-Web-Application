@@ -7,7 +7,6 @@ import {
     sendPasswordResetEmail,
     signInWithEmailAndPassword,
     GoogleAuthProvider,
-    FacebookAuthProvider,
     signInWithPopup,
 } from "firebase/auth";
 import "./Firebase";

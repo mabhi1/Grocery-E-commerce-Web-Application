@@ -39,6 +39,10 @@ function Checkout() {
     const [addressStreet, setAddressStreet] = useState(data?.getUser.addressStreet);
 
     const handleCheckout = () => {
+        if (zip.val === "" || city.val === "" || state.val === "" || apt.val === "" || addressStreet.val === "") {
+            alert("please fill all the fields");
+            return;
+        }
         document.getElementById("paynow").disabled = true;
         document.getElementById("paynow").innerHTML = "Please wait...";
         reactLocalStorage.setObject("addressDetails", { addressStreet: addressStreet, zip: zip, state: state, city: city, apt: apt });
@@ -148,7 +152,6 @@ function Checkout() {
                                         defaultValue={data?.getUser.apt}
                                         required
                                         onChange={(e) => setApt({ val: e.target.value })}
-                                        
                                     />
                                 </Form.Group>
 

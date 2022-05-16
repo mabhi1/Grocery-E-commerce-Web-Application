@@ -43,6 +43,7 @@ function App() {
                             <Route path="/notfound" element={<NotFound />} />
                             <Route path="/product/:id" element={<IndividualProduct />} />
                             <Route path="/forgot-password" element={<ForgotPassword />} />
+                            <Route path="*" element={<NotFound />} />
                             <Route element={<PrivateRoute />}>
                                 <Route path="/update-profile" element={<UpdateProfile />} />
                                 <Route path="/paymentsuccess" element={<Success />} />

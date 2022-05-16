@@ -440,14 +440,7 @@ const GET_USER_ORDERS = gql`
             createdAt
             flag
             total
-            
         }
-    }
-`;
-
-const FILTER_ORDER = gql`
-    mutation Mutation($userId: String!) {
-        filterOrder(userId: $userId)
     }
 `;
 
@@ -549,7 +542,6 @@ let exported = {
     GET_ALL_ORDERS,
     ADD_ORDER,
     GET_USER_ORDERS,
-    FILTER_ORDER,
     ADD_SESSION,
     GET_SESSION,
     DELETE_SESSION,
