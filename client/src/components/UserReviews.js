@@ -39,7 +39,7 @@ function UserReviews() {
             <Container fluid="true">
                 <div style={styles.reviews} variant="dark">
                     Reviews
-                    <Badge bg="info" style={{ marginLeft: "5px" }}>
+                    <Badge bg="success" style={{ marginLeft: "5px" }}>
                         {userReview?.length}
                     </Badge>
                 </div>

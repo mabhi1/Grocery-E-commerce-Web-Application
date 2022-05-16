@@ -177,7 +177,43 @@ th{
   font-weight: 400;
 }
 
+.site-title{
+  position: absolute;
+    top: 250px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 60px;
+    font-family: "Bebas Neue", cursive;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.62);
+    padding: 5px 30px;
+    width: fit-content;
+}
+
+.sign-out{
+  margin: 12px 0px 12px 5px;
+}
+
+.collapse:not(.show) {
+  display: none;
+}
+
 @media (max-width:720px) {
+  .flag{
+    margin: auto;
+  }
+  .social-login-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .login-form, .signup-form{
+    width: auto;
+  }
+  .site-title{
+    top: 50%;
+    font-size: 30px;
+  }
   .product-header{
     display: block;
   }

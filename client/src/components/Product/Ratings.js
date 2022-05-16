@@ -77,7 +77,7 @@ function App({ product, totalRating, best }) {
         }
         totalRating -= 1;
     }
-    
+
     const [rating, setRating] = useState(undefined);
     const [hoverValue, setHoverValue] = useState(undefined);
     const [addReview] = useMutation(queries.ADD_REVIEW, {
@@ -124,9 +124,9 @@ function App({ product, totalRating, best }) {
     };
     if (currentUser) {
         return (
-            <Row style={{ justifyContent: "center" }}>
+            <Row style={{ justifyContent: "center", margin: "auto" }}>
                 <Col md="auto" style={styles.container}>
-                    <h2
+                    <h1
                         style={{
                             margin: "20px",
                             fontFamily: "monospace",
@@ -135,9 +135,9 @@ function App({ product, totalRating, best }) {
                         }}
                     >
                         Customer Ratings
-                    </h2>
+                    </h1>
                     <span>{ratings}</span>
-                    <h3
+                    <h2
                         style={{
                             margin: "20px",
                             fontFamily: "monospace",
@@ -146,7 +146,7 @@ function App({ product, totalRating, best }) {
                         }}
                     >
                         Best Review
-                    </h3>
+                    </h2>
                     {best ? best : <i>No reviews</i>}
                 </Col>
                 <Col md="auto" style={styles.container}>
@@ -181,6 +181,7 @@ function App({ product, totalRating, best }) {
                             );
                         })}
                     </div>
+                    <label htmlFor="review"></label>
                     <textarea placeholder="How was your experience?" style={styles.textarea} id="review" />
 
                     <Button style={styles.button} onClick={handleSubmit}>

@@ -70,6 +70,7 @@ const SEARCH_PRODUCTS = gql`
             image
             price
             category
+            quantity
         }
     }
 `;
@@ -432,9 +433,7 @@ const GET_USER_ORDERS = gql`
             products {
                 _id
                 name
-                description
                 price
-                category
                 orderedQuantity
             }
             status
@@ -442,12 +441,6 @@ const GET_USER_ORDERS = gql`
             flag
             total
         }
-    }
-`;
-
-const FILTER_ORDER = gql`
-    mutation Mutation($userId: String!) {
-        filterOrder(userId: $userId)
     }
 `;
 
@@ -549,7 +542,6 @@ let exported = {
     GET_ALL_ORDERS,
     ADD_ORDER,
     GET_USER_ORDERS,
-    FILTER_ORDER,
     ADD_SESSION,
     GET_SESSION,
     DELETE_SESSION,

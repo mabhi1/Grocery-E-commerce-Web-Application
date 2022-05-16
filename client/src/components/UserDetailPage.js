@@ -17,11 +17,11 @@ const UserDetailPage = () => {
     const [zip, setZip] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
 
-    const {data} = useQuery(queries.GET_USER_BY_ID, {
+    const { data } = useQuery(queries.GET_USER_BY_ID, {
         fetchPolicy: "cache-and-network",
         variables: {
             id: currentUser?.uid,
-        }
+        },
     });
 
     useEffect(() => {
@@ -36,17 +36,16 @@ const UserDetailPage = () => {
 
     return (
         <>
-            <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
+            <Container className="d-flex align-items-center justify-content-center">
                 <div className="w-100" style={{ maxWidth: "600px" }}>
                     <Form>
-                        
                         <div className="jumbotron jumbotron-fluid" style={{ backgroundColor: "#F0F8FF", borderRadius: "20px", color: "black" }}>
                             <div className="container">
                                 <h1 className="display-4">Welcome, {currentUser.displayName} </h1>
                                 <p className="lead">Please provide additional detalis so we can serve you better</p>
                             </div>
                         </div>
-                        <FormLabel>Phone Number</FormLabel>
+                        <FormLabel htmlFor="inputPhone">Phone Number</FormLabel>
                         <InputGroup className="mb-3">
                             <InputGroup.Text id="basic-addon1">+1</InputGroup.Text>
                             <Form.Control
@@ -57,13 +56,13 @@ const UserDetailPage = () => {
                                 className="form-control"
                                 id="inputPhone"
                                 placeholder="Phone Number"
-                                aria-label="Username"
+                                aria-label="Phone Number"
                                 aria-describedby="basic-addon1"
                             />
                         </InputGroup>
 
                         <Form.Group className="mb-3">
-                            <Form.Label>Address</Form.Label>
+                            <Form.Label htmlFor="inputAddress">Address</Form.Label>
                             <Form.Control
                                 placeholder="1234 Main St"
                                 type="text"
@@ -75,7 +74,7 @@ const UserDetailPage = () => {
                         </Form.Group>
 
                         <Form.Group className="mb-3">
-                            <Form.Label>Address 2</Form.Label>
+                            <Form.Label htmlFor="inputAddress2">Address 2</Form.Label>
                             <Form.Control
                                 type="text"
                                 className="form-control"
@@ -90,7 +89,7 @@ const UserDetailPage = () => {
 
                         <Row className="mb-3">
                             <Form.Group as={Col}>
-                                <Form.Label>City</Form.Label>
+                                <Form.Label htmlFor="inputCity">City</Form.Label>
                                 <Form.Control
                                     type="text"
                                     placeholder="Input City"
@@ -103,7 +102,7 @@ const UserDetailPage = () => {
 
                             <Form.Group as={Col}>
                                 <Form.Label>State</Form.Label>
-                                <Form.Select value={state} onChange={(e) => setState(e.target.value)}>
+                                <Form.Select aria-label="state" value={state} onChange={(e) => setState(e.target.value)}>
                                     <option defaultValue>Choose...</option>
                                     <option value="Alabama">Alabama</option>
                                     <option value="Alaska">Alaska</option>
@@ -160,7 +159,7 @@ const UserDetailPage = () => {
                             </Form.Group>
 
                             <Form.Group as={Col}>
-                                <Form.Label>Zip</Form.Label>
+                                <Form.Label htmlFor="inputZip">Zip</Form.Label>
                                 <Form.Control
                                     onChange={(e) => setZip(e.target.value)}
                                     type="text"
@@ -178,11 +177,11 @@ const UserDetailPage = () => {
                             onClick={(e) => {
                                 e.preventDefault();
                                 try {
-                                    if(phoneNumber.length !== 10){
+                                    if (phoneNumber.length !== 10) {
                                         alert("Please enter a valid phone number");
                                         return;
                                     }
-                                    if(zip.length !== 5){
+                                    if (zip.length !== 5) {
                                         alert("Please enter a valid zip code");
                                         return;
                                     }

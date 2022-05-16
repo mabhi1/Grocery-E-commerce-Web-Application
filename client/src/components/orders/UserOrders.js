@@ -8,15 +8,16 @@ const UserOrders = () => {
     const { currentUser } = useContext(AuthContext);
 
     const { loading, error, data } = useQuery(queries.GET_USER_ORDERS, {
-        fetchPolicy: "cache-and-network",
+        fetchPolicy: "no-cache",
         variables: {
             userId: currentUser.uid,
         },
     });
-    
-    if (!data) {
-        return null;
-    } else if (data) {
+    if (loading) return <div>Loading</div>;
+    else if (error) return <div>error</div>;
+    else if (data) {
+        
+        let realData = data.userOrders.sort((a, b) => (a.flag > b.flag) ? 1 : -1)
         return (
             <Table striped bordered hover size="sm">
                 <thead>
@@ -29,27 +30,32 @@ const UserOrders = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.userOrders.map((x) => {
+                    {realData.map((x) => {
+                        
                         return (
+                            <>
                             <tr key={x._id}>
                                 <td>{x.flag}</td>
                                 <td>
+                                    
                                     {x.products.map((y) => {
-                                        return <div key={y.name}>{y.name}</div>;
+                                        
+                                        return <div>{y.name} - {y.orderedQuantity}</div>;
                                     })}
                                 </td>
 
-                                <td>{x.total}</td>
-                                <td>{x.createdAt.split("G")[0]}</td>
-                                <td>{x.status}</td>
-                            </tr>
+                                    <td>{x.total}</td>
+                                    <td>{x.createdAt.split("G")[0]}</td>
+                                    <td>{x.status}</td>
+                                </tr>
+                            </>
                         );
                     })}
                 </tbody>
             </Table>
         );
-    } else if (loading) return <div>Loading</div>;
-    else if (error) return <div>error</div>;
+    } 
+    
 };
 
 export default UserOrders;

@@ -1,5 +1,6 @@
 {
     "name": "client",
+    "homepage": "https://animated-meerkat-2d5d3b.netlify.app/",
     "version": "0.1.0",
     "private": true,
     "dependencies": {

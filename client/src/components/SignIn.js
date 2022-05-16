@@ -5,6 +5,7 @@ import { AuthContext } from "../Firebase/Auth";
 import { signIn } from "../Firebase/FirebaseFunctions";
 import { Link } from "react-router-dom";
 import Toast from "react-bootstrap/Toast";
+import { Col,Row } from "react-bootstrap";
 
 const styles = {
     toast: {
@@ -81,9 +82,18 @@ function SignIn() {
                 {/* <button className="forgotPassword" onClick={handlePasswordReset}>
                     Forgot Password
                 </button> */}
+                <Row>
+                    <Col>
                 <div className="w-100 text-center mt-3">
-                     <Link to="/forgot-password">Forgot Password?</Link>
+                     <Link className="btn btn-dark" to="/forgot-password">Forgot Password?</Link>
                 </div>
+                </Col>
+                <Col>
+                <div className="w-100 text-center mt-3">
+                    <Link className="btn btn-dark" to="/signup">Create Account</Link>
+                </div>
+                </Col>
+                </Row>
                 <br />
             <SocialSignIn />
             </form>

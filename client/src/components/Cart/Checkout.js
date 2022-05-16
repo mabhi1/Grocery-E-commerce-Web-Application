@@ -39,6 +39,12 @@ function Checkout() {
     const [addressStreet, setAddressStreet] = useState(data?.getUser.addressStreet);
 
     const handleCheckout = () => {
+        if (zip.val === "" || city.val === "" || state.val === "" || apt.val === "" || addressStreet.val === "") {
+            alert("please fill all the fields");
+            return;
+        }
+        document.getElementById("paynow").disabled = true;
+        document.getElementById("paynow").innerHTML = "Please wait...";
         reactLocalStorage.setObject("addressDetails", { addressStreet: addressStreet, zip: zip, state: state, city: city, apt: apt });
         fetch("http://localhost:5001/create-checkout-session", {
             method: "POST",
@@ -84,17 +90,15 @@ function Checkout() {
             </div>
             <Row xs={1} md={2}>
                 <Col>
-                    
                     <Container className="d-flex align-items-center justify-content-center">
                         <div className="w-75" style={{ maxWidth: "600px" }}>
                             <Form style={{ textAlign: "left" }}>
-
                                 <Form.Group className="mb-3">
-                                    <Form.Label>Name</Form.Label>
+                                    <Form.Label htmlFor="name">Name</Form.Label>
                                     <Form.Control
                                         type="text"
                                         className="form-control"
-                                        id="inputAddress2"
+                                        id="name"
                                         defaultValue={data?.getUser.name}
                                         disabled
                                         readOnly
@@ -102,11 +106,11 @@ function Checkout() {
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
-                                    <Form.Label>Email</Form.Label>
+                                    <Form.Label htmlFor="email">Email</Form.Label>
                                     <Form.Control
                                         type="text"
                                         className="form-control"
-                                        id="inputAddress2"
+                                        id="email"
                                         defaultValue={data?.getUser.email}
                                         disabled
                                         readOnly
@@ -114,71 +118,77 @@ function Checkout() {
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
-                                    <Form.Label>Phone Number</Form.Label>
+                                    <Form.Label htmlFor="phone">Phone Number</Form.Label>
                                     <Form.Control
                                         type="text"
                                         className="form-control"
-                                        id="inputAddress2"
+                                        id="phone"
                                         placeholder="Enter Phone Number"
                                         defaultValue={data?.getUser.phoneNumber}
+                                        required
                                     />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
-                                    <Form.Label>Address</Form.Label>
+                                    <Form.Label htmlFor="inputAddress1">Address</Form.Label>
                                     <Form.Control
                                         type="text"
                                         className="form-control"
-                                        id="inputAddress2"
+                                        id="inputAddress1"
                                         placeholder="Enter Address"
                                         defaultValue={data?.getUser.addressStreet}
                                         onChange={(e) => setAddressStreet({ val: e.target.value })}
+                                        required
                                     />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
-                                    <Form.Label>Apt</Form.Label>
+                                    <Form.Label htmlFor="apt">Apt</Form.Label>
                                     <Form.Control
                                         type="text"
                                         className="form-control"
-                                        id="inputAddress2"
+                                        id="apt"
                                         placeholder="Enter Apt"
                                         defaultValue={data?.getUser.apt}
+                                        required
                                         onChange={(e) => setApt({ val: e.target.value })}
                                     />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
-                                    <Form.Label>State</Form.Label>
+                                    <Form.Label htmlFor="state">State</Form.Label>
                                     <Form.Control
                                         type="text"
                                         className="form-control"
-                                        id="inputAddress2"
+                                        id="state"
                                         placeholder="Enter State"
                                         defaultValue={data?.getUser.state}
+                                        required
                                         onChange={(e) => setState({ val: e.target.value })}
                                     />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
-                                    <Form.Label>City</Form.Label>
+                                    <Form.Label htmlFor="city">City</Form.Label>
                                     <Form.Control
                                         type="text"
                                         className="form-control"
-                                        id="inputAddress2"
+                                        id="city"
                                         placeholder="Enter City"
                                         defaultValue={data?.getUser.city}
+                                        required
                                         onChange={(e) => setCity({ val: e.target.value })}
                                     />
                                 </Form.Group>
                                 <Form.Group className="mb-3">
-                                    <Form.Label>Zip</Form.Label>
+                                    <Form.Label htmlFor="zip">Zip</Form.Label>
                                     <Form.Control
                                         type="text"
                                         className="form-control"
-                                        id="inputAddress2"
+                                        id="zip"
                                         placeholder="Enter Zip"
                                         defaultValue={data?.getUser.zip}
+                                        required
                                         onChange={(e) => setZip({ val: e.target.value })}
                                     />
                                 </Form.Group>
@@ -192,7 +202,7 @@ function Checkout() {
                         <Alert variant="info" style={{ lineHeight: "0.1em" }}>
                             Total Price : ${totalPrice}.00
                         </Alert>
-                        <Button onClick={handleCheckout} style={{ width: "100%", margin: "0" }}>
+                        <Button id="paynow" onClick={handleCheckout} style={{ width: "100%", margin: "0" }}>
                             Pay Now
                         </Button>
                     </div>

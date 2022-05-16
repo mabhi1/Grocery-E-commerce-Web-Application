@@ -54,7 +54,7 @@ const typeDefs = gql`
         userIds: [ID]
     }
 
-    type ID{
+    type ID {
         id: String
     }
     type Order {
