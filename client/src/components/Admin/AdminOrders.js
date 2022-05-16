@@ -9,8 +9,7 @@ import { Button } from "react-bootstrap";
 function AdminOrders() {
     /* const { data, loading, error } = useQuery(queries.GET_ALL_ORDERS); */
     const { loading, error, data } = useQuery(queries.GET_ALL_ORDERS, {
-        fetchPolicy: "no-cache"
-        
+        fetchPolicy: "no-cache",
     });
     const [filterValue, setFilterValue] = useState("all");
     if (error) {

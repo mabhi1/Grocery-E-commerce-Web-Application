@@ -121,6 +121,7 @@ function Checkout() {
                                         id="phone"
                                         placeholder="Enter Phone Number"
                                         defaultValue={data?.getUser.phoneNumber}
+                                        required
                                     />
                                 </Form.Group>
 
@@ -133,6 +134,7 @@ function Checkout() {
                                         placeholder="Enter Address"
                                         defaultValue={data?.getUser.addressStreet}
                                         onChange={(e) => setAddressStreet({ val: e.target.value })}
+                                        required
                                     />
                                 </Form.Group>
 
@@ -144,7 +146,9 @@ function Checkout() {
                                         id="apt"
                                         placeholder="Enter Apt"
                                         defaultValue={data?.getUser.apt}
+                                        required
                                         onChange={(e) => setApt({ val: e.target.value })}
+                                        
                                     />
                                 </Form.Group>
 
@@ -156,6 +160,7 @@ function Checkout() {
                                         id="state"
                                         placeholder="Enter State"
                                         defaultValue={data?.getUser.state}
+                                        required
                                         onChange={(e) => setState({ val: e.target.value })}
                                     />
                                 </Form.Group>
@@ -168,6 +173,7 @@ function Checkout() {
                                         id="city"
                                         placeholder="Enter City"
                                         defaultValue={data?.getUser.city}
+                                        required
                                         onChange={(e) => setCity({ val: e.target.value })}
                                     />
                                 </Form.Group>
@@ -179,6 +185,7 @@ function Checkout() {
                                         id="zip"
                                         placeholder="Enter Zip"
                                         defaultValue={data?.getUser.zip}
+                                        required
                                         onChange={(e) => setZip({ val: e.target.value })}
                                     />
                                 </Form.Group>

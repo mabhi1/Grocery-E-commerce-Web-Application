@@ -13,6 +13,7 @@ function OrderCard(props) {
                 id: order._id,
             },
         });
+        window.location.reload(false);
     };
     const handleComplete = () => {
         changeStatusToCompleted({
@@ -20,6 +21,7 @@ function OrderCard(props) {
                 id: order._id,
             },
         });
+        window.location.reload(false);
     };
     return (
         <Card className="mb-4" style={{ display: filter === order.status || filter === "all" ? "flex" : "none" }}>
