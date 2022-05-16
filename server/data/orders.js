@@ -21,7 +21,6 @@ const createOrder = async (args) => {
         throw "Invalid Type of status, userId, address, email, products or total";
     }
     const orders = await ordersCollection();
-    const products = await productCollection();
     const newOrder = {};
     newOrder._id = uuid.v4();
     newOrder.status = args.status;
@@ -37,11 +36,6 @@ const createOrder = async (args) => {
     newOrder.city = args.city;
     newOrder.apt = args.apt;
     await orders.insertOne(newOrder);
-    for (let product of args.products) {
-        let oldProduct = await products.findOne({ _id: product._id });
-        let quantity = oldProduct.quantity - product.orderedQuantity;
-        products.updateOne({ _id: product._id }, { $set: { quantity: quantity } });
-    }
     return newOrder;
 };
 
@@ -69,11 +63,6 @@ const filterOrders = async (args) => {
     const userOrders = await orders.find({ userId: args.userId, flag: args.flag }).toArray();
     for (let userOrder of userOrders) {
         const deleted = await orders.deleteOne({ _id: userOrder._id });
-        for (let product of userOrder.products) {
-            let oldProduct = await products.findOne({ _id: product._id });
-            let quantity = oldProduct.quantity + product.orderedQuantity;
-            products.updateOne({ _id: product._id }, { $set: { quantity: quantity } });
-        }
         if (!flags.includes(userOrder.flag)) {
             flags.push(userOrder.flag);
             let order = {
@@ -93,10 +82,12 @@ const filterOrders = async (args) => {
             };
             if (deleted.deletedCount !== 0) {
                 await orders.insertOne(order);
-                for (let product of userOrder.products) {
-                    let oldProduct = await products.findOne({ _id: product._id });
-                    let quantity = oldProduct.quantity - product.orderedQuantity;
-                    products.updateOne({ _id: product._id }, { $set: { quantity: quantity } });
+                if (userOrders.length === 1) {
+                    for (let product of userOrder.products) {
+                        let oldProduct = await products.findOne({ _id: product._id });
+                        let quantity = oldProduct.quantity - product.orderedQuantity;
+                        products.updateOne({ _id: product._id }, { $set: { quantity: quantity } });
+                    }
                 }
             }
         }
