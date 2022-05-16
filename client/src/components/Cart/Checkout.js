@@ -46,7 +46,7 @@ function Checkout() {
         document.getElementById("paynow").disabled = true;
         document.getElementById("paynow").innerHTML = "Please wait...";
         reactLocalStorage.setObject("addressDetails", { addressStreet: addressStreet, zip: zip, state: state, city: city, apt: apt });
-        fetch("http://localhost:3001/create-checkout-session", {
+        fetch("http://localhost:5001/create-checkout-session", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
