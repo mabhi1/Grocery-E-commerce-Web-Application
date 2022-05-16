@@ -1,5 +1,6 @@
 {
     "name": "asian-market",
+    "homepage": ".",
     "version": "1.0.0",
     "description": "server side code for asian market project",
     "main": "index.js",

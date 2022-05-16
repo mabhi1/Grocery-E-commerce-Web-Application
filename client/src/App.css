@@ -1,20 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+
 .App {
   text-align: center;
+  margin-top: 100px;
+  min-height: 90vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.banner-text{
+  margin-top: -400px;
+  font-family: auto;
+  font-size: x-large;
+  color: #575a5d;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+@media (max-width: 1024px) {
+  .banner-text{
+    margin-top: -250px;
+    font-family: auto;
+    font-size: x-large;
+    color: #575a5d;
+  } 
 }
 
-.card{
-  margin: 20px;
+.page-header{
+  margin: 15px;
+  font-size: 18px;
+  background: aliceblue;
+  padding: 10px;
+  color: #004887;
+  font-family: sans-serif;
+}
+
+.tab-content{
+  margin: 25px;
 }
 
 .btn{
@@ -36,11 +55,208 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.login-form, .signup-form{
+  text-align: left;
+  width: fit-content;
+  margin: auto;
+  padding: 20px;
+}
+
+.form-group{
+  margin: 15px;
+}
+
+.login-form>button, .signup-form>button{
+  margin-left: 15px;
+  width: 88%;
+  box-shadow: 1px 1px 2px -1px black;
+  transition: all 0.1s;
+}
+
+.login-form>button:hover, .signup-form>button:hover{
+  box-shadow: 2px 2px 6px -2px black;
+}
+
+.search-div{
+  display: flex;
+  padding-left: 20px;
+  width: 30%;
+}
+
+.search-div input{
+  margin: 5px;
+  width: 200px;
+  font-family: initial;
+  border: 1px solid #212529;
+  padding-left: 10px;
+}
+
+.product-header {
+  display: flex;
+  margin-bottom: 25px;
+}
+
+.sort-product{
+  line-height: 2.5em;
+  font-family: auto;
+  width: 30%;
+  padding-right: 25px;
+  text-align: center;
+}
+
+.filter-value{
+  width: 40%;
+  display: flex;
+}
+
+.filter-value label{
+  line-height: 2.5em;
+  margin-bottom: 0;
+  margin-right: 10px;
+  font-family: auto;
+}
+
+.page-link:focus{
+  box-shadow: none;
+}
+
+.page-link{
+  box-shadow: 0px 0px 4px -3px inset black;
+}
+
+.page-item.active .page-link{
+  border-radius: 2px;
+  background-color: #0044a8;
+}
+
+.page-item:not(:first-child) .page-link{
+  margin-left: 0;
+}
+
+.ordered{
+  background: beige;
+}
+
+.completed{
+  background: #b8f1b8;
+}
+
+.dispatched{
+  background: #d5ff94;
+}
+
+.toast{
+  position: fixed;
+  top: 100px;
+  z-index: 9;
+  right: 20px;
+  background: #deffde
+}
+
+.filter-order{
+  margin-right: 50px;
+}
+
+#product-form label{
+  display: none;
+}
+
+#product-form input, #product-form select{
+  width: 99%;;
+}
+
+#product-form{
+  display: block;
+  background: rgba(0, 0, 0, 0.05);
+  margin-top: -58px;
+  padding-top: 50px;
+  border-radius: 8px;
+}
+
+th{
+  font-weight: 400;
+}
+
+.site-title{
+  position: absolute;
+    top: 250px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 60px;
+    font-family: "Bebas Neue", cursive;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.62);
+    padding: 5px 30px;
+    width: fit-content;
+}
+
+.sign-out{
+  margin: 12px 0px 12px 5px;
+}
+
+.collapse:not(.show) {
+  display: none;
+}
+
+@media (max-width:720px) {
+  .flag{
+    margin: auto;
   }
-  to {
-    transform: rotate(360deg);
+  .social-login-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .login-form, .signup-form{
+    width: auto;
+  }
+  .site-title{
+    top: 50%;
+    font-size: 30px;
+  }
+  .product-header{
+    display: block;
+  }
+  .search-div{
+    justify-content: center;
+    width: 100%;
+  }
+  .filter-value{
+    width: 100%;
+    justify-content: center;
+    margin: 8px 0px 0px 0px;
+  }
+  .sort-product{
+    width: 100%;
+    text-align: center;
+  }
+  .toast{
+    top:65px;
+    right: 5px
+  }
+  .col{
+    text-align: center;
+  }
+  .filter-order{
+    display: block;
+    margin: 0;
+  }
+}
+
+@media (max-width:1024px) {
+  .product-header{
+    display: block;
+  }
+  .search-div{
+    justify-content: center;
+    width: 100%;
+  }
+  .filter-value{
+    justify-content: center;
+    width: 100%;
+  }
+  .sort-product{
+    text-align: center;
+    width: 100%;
   }
 }
