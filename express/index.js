@@ -4,7 +4,7 @@ const app = express();
 const cors = require("cors");
 app.use(
     cors({
-        origin: "https://animated-meerkat-2d5d3b.netlify.app",
+        origin: "http://localhost:3000",
     })
 );
 app.use(express.json());
@@ -29,8 +29,8 @@ app.post("/create-checkout-session", async (req, res) => {
                     quantity: item.quantity,
                 };
             }),
-            success_url: `https://animated-meerkat-2d5d3b.netlify.app/paymentsuccess/${req.body.secret}`,
-            cancel_url: `https://animated-meerkat-2d5d3b.netlify.app/paymentfailed/${req.body.secret}`,
+            success_url: `http://localhost:3000/paymentsuccess/${req.body.secret}`,
+            cancel_url: `http://localhost:3000/paymentfailed/${req.body.secret}`,
         });
         res.json({ url: session.url });
     } catch (e) {

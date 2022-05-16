@@ -24,7 +24,7 @@ import Footer from "./Footer";
 const client = new ApolloClient({
     cache: new InMemoryCache(),
     link: new HttpLink({
-        uri: "https://asia-mart.herokuapp.com/",
+        uri: "http://localhost:4000/",
     }),
 });
 
