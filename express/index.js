@@ -29,8 +29,8 @@ app.post("/create-checkout-session", async (req, res) => {
           quantity: item.quantity,
         };
       }),
-      success_url: `http://localhost:3000/paymentsuccess/${req.body.secret}`,
-      cancel_url: `http://localhost:3000/paymentfailed/${req.body.secret}`,
+      success_url: `https://animated-meerkat-2d5d3b.netlify.app/paymentsuccess/${req.body.secret}`,
+      cancel_url: `https://animated-meerkat-2d5d3b.netlify.app/paymentfailed/${req.body.secret}`,
     });
     res.json({ url: session.url });
   } catch (e) {
@@ -43,5 +43,5 @@ app.get("/", async (req, res) => {
 });
 
 app.listen(process.env.PORT || 5001, () => {
-  console.log("🚀 Express server ready at http://localhost:5001 🚀");
+  console.log("🚀 Express server ready 🚀");
 });
