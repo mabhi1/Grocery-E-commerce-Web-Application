@@ -1,6 +1,0 @@
-{
-    "mongoConfig": {
-      "url": "mongodb+srv://stevenscs554:stevenscs554@cluster0.lgwed.mongodb.net/AsianMarket?retryWrites=true&w=majority",
-      "db": "asian_market"
-    }
-  }

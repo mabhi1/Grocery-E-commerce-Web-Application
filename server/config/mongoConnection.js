@@ -1,5 +1,8 @@
 const mongodb = require("mongodb").MongoClient;
-const settings = require("./settings").mongoConfig;
+const settings = {
+    "url": process.env.MONGO,
+    "db": "asian_market"
+  }
 
 let _connection = undefined;
 let _db = undefined;
